@@ -5,6 +5,7 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import { Container } from 'react-bootstrap';
 import { Home } from './Home';
 import { MyNavbar } from './MyNavbar';
 import { SensorTable } from './SensorStatus';
@@ -21,11 +22,14 @@ function MainApp() {
   return (
     <>
       <MyNavbar/>
+      <br />
+      <Container>
       <Routes>
         <Route path="/" element={<Home />} />
         
         <Route path="/sensors" element={<SensorTable />} />
       </Routes>
+      </Container>
     </>
   );
 }

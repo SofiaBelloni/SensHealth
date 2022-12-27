@@ -4,15 +4,12 @@ import "./MyNavbar.css";
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { useNavigate } from 'react-router-dom';
 
 function MyNavbar () {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-    const navigate = useNavigate();
 
   return <>
     <Navbar id='navbar' variant='light' fixed='top' className='px-3 d-flex flex-row justify-content-between'>

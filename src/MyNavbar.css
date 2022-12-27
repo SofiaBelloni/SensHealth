@@ -8,7 +8,7 @@
     text-decoration: none;
   }
   
-  #navbar-brand {
+  #navbar-brand, #title{
     font-family:'Times New Roman', Times, serif, cursive;
     padding-top: 0;
     padding-bottom: 0;
