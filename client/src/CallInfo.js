@@ -7,21 +7,23 @@ import API from './Api.js';
 export default function CallInfo() {
     const params = useParams();
     const [call, setCall] = useState('');
+    const [image, setImage] = useState('');
     useEffect(() => {
         const retrieveInfo = async(callId) => {
             const call = await API.getCallById(callId);
             setCall(call[0]);
+            setImage(call[0].img);
         }
         retrieveInfo(params.callId)
-        
+        document.getElementById("params").src = image;
     }, [])
 
     return <>
+    <br></br>
+    <br></br>
+    <br></br>
     <Row>
-        <Col>
-        <br></br>
-        <br></br>
-        <br></br>
+        <Col xs={9}>
         <Table hover>
             <thead>
                 <tr>
@@ -29,9 +31,25 @@ export default function CallInfo() {
                 </tr>
             </thead>
             <tbody>
-                <Image src="C:\Users\ferla\Documents\GitHub\SensHealth\server\src_images\9_main.png" fluid></Image>
+            <Image id="params" src="" fluid></Image>
             </tbody>
         </Table>
+        </Col>
+        <Col xs={3}>
+            <Card>
+                <Card.Header>Call #9</Card.Header>
+                <Card.Body>
+                    <Card.Title>Name</Card.Title>
+                    <Card.Text>{call['name']}</Card.Text>
+                    <Card.Title>Surname</Card.Title>
+                    <Card.Text>{call['surname']}</Card.Text>
+                    <Card.Title>Code</Card.Title>
+                    <Card.Text>{call['colorCode']}</Card.Text>
+                    <Card.Title>Status</Card.Title>
+                    <Card.Text>{call['ambStatus']}</Card.Text>
+                </Card.Body>
+            </Card>
+            <Button>Close Call</Button>
         </Col>
     </Row>
     </>

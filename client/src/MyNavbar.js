@@ -4,6 +4,7 @@ import "./MyNavbar.css";
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import { Outlet } from "react-router-dom";
 
 function MyNavbar () {
     const [show, setShow] = useState(false);
@@ -45,6 +46,7 @@ function MyNavbar () {
         </Nav.Item>
       </Nav>
     </Navbar>
+    <Outlet />
     </>
 };
 
