@@ -1,18 +1,22 @@
 import Table from 'react-bootstrap/Table';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import React, { useState } from 'react';
 import "./SensorStatus.css";
+import { AiFillInfoCircle } from "react-icons/ai";
+
 
 function SensorTable() {
     const KitList = [
         {
             id: 1, name: "Kit #1", location: "Ambulance #1", maintenance: '2022-03-10', sensors: [
-                { name: "Sensor#1", status: "EXCELLENT", details: "" },
-                { name: "Sensor#2", status: "EXCELLENT", details: "" },
-                { name: "Sensor#3", status: "GOOD", details: "Battery level: 60%" },
-                { name: "Sensor#4", status: "MEDIUM", details: "Battery level: 30%" },
-                { name: "Sensor#5", status: "BAD", details: "Battery level: 0%" }
+                { name: "Sensor#1", status: "EXCELLENT", details: "", additional: ["Change it before 31 December 2023"] },
+                { name: "Sensor#2", status: "EXCELLENT", details: "", additional: ["Change it before 31 December 2023"] },
+                { name: "Sensor#3", status: "GOOD", details: "Battery level: 60%", additional: ["Need some maintenance", "Materials are degrading. Change it before 31 December 2022"] },
+                { name: "Sensor#4", status: "MEDIUM", details: "Battery level: 30%", additional: ["Need some maintenance", "Materials are degrading. Change it before 31 December 2022"] },
+                { name: "Sensor#5", status: "BAD", details: "Battery level: 0%", additional: ["Need some maintenance", "Materials are degrading. Change it as soon as possible"] }
             ]
         },
         {
@@ -59,11 +63,9 @@ function SensorTable() {
     const [kit, setKit] = useState("");
 
     function handleOpen(kitId) {
-        console.log(kitId);
         const selectedKit = KitList.filter((kit) => kit.id === kitId);
         setKit(selectedKit[0]);
         setShow(true);
-        console.log(kit);
     }
 
     return (
@@ -78,7 +80,7 @@ function SensorTable() {
                         KitList.map((kit) => <ListGroup.Item className='list-elem' action key={kit.id} as="li" onClick={() => handleOpen(kit.id)}>{kit.name}</ListGroup.Item>)
                     }
                 </ListGroup>
-                {show ? <Kit kit={kit} /> : <Instruction/>}
+                {show ? <Kit kit={kit} /> : <Instruction />}
 
             </div>
         </>
@@ -87,7 +89,7 @@ function SensorTable() {
 
 function Instruction() {
     return (
-        <Container id="kitContainer"  className='instruction'>
+        <Container id="kitContainer" className='instruction'>
             <Table id="sensorTable" size='sm'>
                 <thead>
                     <tr>
@@ -141,12 +143,42 @@ function SensorRow(props) {
 }
 
 function SensorData(props) {
+    const [showModal, setShowModal] = useState(false);
+
+    const handleClose = () => setShowModal(false);
+    const handleShow = () => {
+        setShowModal(true);
+    };
+
     return (
         <>
             <td>{props.sensor.name}</td>
-            <td>{props.sensor.status}</td>
+            <td>{props.sensor.status} <AiFillInfoCircle onClick={handleShow} /></td>
             <td>{props.sensor.details}</td>
+            {showModal ? <AdditionalInfoModal sensor={props.sensor} show={showModal} handleClose={handleClose} /> : false}
         </>
+    );
+}
+
+
+function AdditionalInfoModal(props) {
+    return (
+        <Modal show={props.show} onHide={props.handleClose}>
+            <Modal.Header closeButton>
+                <Modal.Title>{props.sensor.name} - INFO</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <p>STATUS: {props.sensor.status}</p>
+                {props.sensor.additional !== undefined ?
+                    <ListGroup>
+                        <ListGroup.Item className="additional-details">ADDITIONAL DETAILS:</ListGroup.Item>
+                        {
+                            props.sensor.additional.map((info, index) => <ListGroup.Item className="additional-details-elem" as="li" key={index}>{info}</ListGroup.Item>)
+                        }
+                    </ListGroup>
+                    : false}
+            </Modal.Body>
+        </Modal>
     );
 }
 

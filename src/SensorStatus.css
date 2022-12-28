@@ -62,3 +62,12 @@
 td{
     border: 0;
 }
+.additional-details-elem{
+    display:list-item;
+    border: none;
+}
+
+.additional-details{
+    padding: 0;
+    border: none;
+}
