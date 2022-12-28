@@ -59,9 +59,6 @@
     outline: none;
 }
 
-td{
-    border: 0;
-}
 .additional-details-elem{
     display:list-item;
     border: none;
