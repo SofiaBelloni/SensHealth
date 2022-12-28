@@ -12,8 +12,6 @@
 }
 
 .border {
-   /* border: 1px solid !important;
-    border-radius: 10px !important;*/
     border: none;
     border-radius: 10pt;
     box-shadow: 0 0 0 0.5pt black;
@@ -45,6 +43,13 @@
     width: 65%;
     margin-left: 5%;
     margin-right: 5%;
+}
+
+.instruction{
+    margin-top: 5%;
+    height: 80%;
+    margin-bottom: 5%;
+    padding: 4pt;
 }
 
 #sensorTable {

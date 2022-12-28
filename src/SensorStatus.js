@@ -58,9 +58,9 @@ function SensorTable() {
     const [show, setShow] = useState(false);
     const [kit, setKit] = useState("");
 
-     function handleOpen(kitId) {
+    function handleOpen(kitId) {
         console.log(kitId);
-        const selectedKit= KitList.filter((kit) => kit.id===kitId);
+        const selectedKit = KitList.filter((kit) => kit.id === kitId);
         setKit(selectedKit[0]);
         setShow(true);
         console.log(kit);
@@ -78,12 +78,34 @@ function SensorTable() {
                         KitList.map((kit) => <ListGroup.Item className='list-elem' action key={kit.id} as="li" onClick={() => handleOpen(kit.id)}>{kit.name}</ListGroup.Item>)
                     }
                 </ListGroup>
-                {show ? <Kit kit={kit} /> : false }
+                {show ? <Kit kit={kit} /> : <Instruction/>}
 
             </div>
         </>
     );
 }
+
+function Instruction() {
+    return (
+        <Container id="kitContainer"  className='instruction'>
+            <Table id="sensorTable" size='sm'>
+                <thead>
+                    <tr>
+                        <th className='text-center bg'>How to see the status of a sensor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td className='text-center'>
+                            To see the status of a Kit, please select one of them on the left
+                        </td>
+                    </tr>
+                </tbody>
+            </Table>
+        </Container>
+    );
+}
+
 
 function Kit(props) {
     return (
@@ -114,16 +136,16 @@ function Kit(props) {
 }
 function SensorRow(props) {
     return (
-        <tr><SensorData key={props.key+props.sensor.id} sensor={props.sensor}/></tr>
+        <tr><SensorData key={props.key + props.sensor.id} sensor={props.sensor} /></tr>
     );
 }
 
 function SensorData(props) {
     return (
         <>
-            <td className='sensorData'>{props.sensor.name}</td>
-            <td className='sensorData'>{props.sensor.status}</td>
-            <td className='sensorData'>{props.sensor.details}</td>
+            <td>{props.sensor.name}</td>
+            <td>{props.sensor.status}</td>
+            <td>{props.sensor.details}</td>
         </>
     );
 }
