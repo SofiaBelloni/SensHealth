@@ -15,20 +15,45 @@ app.use(cors(corsOption));
 
 const port = 3001;
 
-
 /* --- APIs ---*/
 
 /* GET /api/calls */
 app.get('/api/calls', async (req, res) => {
     try {
-      const listCalls = await callDAO.listCalls();
-      return res.status(200).json(listCalls).end();
+        const listCalls = await callDAO.listCalls();
+        return res.status(200).json(listCalls).end();
     } catch (error) {
-      return res.status(500).json(error).end();
+        return res.status(500).json(error).end();
     }
-  });
+});
 
-app.get('/api/call/:callId', async(req, res) => {
+/* PUT /api/call/:callId */
+app.put('/api/call/:callId', async (req, res) => {
+    const call = req.body;
+
+    if (call.status === 'Active' || call.status === 'Closed') {
+        if (req.params.callId == call.id) {
+            try {
+                const callId = await callDAO.updateCall(call);
+                res.status(200).json({ Ok: `Status for Call #${call.id} updated` }).end();
+            }
+            catch (err) {
+                console.error(err);
+                res.status(503).json({ error: `Database error while updating call #${call.id}.` });
+            }
+        }
+        else {
+            res.status(503).json({ error: `Wrong call id in the request body.` });
+        }
+    }
+    else {
+        res.status(503).json({ error: `Status no possible in the request body.` });
+    }
+
+});
+
+/* GET /api/call/:callId */
+app.get('/api/call/:callId', async (req, res) => {
     try {
         const call = await callDAO.getCallById(req.params.callId);
         return res.status(200).json(call).end();
@@ -38,7 +63,7 @@ app.get('/api/call/:callId', async(req, res) => {
 })
 
 
-// activate the server
+/* Activate the server */
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 });
