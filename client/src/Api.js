@@ -33,6 +33,7 @@ async function getAllCalls() {
             const calls = list.map(callGet => new Call(callGet.id, callGet.status, callGet.location, callGet.time, callGet.name, callGet.surname, 
                 callGet.colorCode, callGet.ambStatus, callGet.img));
                 return calls;
+
         } else {
             const text = response.text();
             throw new TypeError(text);
