@@ -35,14 +35,40 @@ exports.listCalls = () => new Promise((resolve, reject) => {
     })
 })
 
+// Update Status Call (The Location will be hidden in the frontend when the Status will be 'Closed')
+exports.updateCall = (call) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'UPDATE CALL SET status=? WHERE id=?';
+        db.run(sql, [call.status, call.id], function (err) {
+            if (err) reject(err);
+            else resolve(call.id);
+        });
+    });
+};
+
 // Get informations about a call giving its callID
 exports.getCallById = (callId) => new Promise((resolve, reject) => {
     const sql = 'SELECT * FROM CALL WHERE id = ?';
-    db.all(sql, [callId], (err, rows) => {
+    db.get(sql, [callId], (err, row) => {
         if (err) {
             reject(err);
             return;
         }
-        resolve(rows);
+        if (row != undefined) {
+            const singleCall = new Call(
+                row.id,
+                row.status,
+                row.location,
+                row.time,
+                row.name,
+                row.surname,
+                row.colorCode,
+                row.ambStatus,
+                row.img)
+            console.log(row);
+            resolve(singleCall);
+        } else {
+            resolve(null);
+        }
     })
 })
