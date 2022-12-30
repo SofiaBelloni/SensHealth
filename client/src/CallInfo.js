@@ -14,6 +14,7 @@ export default function CallInfo() {
             const call = await API.getCallById(callId);
             setCall(call);
         }
+        console.log(call.img)
         retrieveInfo(params.callId)
     }, [])
 
@@ -30,22 +31,22 @@ export default function CallInfo() {
                 </tr>
             </thead>
             <tbody>
-            <Image id="params" src={call['img']} fluid></Image>
+            <Image id="params" src={call.img} fluid></Image>
             </tbody>
         </Table>
         </Col>
         <Col xs={3}>
             <Card>
-                <Card.Header><b>Call #9</b></Card.Header>
+                <Card.Header><b>Call #{call.id}</b></Card.Header>
                 <Card.Body>
                     <Card.Title>Name</Card.Title>
-                    <Card.Text>{call['name']}</Card.Text>
+                    <Card.Text>{call.name}</Card.Text>
                     <Card.Title>Surname</Card.Title>
-                    <Card.Text>{call['surname']}</Card.Text>
+                    <Card.Text>{call.surname}</Card.Text>
                     <Card.Title>Code</Card.Title>
-                    <Card.Text>{call['colorCode']}</Card.Text>
+                    <Card.Text>{call.colorCode}</Card.Text>
                     <Card.Title>Status</Card.Title>
-                    <Card.Text>{call['ambStatus']}</Card.Text>
+                    <Card.Text>{call.ambStatus}</Card.Text>
                 </Card.Body>
             </Card>
             <Button>Close Call</Button>
