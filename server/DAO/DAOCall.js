@@ -65,7 +65,7 @@ exports.getCallById = (callId) => new Promise((resolve, reject) => {
                 row.colorCode,
                 row.ambStatus,
                 row.img)
-            console.log(row);
+            
             resolve(singleCall);
         } else {
             resolve(null);
