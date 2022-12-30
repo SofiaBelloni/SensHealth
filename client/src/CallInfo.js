@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import {Table, Button, Row, Col, Card, Image} from "react-bootstrap";
+import {AiFillWarning } from "react-icons/ai";
+import {BsFillMicFill} from "react-icons/bs";
 
 import API from './Api.js';
 
 export default function CallInfo() {
     const params = useParams();
     const [call, setCall] = useState('');
-    const [image, setImage] = useState('');
     useEffect(() => {
         const retrieveInfo = async(callId) => {
             const call = await API.getCallById(callId);
             setCall(call[0]);
-            setImage(call[0].img);
         }
         retrieveInfo(params.callId)
-        document.getElementById("params").src = image;
     }, [])
 
     return <>
@@ -31,13 +30,13 @@ export default function CallInfo() {
                 </tr>
             </thead>
             <tbody>
-            <Image id="params" src="" fluid></Image>
+            <Image id="params" src={call['img']} fluid></Image>
             </tbody>
         </Table>
         </Col>
         <Col xs={3}>
             <Card>
-                <Card.Header>Call #9</Card.Header>
+                <Card.Header><b>Call #9</b></Card.Header>
                 <Card.Body>
                     <Card.Title>Name</Card.Title>
                     <Card.Text>{call['name']}</Card.Text>
@@ -50,6 +49,20 @@ export default function CallInfo() {
                 </Card.Body>
             </Card>
             <Button>Close Call</Button>
+        </Col>
+    </Row>
+    <Row>
+        <Col>
+        <BsFillMicFill></BsFillMicFill>
+        </Col>
+        <Col>
+            <Button>Return to call list</Button>
+        </Col>
+        <Col>
+            <Button>
+                <AiFillWarning></AiFillWarning>
+                Send an alert    
+            </Button>
         </Col>
     </Row>
     </>
