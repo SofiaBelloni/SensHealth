@@ -12,7 +12,7 @@ export default function CallInfo() {
     useEffect(() => {
         const retrieveInfo = async(callId) => {
             const call = await API.getCallById(callId);
-            setCall(call[0]);
+            setCall(call);
         }
         retrieveInfo(params.callId)
     }, [])
