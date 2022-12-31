@@ -13,7 +13,7 @@ function MyNavbar () {
     const handleShow = () => setShow(true);
 
   return <>
-    <Navbar id='navbar' variant='light' fixed='top' className='px-3 d-flex flex-row justify-content-between'>
+    <Navbar id='navbar' variant='light' className='px-3 d-flex flex-row justify-content-between'>
       <Navbar.Toggle aria-controls='left-sidebar'/>
       <Button variant='light'onClick={handleShow}>
         <List size={20}/>
@@ -30,8 +30,8 @@ function MyNavbar () {
         </Nav>       
      </Offcanvas.Body>
       </Offcanvas>
-        <Navbar.Brand id='navbar-brand' className="text-align-center">SenseHealth</Navbar.Brand>
-    
+        <Navbar.Brand id='navbar-brand' className="text-align-center">SensHealth</Navbar.Brand>
+  
       <Nav className='ml-auto'>
         <Nav.Item>
          

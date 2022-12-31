@@ -22,6 +22,16 @@ function App() {
     setCalls(callsList);
   };
 
+  const closeCall  = async (callId) => {
+    await API.setStatusCall(callId, "Closed");
+    getAllCalls();
+  }
+
+  const openCall  = async (callId) => {
+    await API.setStatusCall(callId, "Active");
+    getAllCalls();
+  }
+
   useEffect(() => {
     setLoading(false);
     getAllCalls();
@@ -34,7 +44,7 @@ function App() {
         <MyNavbar />
       </Row>
         <Routes>
-          <Route path="/" element={<CallsView calls={calls} loading={loading} />} />
+          <Route path="/" element={<CallsView calls={calls} loading={loading} closeCall={closeCall} openCall={openCall} />} />
           <Route path="/sensors" element={<SensorTable />} />
           <Route path="call/:callId" element={<CallInfo />} />
         </Routes>
