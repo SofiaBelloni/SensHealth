@@ -27,6 +27,37 @@ app.get('/api/calls', async (req, res) => {
     }
 });
 
+/* GET /api/calls/order/id */
+app.get('/api/calls/order/id', async (req, res) => {
+    try {
+        const listCalls = await callDAO.listCallsAsc();
+        return res.status(200).json(listCalls).end();
+    } catch (error) {
+        return res.status(500).json(error).end();
+    }
+});
+
+/* GET /api/calls/order/active */
+app.get('/api/calls/order/active', async (req, res) => {
+    try {
+        const listCalls = await callDAO.orderbyActiveCalls();
+        return res.status(200).json(listCalls).end();
+    } catch (error) {
+        return res.status(500).json(error).end();
+    }
+});
+
+/* GET /api/calls/order/closed */
+app.get('/api/calls/order/closed', async (req, res) => {
+    try {
+        const listCalls = await callDAO.orderbyClosedCalls();
+        return res.status(200).json(listCalls).end();
+    } catch (error) {
+        return res.status(500).json(error).end();
+    }
+});
+
+
 /* PUT /api/call/:callId */
 app.put('/api/call/:callId', async (req, res) => {
     const call = req.body;
