@@ -3,13 +3,15 @@ import { NavLink, useParams } from "react-router-dom"
 import {Table, Button, Row, Col, Card, Image, Modal, Nav} from "react-bootstrap";
 import {AiFillWarning } from "react-icons/ai";
 import {BsFillMicFill} from "react-icons/bs";
+import { useNavigate } from 'react-router-dom';
 import { Shake, ShakeLittle, ShakeSlow } from 'reshake'
+
+import './CallInfo.css';
 
 import API from './Api.js';
 
-
 export default function CallInfo(props) {
-
+    const navigate = useNavigate();
     const params = useParams();
     const [call, setCall] = useState('');
     const [showClose, setShowClose] = useState(false);
@@ -183,15 +185,20 @@ export default function CallInfo(props) {
         </Col>
     </Row>
     <Row>
-        <Col>
-        <BsFillMicFill></BsFillMicFill>
+        <Col>        
+        <Button
+            variant='outline-primary'
+            className='vocal'>
+            Vocal Assistant
+            <BsFillMicFill size={20}/>
+          </Button>
         </Col>
         <Col>
-            <NavLink to={"/"}><Button variant="secondary">Return to call list</Button></NavLink>
+            <NavLink to={"/"}><Button variant="outline-secondary" className="returncall">Return to call list</Button></NavLink>
         </Col>
         <Col>
-            <Button variant="warning">
-                <AiFillWarning>  </AiFillWarning>
+            <Button variant="outline-warning" className="sendalert">
+                <AiFillWarning size={30}>  </AiFillWarning>
                 Send an alert    
             </Button>
         </Col>
