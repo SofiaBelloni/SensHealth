@@ -119,15 +119,20 @@ export default function CallInfo(props) {
     </Row>
     <Shake v={0} h={1} r={1}>
     <Row>
-        <Col>
-            <BsFillMicFill></BsFillMicFill>
+        <Col>        
+        <Button
+            variant='outline-primary'
+            className='vocal'>
+            Vocal Assistant
+            <BsFillMicFill size={20}/>
+          </Button>
         </Col>
         <Col>
-            <Button variant="secondary">Return to call list</Button>
+            <Button variant="outline-secondary" className="returncall">Return to call list</Button>
         </Col>
         <Col>
-            <Button variant="warning">
-                <AiFillWarning>  </AiFillWarning>
+            <Button variant="outline-warning" className="sendalert">
+                <AiFillWarning size={30}>  </AiFillWarning>
                 Send an alert    
             </Button>
         </Col>
