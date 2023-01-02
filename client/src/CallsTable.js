@@ -2,13 +2,51 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import Button from 'react-bootstrap/Button';
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { Table } from 'react-bootstrap';
+import { OverlayTrigger, Table, Tooltip } from 'react-bootstrap';
 import './App.css';
 import { NavLink } from 'react-router-dom';
 
 
 function CallsTable(props) {
   const [id, setCallId] = useState();
+  const [filterId, setFilterId] = useState(false);
+  const [filterStatus, setFilterStatus] = useState(true);
+
+  /* Tooltip used for headers */
+  const renderTooltipIdAscending = (props) => (
+    <Tooltip id="button-tooltip" {...props}>Click for ascending order</Tooltip>
+  );
+
+  const renderTooltipDescending = (props) => (
+    <Tooltip id="button-tooltip" {...props}>Click for descending order</Tooltip>
+  );
+
+  const renderTooltipLocation = (props) => (
+    <Tooltip id="button-tooltip" {...props}>This is the Location where the Ambulance arrived</Tooltip>
+  );
+
+  const renderTooltipTime = (props) => (
+    <Tooltip id="button-tooltip" {...props}>This is the time when calls were <b>first</b> opened </Tooltip>
+  );
+
+  const renderTooltipActions = (props) => (
+    <Tooltip id="button-tooltip" {...props}>These are the actions possible for each call. See the legend down below</Tooltip>
+  );
+
+
+  const handleFilterId = () => {
+    setFilterId(!filterId);
+    if (filterId) props.orderCallsbyId();
+    else props.orderCallsbyIdDesc();
+  }
+
+  const handleFilterStatus = () => {
+    setFilterStatus(!filterStatus);
+    if (filterStatus) props.orderCallsbyClosed();
+    else props.orderCallsbyActive();
+  }
+
+
 
   /* 2 modal to save changes (Close & Open Again) */
   const [showClose, setShowClose] = useState(false);
@@ -69,11 +107,43 @@ function CallsTable(props) {
       <Table border='dot' hover size='sm' className='table-1'>
         <thead>
           <tr>
-            <th>Call ID</th>
-            <th>Status</th>
-            <th>Location</th>
-            <th>Time</th>
-            <th>Actions</th>
+            <th>Call ID
+              {filterId ?
+                <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipIdAscending} >
+                  <Button variant='text' onClick={handleFilterId}><i class="bi bi-sort-numeric-up"></i></Button>
+                </OverlayTrigger>
+                :
+                <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipDescending} >
+                  <Button variant='text' onClick={handleFilterId}><i class="bi bi-sort-numeric-down-alt"></i></Button>
+                </OverlayTrigger>
+              }
+            </th>
+            <th>Status
+              {filterStatus ?
+                <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipIdAscending} >
+                  <Button variant='text' onClick={handleFilterStatus} disableRipple><i class="bi bi-sort-alpha-up"></i></Button>
+                </OverlayTrigger>
+                :
+                <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipDescending} >
+                  <Button variant='text' onClick={handleFilterStatus}><i class="bi bi-sort-alpha-down-alt"></i></Button>
+                </OverlayTrigger>
+              }
+            </th>
+            <th>Location
+              <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipLocation} >
+                <Button variant='text' disableRipple><i class="bi bi-info-circle"></i></Button>
+              </OverlayTrigger>
+            </th>
+            <th>Time
+              <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipTime} >
+                <Button variant='text' disableRipple><i class="bi bi-info-circle"></i></Button>
+              </OverlayTrigger>
+            </th>
+            <th>Actions
+              <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipActions} >
+                <Button variant='text' disableRipple><i class="bi bi-info-circle"></i></Button>
+              </OverlayTrigger>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -83,9 +153,9 @@ function CallsTable(props) {
           }
         </tbody>
       </Table>
-      <hr/>
+      <hr />
     </div>
-    
+
     <div className='table-legend'>
       <Table className='table-2' border='dot' size='sm'>
         <thead>

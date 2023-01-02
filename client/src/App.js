@@ -32,6 +32,25 @@ function App() {
     getAllCalls();
   }
 
+  const orderCallsbyId = async () => {
+    const orderedCalls = await API.getAllCallsOrderbyId();
+    setCalls(orderedCalls);
+  }
+
+  const orderCallsbyIdDesc = () => {
+    getAllCalls();
+  }
+
+  const orderCallsbyActive = async () => {
+    const orderedCalls = await API.getAllCallsOrderbyActive();
+    setCalls(orderedCalls);
+  }
+
+  const orderCallsbyClosed = async () => {
+    const orderedCalls = await API.getAllCallsOrderbyClosed();
+    setCalls(orderedCalls);
+  }
+
   useEffect(() => {
     setLoading(false);
     getAllCalls();
@@ -44,7 +63,7 @@ function App() {
         <MyNavbar />
       </Row>
         <Routes>
-          <Route path="/" element={<CallsView calls={calls} loading={loading} closeCall={closeCall} openCall={openCall} />} />
+          <Route path="/" element={<CallsView calls={calls} loading={loading} closeCall={closeCall} openCall={openCall} orderCallsbyId={orderCallsbyId} orderCallsbyIdDesc={orderCallsbyIdDesc} orderCallsbyActive={orderCallsbyActive} orderCallsbyClosed={orderCallsbyClosed}/>} />
           <Route path="/sensors" element={<SensorTable />} />
           <Route path="call/:callId" element={<CallInfo />} />
         </Routes>

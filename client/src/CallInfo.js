@@ -3,10 +3,14 @@ import { useParams } from "react-router-dom"
 import {Table, Button, Row, Col, Card, Image} from "react-bootstrap";
 import {AiFillWarning } from "react-icons/ai";
 import {BsFillMicFill} from "react-icons/bs";
+import { useNavigate } from 'react-router-dom';
+
+import './CallInfo.css';
 
 import API from './Api.js';
 
 export default function CallInfo() {
+    const navigate = useNavigate();
     const params = useParams();
     const [call, setCall] = useState('');
     useEffect(() => {
@@ -53,17 +57,31 @@ export default function CallInfo() {
         </Col>
     </Row>
     <Row>
-        <Col>
-        <BsFillMicFill></BsFillMicFill>
+        <Col>        
+        <Button
+            variant='outline-primary'
+            className='vocal'>
+            Vocal Assistant
+            <BsFillMicFill size={20}/>
+          </Button>
         </Col>
         <Col>
-            <Button>Return to call list</Button>
+            <Button
+            variant='outline-secondary'
+            className='returncall'
+            onClick={() => {
+                navigate('/');
+              }}>     Return to call list
+
+          </Button>
         </Col>
         <Col>
-            <Button>
-                <AiFillWarning></AiFillWarning>
-                Send an alert    
-            </Button>
+        <Button
+            variant='outline-warning'
+            className='sendalert'>
+            Send an alert
+            <AiFillWarning size={30}/>
+          </Button>
         </Col>
     </Row>
     </>
