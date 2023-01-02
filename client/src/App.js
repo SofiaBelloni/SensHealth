@@ -46,7 +46,7 @@ function App() {
         <Routes>
           <Route path="/" element={<CallsView calls={calls} loading={loading} closeCall={closeCall} openCall={openCall} />} />
           <Route path="/sensors" element={<SensorTable />} />
-          <Route path="call/:callId" element={<CallInfo />} />
+          <Route path="call/:callId" element={<CallInfo closeCall={closeCall} />} />
         </Routes>
     </BrowserRouter>
   );
