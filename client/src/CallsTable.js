@@ -36,13 +36,13 @@ function CallsTable(props) {
 
   const handleFilterId = () => {
     setFilterId(!filterId);
-    if (filterId) props.orderCallsbyId();
+    if (!filterId) props.orderCallsbyId();
     else props.orderCallsbyIdDesc();
   }
 
   const handleFilterStatus = () => {
     setFilterStatus(!filterStatus);
-    if (filterStatus) props.orderCallsbyClosed();
+    if (!filterStatus) props.orderCallsbyClosed();
     else props.orderCallsbyActive();
   }
 
