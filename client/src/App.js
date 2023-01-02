@@ -16,19 +16,29 @@ import { Row } from 'react-bootstrap';
 function App() {
   const [calls, setCalls] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  const [action, setAction] = useState([]);
 
   const getAllCalls = async () => {
     const callsList = await API.getAllCalls();
     setCalls(callsList);
   };
 
-  const closeCall  = async (callId) => {
-    await API.setStatusCall(callId, "Closed");
+  const closeCall = async (callId) => {
+    const action = "Closed";
+    await API.setStatusCall(callId, action);
+    const actionId = [callId, action];
+    setAction(actionId);
+    setShow(true);
     getAllCalls();
   }
 
-  const openCall  = async (callId) => {
-    await API.setStatusCall(callId, "Active");
+  const openCall = async (callId) => {
+    const action = "Active";
+    await API.setStatusCall(callId, action);
+    const actionId = [callId, action];
+    setAction(actionId);
+    setShow(true);
     getAllCalls();
   }
 
@@ -62,11 +72,11 @@ function App() {
       <Row>
         <MyNavbar />
       </Row>
-        <Routes>
-          <Route path="/" element={<CallsView calls={calls} loading={loading} closeCall={closeCall} openCall={openCall} orderCallsbyId={orderCallsbyId} orderCallsbyIdDesc={orderCallsbyIdDesc} orderCallsbyActive={orderCallsbyActive} orderCallsbyClosed={orderCallsbyClosed}/>} />
-          <Route path="/sensors" element={<SensorTable />} />
-          <Route path="call/:callId" element={<CallInfo />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<CallsView calls={calls} loading={loading} closeCall={closeCall} openCall={openCall} orderCallsbyId={orderCallsbyId} orderCallsbyIdDesc={orderCallsbyIdDesc} orderCallsbyActive={orderCallsbyActive} orderCallsbyClosed={orderCallsbyClosed} setShow={setShow} show={show} action={action}/>} />
+        <Route path="/sensors" element={<SensorTable />} />
+        <Route path="call/:callId" element={<CallInfo />} />
+      </Routes>
     </BrowserRouter>
   );
 }
