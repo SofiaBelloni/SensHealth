@@ -1,6 +1,6 @@
 'use strict'
 const callDAO = require('./DAO/DAOCall');
-const DAO = require('./DAO/DAO');
+const DAO = require('./DAO/DAODepartment');
 const express = require('express');
 const cors = require('cors');
 
