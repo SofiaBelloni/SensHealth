@@ -202,7 +202,7 @@ export default function CallInfo(props) {
             <NavLink to={"/"}><Button variant="outline-secondary" className="returncall">Return to call list</Button></NavLink>
         </Col>
         <Col>
-            <Button variant="outline-warning" className="sendalert">
+            <Button variant="outline-warning" className="sendalert" onClick={() => navigate('/alert/' + call.id)}>
                 <AiFillWarning size={30}>  </AiFillWarning>
                 Send an alert    
             </Button>
