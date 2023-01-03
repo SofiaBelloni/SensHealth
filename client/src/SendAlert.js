@@ -16,16 +16,24 @@ function SendAlert(props) {
     const { callId } = useParams();
     const navigate = useNavigate();
 
-    const [department, setDepartment] = useState('2');
+    const [department, setDepartment] = useState(null);
     const [departmentList, setDepartmentList] = useState(null);
     const [description, setDescription] = useState("");
     const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+        API.getAllDepartments()
+        .then((dep) => {
+            setDepartmentList(dep); 
+            setDepartment(departmentList[0].id);       
+        })
+        .catch(err => console.log(err))
+    }, []);
 
     // open the modal 
     const handleSend = () => {
         setShowModal(true);
     }
-
 
     // confirmation to the modal to send alert
     const confirmSend = () => {
@@ -37,6 +45,10 @@ function SendAlert(props) {
         setShowModal(false);
     }
 
+    const findDepName= (id)=>{
+        return departmentList.filter((dep)=> dep.id===id)[0].name;
+    }
+
     return (
         <Container className="p-0">
 
@@ -44,7 +56,7 @@ function SendAlert(props) {
                 <Modal.Header>
                     <Modal.Title>Confirm Alert -- Call#{callId}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className="px-0 py-1 my-4 text-center">Are you sure to send the alert to department {department}?</Modal.Body>
+                <Modal.Body className="px-0 py-1 my-4 text-center">Are you sure to send the alert to {findDepName(department)}?</Modal.Body>
                 <Modal.Footer className="modal-footer">
                     <Row>
                         <Col className='text-left'>
@@ -67,10 +79,8 @@ function SendAlert(props) {
                         <Form.Group>
                             <FloatingLabel className="m-3 mb-4" controlId="floatingSelect" label="Choose department">
                                 <Form.Select value={department} onChange={(event) => { setDepartment(event.target.value); }}>
-                                    <option value='1' >Dep 1</option>
-                                    <option value='2' >Dep2</option>
                                     {
-                                        // Object.keys(Condition).map(k => <option key={k} value={Condition[k]} >{Condition[k]}</option>)
+                                         departmentList.map(dep => <option key={dep.id} value={dep.id} >{dep.name}</option>)
                                     }
                                 </Form.Select>
                             </FloatingLabel>
