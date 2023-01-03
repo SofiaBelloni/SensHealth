@@ -1,5 +1,6 @@
 'use strict'
 const callDAO = require('./DAO/DAOCall');
+const DAO = require('./DAO/DAO');
 const express = require('express');
 const cors = require('cors');
 
@@ -92,6 +93,16 @@ app.get('/api/call/:callId', async (req, res) => {
         return res.status(500).json(error).end();
     }
 })
+
+/* GET /api/departments */
+app.get('/api/departments', async (req, res) => {
+    try {
+        const departments = await DAO.listDepartments();
+        return res.status(200).json(departments).end();
+    } catch (error) {
+        return res.status(500).json(error).end();
+    }
+});
 
 
 /* Activate the server */

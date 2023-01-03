@@ -1,4 +1,5 @@
 import Call from "./modules/Call";
+import Department from "./modules/Department";
 const APIURL = 'http://localhost:3001/api';
 
 /* Get a Call by its ID */
@@ -133,5 +134,32 @@ async function setStatusCall(callId, status) {
     }
 }
 
-const API={getCallById, getAllCalls, getAllCallsOrderbyId, getAllCallsOrderbyActive, getAllCallsOrderbyClosed, setStatusCall};
+/* Get all departments */
+async function getAllDepartments() {
+    const url = APIURL + '/departments';
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            const list = await response.json();
+            const departmentsList = list.map(dep => new Department(dep.id, dep.name));
+            return departmentsList;
+
+        } else {
+            const text = response.text();
+            throw new TypeError(text);
+        }
+    } catch (e) {
+        throw (e);
+    }
+};
+
+const API={
+    getCallById, 
+    getAllCalls, 
+    getAllCallsOrderbyId, 
+    getAllCallsOrderbyActive, 
+    getAllCallsOrderbyClosed, 
+    setStatusCall,
+    getAllDepartments
+};
 export default API;
