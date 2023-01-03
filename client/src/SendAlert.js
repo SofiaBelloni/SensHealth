@@ -22,13 +22,13 @@ function SendAlert(props) {
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
-        API.getAllDepartments()
-            .then((dep) => {
-                setDepartmentList(dep);
-                setDepartment(departmentList[0].id);
-            })
-            .catch(err => console.log(err))
-    }, []);
+        const retrieveInfo = async () => {
+            const dep = await API.getAllDepartments();
+            setDepartmentList(dep);
+            setDepartment(dep[0].id);
+        }
+        retrieveInfo()
+    }, [])
 
     // open the modal 
     const handleSend = () => {
@@ -46,7 +46,9 @@ function SendAlert(props) {
     }
 
     const findDepName = (id) => {
-        return departmentList.filter((dep) => dep.id === id)[0].name;
+        if (departmentList) {
+            return departmentList.filter((dep) => dep.id === id)[0].name;
+        }
     }
 
     return (
@@ -104,7 +106,7 @@ function SendAlert(props) {
                                         </Button>
                                     </Col>
                                     <Col className='text-end me-3'>
-                                        <Button variant="danger" onClick={() => console.log('discard')}>
+                                        <Button variant="danger" onClick={() => navigate('/call/' + callId)}>
                                             Discard
                                         </Button>
                                     </Col>
