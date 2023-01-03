@@ -23,11 +23,11 @@ function SendAlert(props) {
 
     useEffect(() => {
         API.getAllDepartments()
-        .then((dep) => {
-            setDepartmentList(dep); 
-            setDepartment(departmentList[0].id);       
-        })
-        .catch(err => console.log(err))
+            .then((dep) => {
+                setDepartmentList(dep);
+                setDepartment(departmentList[0].id);
+            })
+            .catch(err => console.log(err))
     }, []);
 
     // open the modal 
@@ -45,72 +45,75 @@ function SendAlert(props) {
         setShowModal(false);
     }
 
-    const findDepName= (id)=>{
-        return departmentList.filter((dep)=> dep.id===id)[0].name;
+    const findDepName = (id) => {
+        return departmentList.filter((dep) => dep.id === id)[0].name;
     }
 
     return (
         <Container className="p-0">
-
-            <Modal id='close-call-popup' show={showModal} onHide={setShowModal}>
-                <Modal.Header>
-                    <Modal.Title>Confirm Alert -- Call#{callId}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body className="px-0 py-1 my-4 text-center">Are you sure to send the alert to {findDepName(department)}?</Modal.Body>
-                <Modal.Footer className="modal-footer">
-                    <Row>
-                        <Col className='text-left'>
-                            <Button variant="success" onClick={confirmSend}>
-                                Yes
-                            </Button>
-                        </Col>
-                        <Col className='text-end'>
-                            <Button variant="danger" onClick={discardSend}>
-                                No
-                            </Button>
-                        </Col>
-                    </Row>
-                </Modal.Footer>
-            </Modal>
-            <Card className="mt-4">
-                <Card.Header><b>Send an Alert - Call #{callId}</b></Card.Header>
-                <Card.Body>
-                    <Form>
-                        <Form.Group>
-                            <FloatingLabel className="m-3 mb-4" controlId="floatingSelect" label="Choose department">
-                                <Form.Select value={department} onChange={(event) => { setDepartment(event.target.value); }}>
-                                    {
-                                         departmentList.map(dep => <option key={dep.id} value={dep.id} >{dep.name}</option>)
-                                    }
-                                </Form.Select>
-                            </FloatingLabel>
-                            <FloatingLabel
-                                controlId="floatingTextarea"
-                                label="Write here a description..."
-                                className="m-3"
-                            >
-                                <Form.Control
-                                    as="textarea" type="text"
-                                    value={description}
-                                    onChange={event => setDescription(event.target.value)}
-                                    style={{ height: '100px' }} />
-                            </FloatingLabel>
-                        </Form.Group>
-                        <Row>
-                            <Col className='text-left ms-3'>
-                                <Button variant="success" onClick={handleSend}>
-                                    Send
-                                </Button>
-                            </Col>
-                            <Col className='text-end me-3'>
-                                <Button variant="danger" onClick={() => console.log('discard')}>
-                                    Discard
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Form>
-                </Card.Body>
-            </Card>
+            {departmentList ?
+                <>
+                    <Modal id='close-call-popup' show={showModal} onHide={setShowModal}>
+                        <Modal.Header>
+                            <Modal.Title>Confirm Alert -- Call#{callId}</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body className="px-0 py-1 my-4 text-center">Are you sure to send the alert to {findDepName(department)}?</Modal.Body>
+                        <Modal.Footer className="modal-footer">
+                            <Row>
+                                <Col className='text-left'>
+                                    <Button variant="success" onClick={confirmSend}>
+                                        Yes
+                                    </Button>
+                                </Col>
+                                <Col className='text-end'>
+                                    <Button variant="danger" onClick={discardSend}>
+                                        No
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </Modal.Footer>
+                    </Modal>
+                    <Card className="mt-4">
+                        <Card.Header><b>Send an Alert - Call #{callId}</b></Card.Header>
+                        <Card.Body>
+                            <Form>
+                                <Form.Group>
+                                    <FloatingLabel className="m-3 mb-4" controlId="floatingSelect" label="Choose department">
+                                        <Form.Select value={department} onChange={(event) => { setDepartment(event.target.value); }}>
+                                            {
+                                                departmentList.map(dep => <option key={dep.id} value={dep.id} >{dep.name}</option>)
+                                            }
+                                        </Form.Select>
+                                    </FloatingLabel>
+                                    <FloatingLabel
+                                        controlId="floatingTextarea"
+                                        label="Write here a description..."
+                                        className="m-3"
+                                    >
+                                        <Form.Control
+                                            as="textarea" type="text"
+                                            value={description}
+                                            onChange={event => setDescription(event.target.value)}
+                                            style={{ height: '100px' }} />
+                                    </FloatingLabel>
+                                </Form.Group>
+                                <Row>
+                                    <Col className='text-left ms-3'>
+                                        <Button variant="success" onClick={handleSend}>
+                                            Send
+                                        </Button>
+                                    </Col>
+                                    <Col className='text-end me-3'>
+                                        <Button variant="danger" onClick={() => console.log('discard')}>
+                                            Discard
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </>
+                : false}
         </Container >
     );
 }
