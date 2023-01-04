@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import { Button, Row, Col, Card, Modal, Nav, Container, Form } from "react-bootstrap";
-import { AiFillWarning } from "react-icons/ai";
-import { BsFillMicFill } from "react-icons/bs";
+import { Button, Row, Col, Card, Modal, Container, Form } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
-import { Shake, ShakeLittle, ShakeSlow } from 'reshake'
 
 import './CallInfo.css';
 
@@ -17,7 +14,7 @@ function SendAlert(props) {
     const navigate = useNavigate();
 
     const [department, setDepartment] = useState(null);
-    const [departmentList, setDepartmentList] = useState(null);
+    const [departmentList, setDepartmentList] = useState([]);
     const [description, setDescription] = useState("");
     const [showModal, setShowModal] = useState(false);
 
@@ -37,7 +34,11 @@ function SendAlert(props) {
 
     // confirmation to the modal to send alert
     const confirmSend = () => {
-        //props.closeCall(call.id)
+        const send = async (des, call, dep) => {
+            const res = await API.sendAlert(des, call, dep);
+            console.log(res);
+        }
+        //send(description, callId, department)
         setShowModal(false);
     }
     // abort to the modal
@@ -59,7 +60,7 @@ function SendAlert(props) {
                         <Modal.Header>
                             <Modal.Title>Confirm Alert -- Call#{callId}</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body className="px-0 py-1 my-4 text-center">Are you sure to send the alert to {findDepName(department)}?</Modal.Body>
+                        <Modal.Body className="px-0 py-1 my-4 text-center">Are you sure to send the alert?</Modal.Body>
                         <Modal.Footer className="modal-footer">
                             <Row>
                                 <Col className='text-left'>
