@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom"
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { Button, Row, Col, Card, Modal, Container, Form } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
+import Toast from 'react-bootstrap/Toast'
+import ToastContainer from 'react-bootstrap/ToastContainer'
 
 import './CallInfo.css';
 
@@ -17,6 +19,9 @@ function SendAlert(props) {
     const [departmentList, setDepartmentList] = useState([]);
     const [description, setDescription] = useState("");
     const [showModal, setShowModal] = useState(false);
+
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
 
     useEffect(() => {
         const retrieveInfo = async () => {
@@ -37,9 +42,11 @@ function SendAlert(props) {
         const send = async (des, call, dep) => {
             await API.sendAlert(des, call, dep);
         }
-        send(description, callId, department)
+        send(description, callId, department);
         setShowModal(false);
-        navigate('/call/' + callId)
+        setSuccessMessage("Alert correctly sent");
+        setShowSuccess(true);
+        
     }
 
     // close the modal
@@ -49,6 +56,15 @@ function SendAlert(props) {
 
     return (
         <Container className="p-0">
+            {showSuccess ?  //Success toast
+                (<div className="position-relative">
+                    <ToastContainer position='top-center'>
+                        <Toast bg='success' onClose={() => {setShowSuccess(false); navigate('/call/' + callId)}} show={showSuccess} delay={1500} autohide>
+                            <Toast.Body className='text-white'>{successMessage}</Toast.Body>
+                        </Toast>
+                    </ToastContainer>
+                </div>)
+                : false}
             {departmentList ?
                 <>
                     <Modal id='close-call-popup' show={showModal} onHide={setShowModal}>
