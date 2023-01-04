@@ -1,6 +1,7 @@
 'use strict'
 const callDAO = require('./DAO/DAOCall');
-const DAO = require('./DAO/DAODepartment');
+const departmentDAO = require('./DAO/DAODepartment');
+const alertDAO = require('./DAO/DAOAlert');
 const express = require('express');
 const cors = require('cors');
 
@@ -97,13 +98,31 @@ app.get('/api/call/:callId', async (req, res) => {
 /* GET /api/departments */
 app.get('/api/departments', async (req, res) => {
     try {
-        const departments = await DAO.listDepartments();
+        const departments = await departmentDAO.listDepartments();
         return res.status(200).json(departments).end();
     } catch (error) {
         return res.status(500).json(error).end();
     }
 });
 
+
+/* POST /api/sendAlert */
+app.post('/api/sendAlert', async (req, res) => {
+    const alert = req.body;
+    const body = {
+        "description": alert.description,
+        "callId": alert.callId,
+        "departmentId": alert.departmentId,
+    }
+    try {
+        const id = await alertDAO.addAlert(body);
+        res.status(200).json({ Ok: `Alert ${id} sent` }).end();
+    }
+    catch (err) {
+        console.error(err);
+        res.status(503).json({ error: `Database error while adding alert ${id}.` });
+    }
+});
 
 /* Activate the server */
 app.listen(port, () => {

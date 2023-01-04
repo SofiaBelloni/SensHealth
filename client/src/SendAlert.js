@@ -35,21 +35,15 @@ function SendAlert(props) {
     // confirmation to the modal to send alert
     const confirmSend = () => {
         const send = async (des, call, dep) => {
-            const res = await API.sendAlert(des, call, dep);
-            console.log(res);
+            await API.sendAlert(des, call, dep);
         }
-        //send(description, callId, department)
-        setShowModal(false);
-    }
-    // abort to the modal
-    const discardSend = () => {
+        send(description, callId, department)
         setShowModal(false);
     }
 
-    const findDepName = (id) => {
-        if (departmentList) {
-            return departmentList.filter((dep) => dep.id === id)[0].name;
-        }
+    // close the modal
+    const discardSend = () => {
+        setShowModal(false);
     }
 
     return (

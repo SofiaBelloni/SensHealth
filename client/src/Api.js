@@ -153,6 +153,37 @@ async function getAllDepartments() {
     }
 };
 
+/* Send new alert */
+async function sendAlert(description, callId, departmentId) {
+    // POST api/sendAlert
+    const body = {
+        "description": description,
+        "callId": callId,
+        "departmentId": departmentId,
+    }
+    const url = APIURL + '/sendAlert';
+     
+    return new Promise((resolve, reject) => {
+      fetch(url, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      }).then((response) => {
+        if (response.ok) {
+            resolve(null);
+        } else {
+          response.json()
+            .then((message) => { reject(message); })
+            .catch(() => { reject({ error: "Cannot parse server response." }) });
+        }
+      }).catch(() => { reject({ error: "Cannot communicate with server." }) });
+    });
+  }
+
+
 const API={
     getCallById, 
     getAllCalls, 
@@ -160,6 +191,7 @@ const API={
     getAllCallsOrderbyActive, 
     getAllCallsOrderbyClosed, 
     setStatusCall,
-    getAllDepartments
+    getAllDepartments,
+    sendAlert
 };
 export default API;
