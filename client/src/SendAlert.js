@@ -39,6 +39,7 @@ function SendAlert(props) {
         }
         send(description, callId, department)
         setShowModal(false);
+        navigate('/call/' + callId)
     }
 
     // close the modal
