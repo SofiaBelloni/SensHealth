@@ -19,7 +19,7 @@ function SendAlert(props) {
     const [departmentList, setDepartmentList] = useState([]);
     const [description, setDescription] = useState("");
     const [showModal, setShowModal] = useState(false);
-
+    const [showDiscardModal, setShowDiscardModal] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
 
@@ -87,6 +87,26 @@ function SendAlert(props) {
                             </Row>
                         </Modal.Footer>
                     </Modal>
+                    <Modal id='close-call-popup' show={showDiscardModal} onHide={setShowDiscardModal}>
+                        <Modal.Header>
+                            <Modal.Title>Confirm Discard -- Call#{callId}</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body className="px-0 py-1 my-4 text-center">Are you sure to discard?</Modal.Body>
+                        <Modal.Footer className="modal-footer">
+                            <Row>
+                                <Col className='text-left'>
+                                    <Button variant="success" onClick={()=>{navigate('/call/' + callId)}}>
+                                        Yes
+                                    </Button>
+                                </Col>
+                                <Col className='text-end'>
+                                    <Button variant="danger" onClick={()=>setShowDiscardModal(false)}>
+                                        No
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </Modal.Footer>
+                    </Modal>
                     <Card className="mt-4">
                         <Card.Header><b>Send an Alert - Call #{callId}</b></Card.Header>
                         <Card.Body>
@@ -118,7 +138,7 @@ function SendAlert(props) {
                                         </Button>
                                     </Col>
                                     <Col className='text-end me-3'>
-                                        <Button variant="danger" onClick={() => navigate('/call/' + callId)}>
+                                        <Button variant="danger" onClick={() => setShowDiscardModal(true)}>
                                             Discard
                                         </Button>
                                     </Col>
