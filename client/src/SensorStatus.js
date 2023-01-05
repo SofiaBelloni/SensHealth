@@ -1,9 +1,10 @@
 import Table from 'react-bootstrap/Table';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import React, { useState } from 'react';
 import "./SensorStatus.css";
+import "./App.css";
 import { AiFillInfoCircle } from "react-icons/ai";
 
 
@@ -69,11 +70,11 @@ function SensorTable() {
 
     return (
         <>
-            <div className='mt-5'>
+            <div className='mt-3'>
                 <h1 id='title'>SENSORS STATUS</h1>
             </div>
             <div className='border mt-3'>
-                <ListGroup className='sensor-list' as="ul">
+                <ListGroup className='sensor-list table-1' as="ul">
                     <ListGroup.Item as="li" className="kit-title">KIT ID</ListGroup.Item>
                     {
                         KitList.map((kit) => <ListGroup.Item className='list-elem' action key={kit.id} as="li" onClick={() => handleOpen(kit.id)}>{kit.name}</ListGroup.Item>)
@@ -127,9 +128,13 @@ function Kit(props) {
                         }
                     </tbody>
                 </Table>
-                <div className='mt-5'>
-                    <p id='details'>LOCATION: {props.kit.location}</p>
-                    <p id='details'>LAST MAINTENANCE: {props.kit.maintenance}</p>
+                <div className='mt-4'>
+                    <span >LOCATION: </span>
+                    <span id='details'>{props.kit.location}</span>
+                </div>
+                <div className='mt-2 mb-4'>
+                    <span >LAST MAINTENANCE: </span>
+                    <span id='details'>{props.kit.maintenance}</span>
                 </div>
             </Container>
         </>
@@ -167,9 +172,10 @@ function AdditionalInfoModal(props) {
                 <Modal.Title>{props.sensor.name} - INFO</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <p>STATUS: {props.sensor.status}</p>
+                <span>STATUS: </span>
+                <span id="details">{props.sensor.status}</span>
                 {props.sensor.additional !== undefined ?
-                    <ListGroup>
+                    <ListGroup className='mt-3'>
                         <ListGroup.Item className="additional-details">ADDITIONAL DETAILS:</ListGroup.Item>
                         {
                             props.sensor.additional.map((info, index) => <ListGroup.Item className="additional-details-elem" as="li" key={index}>{info}</ListGroup.Item>)
