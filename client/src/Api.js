@@ -1,3 +1,4 @@
+import Alert from "./modules/Alert";
 import Call from "./modules/Call";
 import Department from "./modules/Department";
 const APIURL = 'http://localhost:3001/api';
@@ -183,6 +184,29 @@ async function sendAlert(description, callId, departmentId) {
     });
   }
 
+/* Get Alerts by call ID */
+async function getAlerts(callId){
+    const url = APIURL + '/alerts/' + callId;
+    try {
+        const response = await fetch(url);
+        if(response.ok){
+            const list = await response.json();
+            if (list) {
+            const alerts = list.map(alert => new Alert(alert.id, alert.description, alert.callId, alert.department));
+                return alerts; 
+            } else {
+                return null;
+            }
+        }
+        else {
+            const text = response.text();
+            throw new TypeError(text);
+        }
+    } catch (error) {
+        throw(error);
+    }
+}
+
 
 const API={
     getCallById, 
@@ -192,6 +216,7 @@ const API={
     getAllCallsOrderbyClosed, 
     setStatusCall,
     getAllDepartments,
-    sendAlert
+    sendAlert,
+    getAlerts
 };
 export default API;

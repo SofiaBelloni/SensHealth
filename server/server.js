@@ -124,6 +124,17 @@ app.post('/api/sendAlert', async (req, res) => {
     }
 });
 
+// GET /api/alerts/:callId
+app.get('/api/alerts/:callId', async (req, res) => {
+    try {
+      const alerts = await alertDAO.getAlerts(req.params.callId);
+      res.json(alerts);
+    } catch (err) {
+      res.status(500).json({ error: `Database error while retrieving alerts` }).end();
+    }
+  });
+
+
 /* Activate the server */
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);

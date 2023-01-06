@@ -1,8 +1,8 @@
-function Alert(id, description, callId, departmentId) {
+function Alert(id, description, callId, department) {
     this.id = id;
     this.description = description; 
     this.callId = callId; 
-    this.departmentId = departmentId;  
+    this.department = department;  
 }
 
 export default Alert;

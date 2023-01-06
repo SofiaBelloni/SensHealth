@@ -1,5 +1,6 @@
 'use strict';
 const sqlite = require('sqlite3');
+const Department = require('../backend/Department');
 const db = new sqlite.Database('./tables.db', (err) => {
     if (err) {
         throw (err);
@@ -15,7 +16,11 @@ exports.listDepartments = () => new Promise((resolve, reject) => {
         if (err) reject(err);
         else {
             if (rows !== undefined) {
-                resolve(rows);
+                const depList = rows.map((row) => new Department(
+                    row.id,
+                    row.name)
+                )
+                resolve(depList);
             } else {
                 resolve(null);
             }
