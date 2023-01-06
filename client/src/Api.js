@@ -133,5 +133,29 @@ async function setStatusCall(callId, status) {
     }
 }
 
-const API={getCallById, getAllCalls, getAllCallsOrderbyId, getAllCallsOrderbyActive, getAllCallsOrderbyClosed, setStatusCall};
+async function setPath(callId, newPath){
+    const url = APIURL + "/call/" + callId + "/path";
+    const body = {
+        "new_filename" : newPath
+    };
+    try {
+        const response = await fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            credentials: 'include'
+        });
+        if (response.ok) {
+            return true;
+        } else {
+            const text = await response.text();
+            throw new TypeError(text);
+        }
+    } catch (error) {
+        throw(error);
+    }
+}
+const API={getCallById, getAllCalls, getAllCallsOrderbyId, getAllCallsOrderbyActive, getAllCallsOrderbyClosed, setStatusCall,setPath};
 export default API;
