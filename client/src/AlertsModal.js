@@ -1,10 +1,8 @@
-import Table from 'react-bootstrap/Table';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Container, Row, Col } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import { HiBellAlert } from "react-icons/hi2";
 import { useEffect, useState } from "react"
-import "./App.css";
+import "./AlertModal.css";
 import API from './Api.js';
 
 function AlertsModal(props) {
@@ -16,20 +14,19 @@ function AlertsModal(props) {
             const list = await API.getAlerts(props.callId);
             setAlertsList(list);
         }
-        //retrieveInfo()
-    }, []);
+        retrieveInfo();
+    }, [props.callId]);
 
     return (
-        <Modal show={props.show} onHide={props.handleClose}>
-            <Modal.Header closeButton>
+        <Modal show={props.show} onHide={props.handleClose} scrollable>
+            <Modal.Header className="alerts-title" closeButton>
                 <Modal.Title>CALL #{props.callId} - ALERTS SENT</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {(alertsList !== undefined && alertsList.length > 0 )?
-                    <ListGroup>
-                        <ListGroup.Item as="li"><Info /></ListGroup.Item>
+                    <ListGroup >
                         {
-                            //props.sensor.additional.map((info, index) => <ListGroup.Item className="additional-details-elem" as="li" key={index}><Info/></ListGroup.Item>)
+                            alertsList.map((alert, index) => <ListGroup.Item className="additional-details" as="li" key={index}><Info index={index} alert={alert}/></ListGroup.Item>)
                         }
                     </ListGroup>
                     : <p className='mt-2 no-alert'>No alerts sent</p>}
@@ -41,12 +38,14 @@ function AlertsModal(props) {
 function Info(props) {
     return (
         <>
-            <p><HiBellAlert /> ALERTS #1:</p>
+            <p className='mb-1 bold'><HiBellAlert /> ALERT #{props.index+1}:</p>
             <div className='ms-4'>
                 <span>DEPARTMENT: </span>
+                <span className='bold'>{props.alert.department} </span>
             </div>
             <div className='ms-4'>
-                <span>MESSAGE: </span>
+                <span>DESCRIPTION: </span>
+                <span>{props.alert.description} </span>
             </div>
             <hr/>
         </>
