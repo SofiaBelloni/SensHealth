@@ -25,15 +25,14 @@ function AlertsModal(props) {
                 <Modal.Title>CALL #{props.callId} - ALERTS SENT</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {alertsList !== undefined ?
-                    <ListGroup className='mt-3'>
-                        <ListGroup.Item className="additional-details">ALERTS #1:</ListGroup.Item>
-                        <ListGroup.Item className="additional-details-elem" as="li"><Info /></ListGroup.Item>
+                {(alertsList !== undefined && alertsList.length > 0 )?
+                    <ListGroup>
+                        <ListGroup.Item as="li"><Info /></ListGroup.Item>
                         {
                             //props.sensor.additional.map((info, index) => <ListGroup.Item className="additional-details-elem" as="li" key={index}><Info/></ListGroup.Item>)
                         }
                     </ListGroup>
-                    : false}
+                    : <p className='mt-2 no-alert'>No alerts sent</p>}
             </Modal.Body>
         </Modal>
     );
@@ -42,12 +41,14 @@ function AlertsModal(props) {
 function Info(props) {
     return (
         <>
-            <div className='mt-4'>
+            <p><HiBellAlert /> ALERTS #1:</p>
+            <div className='ms-4'>
                 <span>DEPARTMENT: </span>
             </div>
-            <div className='mt-2 mb-4'>
+            <div className='ms-4'>
                 <span>MESSAGE: </span>
             </div>
+            <hr/>
         </>
     );
 }

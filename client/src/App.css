@@ -47,3 +47,8 @@
 .toast-1 {
   margin-top: 8vh;
 }
+
+.no-alert{
+  text-align: center;
+  font-weight: bold;
+}
