@@ -71,7 +71,7 @@ function SensorTable() {
     return (
         <>
             <div className='mt-3'>
-                <h1 id='title'>SENSORS STATUS</h1>
+                <h1 className='mt-4 text-center'>SENSORS STATUS</h1>
             </div>
             <div className='border mt-3'>
                 <ListGroup className='sensor-list table-1' as="ul">
@@ -167,8 +167,8 @@ function SensorData(props) {
 
 function AdditionalInfoModal(props) {
     return (
-        <Modal show={props.show} onHide={props.handleClose}>
-            <Modal.Header closeButton>
+        <Modal show={props.show} onHide={props.handleClose} >
+            <Modal.Header className='modal-blue' closeButton>
                 <Modal.Title>{props.sensor.name} - INFO</Modal.Title>
             </Modal.Header>
             <Modal.Body>
