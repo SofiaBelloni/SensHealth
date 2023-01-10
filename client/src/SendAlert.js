@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Toast from 'react-bootstrap/Toast'
 import ToastContainer from 'react-bootstrap/ToastContainer'
 
-import "./AlertModal.css";
+import "./SendAlert.css";
 
 import API from './Api.js';
 
@@ -59,7 +59,7 @@ export default function SendAlert(props) {
             {showSuccess ?  //Success toast
                 (<div className="position-relative">
                     <ToastContainer position='top-center'>
-                        <Toast bg='success' onClose={() => { setShowSuccess(false); navigate('/call/' + callId) }} show={showSuccess} delay={1500} autohide>
+                        <Toast bg='success' onClose={() => { setShowSuccess(false); props.handleClose();}} show={showSuccess} delay={1500} autohide>
                             <Toast.Body className='text-white'>{successMessage}</Toast.Body>
                         </Toast>
                     </ToastContainer>
@@ -68,11 +68,11 @@ export default function SendAlert(props) {
             {departmentList ?
                 <>
                     <Modal id='confirm' show={showModal} onHide={setShowModal} size="sm" centered >
-                        <Modal.Header>
-                            <Modal.Title>Confirm Alert - Call#{callId}</Modal.Title>
+                        <Modal.Header className='gray text-center'>
+                            <Modal.Title className="title-small">Confirm Alert - Call#{callId}</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body className="px-0 py-1 my-4 text-center">Are you sure to send the alert?</Modal.Body>
-                        <Modal.Footer className="modal-footer">
+                        <Modal.Body className="px-0 py-4 text-center gray">Are you sure to send the alert?</Modal.Body>
+                        <Modal.Footer className="modal-footer gray">
                             <Row>
                                 <Col className='text-left'>
                                     <Button variant="success" onClick={confirmSend}>
@@ -88,14 +88,14 @@ export default function SendAlert(props) {
                         </Modal.Footer>
                     </Modal>
                     <Modal id='discard' show={showDiscardModal} onHide={setShowDiscardModal} size="sm" centered>
-                        <Modal.Header>
-                            <Modal.Title>Confirm Discard - Call#{callId}</Modal.Title>
+                        <Modal.Header className="gray">
+                            <Modal.Title className="title-small">Confirm Discard - Call#{callId}</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body className="px-0 py-1 my-4 text-center">Are you sure to discard?</Modal.Body>
-                        <Modal.Footer className="modal-footer">
+                        <Modal.Body className="px-0 py-4 text-center gray">Are you sure to discard?</Modal.Body>
+                        <Modal.Footer className="modal-footer gray">
                             <Row>
                                 <Col className='text-left'>
-                                    <Button variant="success" onClick={() => { navigate('/call/' + callId) }}>
+                                    <Button variant="success" onClick={props.handleClose}>
                                         Yes
                                     </Button>
                                 </Col>
@@ -108,7 +108,7 @@ export default function SendAlert(props) {
                         </Modal.Footer>
                     </Modal>
                     <Modal id='alert' show={props.show} size="lg" centered>
-                        <Modal.Header className="alerts-title" closeButton>
+                        <Modal.Header className="alerts-title">
                             <Modal.Title>Send an Alert - Call #{callId}</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>

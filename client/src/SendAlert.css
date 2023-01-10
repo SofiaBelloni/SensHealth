@@ -1,22 +1,15 @@
-.additional-details{
-    padding: 0;
-    border: none;
-}
-
-.no-alert{
-    text-align: center;
-    font-weight: bold;
-    font-size: larger;
-}
-
-.bold{
-    font-weight: bold;
-}
-
 .alerts-title{
     background-color: #ffc107;
 }
 
 .modal-footer{
     display: inline;
-  }
+}
+
+.gray{
+    background-color: rgb(228, 228, 228);
+}
+
+.title-small{
+    font-size:larger;
+}
