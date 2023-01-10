@@ -5,6 +5,7 @@ import {AiFillWarning } from "react-icons/ai";
 import {BsFillMicFill} from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
 import { Shake, ShakeLittle, ShakeSlow } from 'reshake'
+import SendAlert from './SendAlert';
 
 import './CallInfo.css';
 
@@ -18,6 +19,8 @@ export default function CallInfo(props) {
     const [customize, setCustomize] = useState(false);
     const [showCloseCustomize, setShowCloseCustomize] = useState(false);
 
+    const [showAlertModal, setShowAlertModal] = useState(false);
+
     useEffect(() => {
         const retrieveInfo = async(callId) => {
             const call = await API.getCallById(callId);
@@ -25,6 +28,12 @@ export default function CallInfo(props) {
         }
         retrieveInfo(params.callId)
     }, [])
+
+    const handleCloseAlert = () => setShowAlertModal(false);
+
+    const handleShowAlert = () => {
+      setShowAlertModal(true);
+    };
 
     // open the modal to close the call 
     const handleCloseCall = () => {
@@ -158,6 +167,7 @@ export default function CallInfo(props) {
                 </Button>
             </Modal.Footer>
         </Modal>
+        {showAlertModal ? <SendAlert callId={call._id} show={showAlertModal} handleClose={handleCloseAlert}/> : false}
       <Row>
         <Col xs={9}>
             <Table hover>
@@ -202,7 +212,7 @@ export default function CallInfo(props) {
             <NavLink to={"/"}><Button variant="outline-secondary" className="returncall">Return to call list</Button></NavLink>
         </Col>
         <Col>
-            <Button variant="outline-warning" className="sendalert" onClick={() => navigate('/alert/' + call.id)}>
+            <Button variant="outline-warning" className="sendalert" onClick={handleShowAlert}>
                 <AiFillWarning size={30}>  </AiFillWarning>
                 Send an alert    
             </Button>

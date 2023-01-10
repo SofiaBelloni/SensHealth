@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import { Button, Row, Col, Card, Modal, Container, Form } from "react-bootstrap";
+import { Button, Row, Col, Modal, Form } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import Toast from 'react-bootstrap/Toast'
 import ToastContainer from 'react-bootstrap/ToastContainer'
 
-import './CallInfo.css';
+import "./AlertModal.css";
 
 import API from './Api.js';
 
-function SendAlert(props) {
+export default function SendAlert(props) {
 
     const { callId } = useParams();
     const navigate = useNavigate();
@@ -46,7 +46,7 @@ function SendAlert(props) {
         setShowModal(false);
         setSuccessMessage("Alert correctly sent");
         setShowSuccess(true);
-        
+
     }
 
     // close the modal
@@ -55,11 +55,11 @@ function SendAlert(props) {
     }
 
     return (
-        <Container className="p-0">
+        <>
             {showSuccess ?  //Success toast
                 (<div className="position-relative">
                     <ToastContainer position='top-center'>
-                        <Toast bg='success' onClose={() => {setShowSuccess(false); navigate('/call/' + callId)}} show={showSuccess} delay={1500} autohide>
+                        <Toast bg='success' onClose={() => { setShowSuccess(false); navigate('/call/' + callId) }} show={showSuccess} delay={1500} autohide>
                             <Toast.Body className='text-white'>{successMessage}</Toast.Body>
                         </Toast>
                     </ToastContainer>
@@ -67,9 +67,9 @@ function SendAlert(props) {
                 : false}
             {departmentList ?
                 <>
-                    <Modal id='close-call-popup' show={showModal} onHide={setShowModal}>
+                    <Modal id='confirm' show={showModal} onHide={setShowModal} size="sm" centered >
                         <Modal.Header>
-                            <Modal.Title>Confirm Alert -- Call#{callId}</Modal.Title>
+                            <Modal.Title>Confirm Alert - Call#{callId}</Modal.Title>
                         </Modal.Header>
                         <Modal.Body className="px-0 py-1 my-4 text-center">Are you sure to send the alert?</Modal.Body>
                         <Modal.Footer className="modal-footer">
@@ -87,29 +87,31 @@ function SendAlert(props) {
                             </Row>
                         </Modal.Footer>
                     </Modal>
-                    <Modal id='close-call-popup' show={showDiscardModal} onHide={setShowDiscardModal}>
+                    <Modal id='discard' show={showDiscardModal} onHide={setShowDiscardModal} size="sm" centered>
                         <Modal.Header>
-                            <Modal.Title>Confirm Discard -- Call#{callId}</Modal.Title>
+                            <Modal.Title>Confirm Discard - Call#{callId}</Modal.Title>
                         </Modal.Header>
                         <Modal.Body className="px-0 py-1 my-4 text-center">Are you sure to discard?</Modal.Body>
                         <Modal.Footer className="modal-footer">
                             <Row>
                                 <Col className='text-left'>
-                                    <Button variant="success" onClick={()=>{navigate('/call/' + callId)}}>
+                                    <Button variant="success" onClick={() => { navigate('/call/' + callId) }}>
                                         Yes
                                     </Button>
                                 </Col>
                                 <Col className='text-end'>
-                                    <Button variant="danger" onClick={()=>setShowDiscardModal(false)}>
+                                    <Button variant="danger" onClick={() => setShowDiscardModal(false)}>
                                         No
                                     </Button>
                                 </Col>
                             </Row>
                         </Modal.Footer>
                     </Modal>
-                    <Card className="mt-4">
-                        <Card.Header><b>Send an Alert - Call #{callId}</b></Card.Header>
-                        <Card.Body>
+                    <Modal id='alert' show={props.show} size="lg" centered>
+                        <Modal.Header className="alerts-title" closeButton>
+                            <Modal.Title>Send an Alert - Call #{callId}</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
                             <Form>
                                 <Form.Group>
                                     <FloatingLabel className="m-3 mb-4" controlId="floatingSelect" label="Choose department">
@@ -128,7 +130,7 @@ function SendAlert(props) {
                                             as="textarea" type="text"
                                             value={description}
                                             onChange={event => setDescription(event.target.value)}
-                                            style={{ height: '100px' }} />
+                                            style={{ height: '100pt' }} />
                                     </FloatingLabel>
                                 </Form.Group>
                                 <Row>
@@ -144,12 +146,10 @@ function SendAlert(props) {
                                     </Col>
                                 </Row>
                             </Form>
-                        </Card.Body>
-                    </Card>
+                        </Modal.Body>
+                    </Modal>
                 </>
                 : false}
-        </Container >
+        </>
     );
 }
-
-export default SendAlert;
