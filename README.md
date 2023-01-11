@@ -1,70 +1,246 @@
-# Getting Started with Create React App
+# SensHealth
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## React Client Application Routes
 
-## Available Scripts
+- Route `/`: Users see the list of calls
+- Route `/sensors`: Users see the list of sensors available and their actual status
+- Route `/call/:callId`: Users open the call's page #callId
+- Route `/alert/:callId`: Users can send an Alert to a department for the call #callId
 
-In the project directory, you can run:
+## API Server
+### Calls
+  
+- GET `/api/calls`
+  - request parameters and request body content: `none`
+  - response body content; `200 (success)` with below body structure:
+####
+  ```
+  [
+    {
+        "id": 10,
+        "status": "Active",
+        "location": "45.09, 7.70",
+        "time": "2022-28-11, 11:22",
+        "name": "Laura",
+        "surname": "Quaranta",
+        "colorCode": "Yellow",
+        "ambStatus": "Arriving",
+        "img": path
+    },
+    {
+        "id": 9,
+        "status": "Active",
+        "location": "45.04, 7.58",
+        "time": "2022-28-11, 11:10",
+        "name": "Adam",
+        "surname": "Smith",
+        "colorCode": "Green",
+        "ambStatus": "Arrived",
+        "img": path
+    }
+  ]
+  ```
 
-### `npm start`
+- GET `/api/calls/order/id`
+  - request parameters and request body content: `none`
+  - response body content; `200 (success)` with below body structure:
+ ####
+  ```
+  [
+    {
+        "id": 1,
+        "status": "Closed",
+        "location": "45.19, 8.03",
+        "time": "2022-28-11, 07:58",
+        "name": "Mark",
+        "surname": "Paper",
+        "colorCode": "Yellow",
+        "ambStatus": "Arrived",
+        "img": path
+    },
+    {
+        "id": 2,
+        "status": "Closed",
+        "location": "44.00, 7.50",
+        "time": "2022-28-11, 08:13",
+        "name": "Tiziano",
+        "surname": "Steel",
+        "colorCode": "Green",
+        "ambStatus": "Arrived",
+        "img": path
+    }
+  ]
+  ```
+  
+- GET `/api/calls/order/active`
+  - request parameters and request body content: `none`
+  - response body content; `200 (success)` with below body structure:
+####
+  ```
+  [
+    {
+        "id": 10,
+        "status": "Active",
+        "location": "45.09, 7.70",
+        "time": "2022-28-11, 11:22",
+        "name": "Laura",
+        "surname": "Quaranta",
+        "colorCode": "Yellow",
+        "ambStatus": "Arriving",
+        "img": path
+    },
+    {
+        "id": 9,
+        "status": "Active",
+        "location": "45.04, 7.58",
+        "time": "2022-28-11, 11:10",
+        "name": "Adam",
+        "surname": "Smith",
+        "colorCode": "Green",
+        "ambStatus": "Arrived",
+        "img": path
+    }
+  ]
+  ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- GET `/api/calls/order/closed`
+  - request parameters and request body content: `none`
+  - response body content; `200 (success)` with below body structure:
+ ####
+  ```
+  [
+    {
+        "id": 1,
+        "status": "Closed",
+        "location": "45.19, 8.03",
+        "time": "2022-28-11, 07:58",
+        "name": "Mark",
+        "surname": "Paper",
+        "colorCode": "Yellow",
+        "ambStatus": "Arrived",
+        "img": path
+    },
+    {
+        "id": 2,
+        "status": "Closed",
+        "location": "44.00, 7.50",
+        "time": "2022-28-11, 08:13",
+        "name": "Tiziano",
+        "surname": "Steel",
+        "colorCode": "Green",
+        "ambStatus": "Arrived",
+        "img": path
+    }
+  ]
+  ```
+- GET `/api/call/:callId`
+  - request parameters and request body content: `none`. Variable `callId` is needed in query parameters.
+  - response body content; `200 (success)` with below body structure:
+ ####
+  ```
+    {
+        "id": 1,
+        "status": "Closed",
+        "location": "45.19, 8.03",
+        "time": "2022-28-11, 07:58",
+        "name": "Mark",
+        "surname": "Paper",
+        "colorCode": "Yellow",
+        "ambStatus": "Arrived",
+        "img": path
+    }
+  ```
+- PUT `/api/call/:callId`
+  - request parameters and request body content: `none`. Variable `callId` is needed in query parameters.
+  - response body content: `200 (success)`.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Departments
 
-### `npm test`
+- GET `/api/departments`
+  - request parameters and request body content: `none`.
+  - response body content: `200 (success)` with list of departments:
+ ####
+  ```
+  [
+    {
+        "id": 7,
+        "name": "Day hospital"
+    },
+    {
+        "id": 6,
+        "name": "Radiology"
+    },
+    {
+        "id": 5,
+        "name": "Cardiology"
+    },
+    {
+        "id": 4,
+        "name": "Neurosurgery"
+    },
+    {
+        "id": 3,
+        "name": "Neonatology"
+    },
+    {
+        "id": 2,
+        "name": "Infectious diseases"
+    },
+    {
+        "id": 1,
+        "name": "Anesthesiology and intensive care"
+    }
+  ]
+  ```
+  
+### Alerts
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- POST `/api/sendAlert/`
+  - request parameters and request body content: `description, callId & departmentId`:
+  ####
+  ```
+    {
+        "description": "Description",
+        "callId": 9,
+        "departmentId": 1,
+    }
+  ```
+  - response body content: `200 (success)`.
 
-### `npm run build`
+- GET `/api/alerts/:callId`
+  - request parameters and request body content: `none`. Variable `callId` is needed in query parameters.
+  - response body content; `200 (success)` with below body structure:
+ ####
+  ```
+    [
+      {
+          "id": 10,
+          "description": "First try",
+          "callId": 9,
+          "department": "Anesthesiology and intensive care"
+      }
+    ]
+  ```
+  
+## Database Tables
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Table `Call` - contains:
+  - id
+  - status
+  - location
+  - time
+  - name
+  - surname
+  - colorCode
+  - ambStatus
+  -img
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Table `Department` - contains:
+  - id
+  - name
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Table `Alert` - contains:
+  - id
+  - description
+  - callId
+  - depId
