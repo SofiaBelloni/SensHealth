@@ -22,12 +22,19 @@
 }
 
 .table-1 thead {
-  background-color:rgb(228, 228, 228);
+  background-color:#0d6dfde2;
+  text-align: center;
+  color: white;
+}
+
+.btn {
+  color: white !important;
 }
 
 .table-2 thead{
   text-align: center;
-  background-color:rgb(228, 228, 228);
+  background-color:#0d6dfde2;
+  color: white;
 }
 
 .table-container{
@@ -40,8 +47,9 @@
   padding-right: 30%;
 }
 
-.title-list {
+.title-list {   
   text-align: center;
+  font-family:'Times New Roman', Times, serif, cursive;
 }
 
 .toast-1 {

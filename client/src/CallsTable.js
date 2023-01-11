@@ -119,38 +119,38 @@ function CallsTable(props) {
             <th>Call ID
               {filterId ?
                 <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipIdAscending} >
-                  <Button variant='text' onClick={handleFilterId}><i class="bi bi-sort-numeric-up"></i></Button>
+                  <Button variant='text' onClick={handleFilterId}><i className="bi bi-sort-numeric-up"></i></Button>
                 </OverlayTrigger>
                 :
                 <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipDescending} >
-                  <Button variant='text' onClick={handleFilterId}><i class="bi bi-sort-numeric-down-alt"></i></Button>
+                  <Button variant='text' onClick={handleFilterId}><i className="bi bi-sort-numeric-down-alt"></i></Button>
                 </OverlayTrigger>
               }
             </th>
             <th>Status
               {filterStatus ?
                 <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipIdAscending} >
-                  <Button variant='text' onClick={handleFilterStatus} disableRipple><i class="bi bi-sort-alpha-up"></i></Button>
+                  <Button variant='text' onClick={handleFilterStatus} ><i className="bi bi-sort-alpha-up"></i></Button>
                 </OverlayTrigger>
                 :
                 <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipDescending} >
-                  <Button variant='text' onClick={handleFilterStatus}><i class="bi bi-sort-alpha-down-alt"></i></Button>
+                  <Button variant='text' onClick={handleFilterStatus}><i className="bi bi-sort-alpha-down-alt"></i></Button>
                 </OverlayTrigger>
               }
             </th>
             <th>Location
               <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipLocation} >
-                <Button variant='text' disableRipple><i class="bi bi-info-circle"></i></Button>
+                <Button variant='text' ><i className="bi bi-info-circle"></i></Button>
               </OverlayTrigger>
             </th>
             <th>Time
               <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipTime} >
-                <Button variant='text' disableRipple><i class="bi bi-info-circle"></i></Button>
+                <Button variant='text' ><i className="bi bi-info-circle"></i></Button>
               </OverlayTrigger>
             </th>
             <th>Actions
               <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipActions} >
-                <Button variant='text' disableRipple><i class="bi bi-info-circle"></i></Button>
+                <Button variant='text'><i className="bi bi-info-circle"></i></Button>
               </OverlayTrigger>
             </th>
           </tr>
@@ -166,7 +166,7 @@ function CallsTable(props) {
     </div>
 
     <div className='table-legend'>
-      <Table className='table-2' border='dot' size='sm'>
+      <Table className='table-2' border='dot' borderless size='sm'>
         <thead>
           <tr>
             <th>Legend</th>

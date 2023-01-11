@@ -13,16 +13,22 @@
     padding-top: 0;
     padding-bottom: 0;
     font-size: xx-large;
-    color: #636c74;
+    color: white;
   }
   
   #nav-username {
     font-family: "IBM Plex Sans", sans-serif;
     font-weight: 500;
+    color: white;
+    padding: 1vh!important;
   }
   
   #btn-login {
     font-family: "IBM Plex Sans", sans-serif;
     padding-right: 1rem;
     border-radius: 7px;
+  }
+
+  .login h5{
+    padding: 10cm!important;
   }
