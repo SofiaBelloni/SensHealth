@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import { OverlayTrigger, Table, Tooltip } from 'react-bootstrap';
 import './App.css';
 import { NavLink } from 'react-router-dom';
+import { AlertsModal } from './AlertsModal';
 
 
 function CallsTable(props) {
@@ -74,6 +75,13 @@ function CallsTable(props) {
     setShowOpen(false);
   }
 
+  const [showAlertModal, setShowAlertModal] = useState(false);
+  const handleCloseAlert = () => setShowAlertModal(false);
+  const handleShowAlert = (callId) => {
+    setShowAlertModal(true);
+    setCallId(callId);
+  };
+
   return (<>
     <div className='table-container'>
       <Modal id='close-call-popup' show={showClose} onHide={handleCloseClose}>
@@ -104,6 +112,7 @@ function CallsTable(props) {
           </Button>
         </Modal.Footer>
       </Modal>
+      {showAlertModal ? <AlertsModal callId={id} show={showAlertModal} handleClose={handleCloseAlert}/> : false}
       <Table border='dot' hover size='sm' className='table-1'>
         <thead>
           <tr>
@@ -149,7 +158,7 @@ function CallsTable(props) {
         <tbody>
           {
             props.calls.map((c) =>
-              <CallRow call={c} key={`call-${c.id}`} handleShowClose={handleShowClose} handleShowOpen={handleShowOpen} />)
+              <CallRow call={c} key={`call-${c.id}`} handleShowClose={handleShowClose} handleShowOpen={handleShowOpen} handleShowAlert={handleShowAlert}/>)
           }
         </tbody>
       </Table>
@@ -177,7 +186,7 @@ function CallsTable(props) {
 
 function CallRow(props) {
   return (
-    <CallData c={props.call} handleShowClose={props.handleShowClose} handleShowOpen={props.handleShowOpen} />
+    <CallData c={props.call} handleShowClose={props.handleShowClose} handleShowOpen={props.handleShowOpen} handleShowAlert={props.handleShowAlert}/>
   );
 }
 
@@ -193,7 +202,7 @@ function CallData(props) {
           <div>
             <NavLink to={'call/' + props.c.id}><Button className='button' variant='success'>Open</Button></NavLink>
             <Button className='button' variant='danger' onClick={() => { props.handleShowClose(props.c.id) }}>Close</Button>
-            <Button className='button' variant='warning'>Alerts</Button>
+            <Button className='button' variant='warning' onClick={() => { props.handleShowAlert(props.c.id) }}>Alerts</Button>
           </div>
           :
           <div>

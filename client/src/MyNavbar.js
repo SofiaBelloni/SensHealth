@@ -26,7 +26,7 @@ function MyNavbar () {
         <Offcanvas.Body>
         <Nav defaultActiveKey="/home" className="flex-column">
       <Nav.Link href="/">Call list</Nav.Link>
-      <Nav.Link eventKey="link-1" href="/sensors">Sensor stauts</Nav.Link>
+      <Nav.Link href="/sensors">Sensor stauts</Nav.Link>
         </Nav>       
      </Offcanvas.Body>
       </Offcanvas>

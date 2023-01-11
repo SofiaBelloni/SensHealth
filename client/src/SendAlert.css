@@ -1,0 +1,15 @@
+.alerts-title{
+    background-color: #ffc107;
+}
+
+.modal-footer{
+    display: inline;
+}
+
+.gray{
+    background-color: rgb(228, 228, 228);
+}
+
+.title-small{
+    font-size:larger;
+}

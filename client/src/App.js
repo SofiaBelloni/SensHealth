@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import API from './Api';
 import { CallsView } from './CallsView';
 import { Row } from 'react-bootstrap';
+import SendAlert from './SendAlert';
 
 function App() {
   const [calls, setCalls] = useState([]);
@@ -75,7 +76,8 @@ function App() {
       <Routes>
         <Route path="/" element={<CallsView calls={calls} loading={loading} closeCall={closeCall} openCall={openCall} orderCallsbyId={orderCallsbyId} orderCallsbyIdDesc={orderCallsbyIdDesc} orderCallsbyActive={orderCallsbyActive} orderCallsbyClosed={orderCallsbyClosed} setShow={setShow} show={show} action={action}/>} />
         <Route path="/sensors" element={<SensorTable />} />
-        <Route path="call/:callId" element={<CallInfo />} />
+        <Route path="call/:callId" element={<CallInfo closeCall={closeCall} />} />
+        <Route path='/alert/:callId' element={<SendAlert/>}/>
       </Routes>
     </BrowserRouter>
   );
