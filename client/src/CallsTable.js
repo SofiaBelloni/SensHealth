@@ -173,7 +173,7 @@ function CallsTable(props) {
           </tr>
         </thead>
         <tbody>
-          <tr><td><div><Button size='sm' disabled className='button-l' variant='success'>Open</Button> : Click to <b>open</b> the call's page </div></td></tr>
+          <tr><td><div><Button size='sm' disabled className='button-l' variant='success'>View</Button> : Click to <b>view</b> the call's page </div></td></tr>
           <tr><td><Button size='sm' disabled className='button-l' variant='danger' >Close</Button> : Click to <b>terminate</b> the call</td></tr>
           <tr><td><Button size='sm' disabled className='button-l' variant='warning'>Alerts</Button> : Click to show call's <b>alerts</b></td></tr>
           <tr><td><Button size='sm' disabled className='button-l' variant='primary'>Open Again</Button> : Click to <b>open again</b> a closed call (it does NOT open the call page)</td></tr>
@@ -200,7 +200,7 @@ function CallData(props) {
       <td>
         {props.c.status === 'Active' ?
           <div>
-            <NavLink to={'call/' + props.c.id}><Button className='button' variant='success'>Open</Button></NavLink>
+            <NavLink to={'call/' + props.c.id}><Button className='button' variant='success'>View</Button></NavLink>
             <Button className='button' variant='danger' onClick={() => { props.handleShowClose(props.c.id) }}>Close</Button>
             <Button className='button' variant='warning' onClick={() => { props.handleShowAlert(props.c.id) }}>Alerts</Button>
           </div>
