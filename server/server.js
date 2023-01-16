@@ -1,5 +1,7 @@
 'use strict'
 const callDAO = require('./DAO/DAOCall');
+const departmentDAO = require('./DAO/DAODepartment');
+const alertDAO = require('./DAO/DAOAlert');
 const express = require('express');
 const cors = require('cors');
 
@@ -92,6 +94,45 @@ app.get('/api/call/:callId', async (req, res) => {
         return res.status(500).json(error).end();
     }
 })
+
+/* GET /api/departments */
+app.get('/api/departments', async (req, res) => {
+    try {
+        const departments = await departmentDAO.listDepartments();
+        return res.status(200).json(departments).end();
+    } catch (error) {
+        return res.status(500).json(error).end();
+    }
+});
+
+
+/* POST /api/sendAlert */
+app.post('/api/sendAlert', async (req, res) => {
+    const alert = req.body;
+    const body = {
+        "description": alert.description,
+        "callId": alert.callId,
+        "departmentId": alert.departmentId,
+    }
+    try {
+        const id = await alertDAO.addAlert(body);
+        res.status(200).json({ Ok: `Alert ${id} sent` }).end();
+    }
+    catch (err) {
+        console.error(err);
+        res.status(503).json({ error: `Database error while adding alert ${id}.` });
+    }
+});
+
+// GET /api/alerts/:callId
+app.get('/api/alerts/:callId', async (req, res) => {
+    try {
+      const alerts = await alertDAO.getAlerts(req.params.callId);
+      res.json(alerts);
+    } catch (err) {
+      res.status(500).json({ error: `Database error while retrieving alerts` }).end();
+    }
+  });
 
 
 /* Activate the server */
