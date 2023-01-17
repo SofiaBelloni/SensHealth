@@ -34,3 +34,7 @@
     align-items: center;
     
   }
+  img {
+    width: 800px;
+    margin-left: 20px;
+ }
