@@ -135,6 +135,31 @@ async function setStatusCall(callId, status) {
     }
 }
 
+async function setPath(callId, newPath){
+    const url = APIURL + "/call/" + callId + "/path";
+    const body = {
+        "new_filename" : newPath
+    };
+    try {
+        const response = await fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            credentials: 'include'
+        });
+        if (response.ok) {
+            return true;
+        } else {
+            const text = await response.text();
+            throw new TypeError(text);
+        }
+    } catch (e) {
+        throw(e);
+    }
+}
+    
 /* Get all departments */
 async function getAllDepartments() {
     const url = APIURL + '/departments';
@@ -217,6 +242,7 @@ const API={
     setStatusCall,
     getAllDepartments,
     sendAlert,
-    getAlerts
+    getAlerts,
+    setPath
 };
 export default API;
