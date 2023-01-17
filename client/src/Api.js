@@ -1,4 +1,6 @@
+import Alert from "./modules/Alert";
 import Call from "./modules/Call";
+import Department from "./modules/Department";
 const APIURL = 'http://localhost:3001/api';
 
 /* Get a Call by its ID */
@@ -153,9 +155,94 @@ async function setPath(callId, newPath){
             const text = await response.text();
             throw new TypeError(text);
         }
+    } catch (e) {
+        throw(e);
+    }
+}
+    
+/* Get all departments */
+async function getAllDepartments() {
+    const url = APIURL + '/departments';
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            const list = await response.json();
+            const departmentsList = list.map(dep => new Department(dep.id, dep.name));
+            return departmentsList;
+
+        } else {
+            const text = response.text();
+            throw new TypeError(text);
+        }
+    } catch (e) {
+        throw (e);
+    }
+};
+
+/* Send new alert */
+async function sendAlert(description, callId, departmentId) {
+    // POST api/sendAlert
+    const body = {
+        "description": description,
+        "callId": callId,
+        "departmentId": departmentId,
+    }
+    const url = APIURL + '/sendAlert';
+     
+    return new Promise((resolve, reject) => {
+      fetch(url, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      }).then((response) => {
+        if (response.ok) {
+            resolve(null);
+        } else {
+          response.json()
+            .then((message) => { reject(message); })
+            .catch(() => { reject({ error: "Cannot parse server response." }) });
+        }
+      }).catch(() => { reject({ error: "Cannot communicate with server." }) });
+    });
+  }
+
+/* Get Alerts by call ID */
+async function getAlerts(callId){
+    const url = APIURL + '/alerts/' + callId;
+    try {
+        const response = await fetch(url);
+        if(response.ok){
+            const list = await response.json();
+            if (list) {
+            const alerts = list.map(alert => new Alert(alert.id, alert.description, alert.callId, alert.department));
+                return alerts; 
+            } else {
+                return null;
+            }
+        }
+        else {
+            const text = response.text();
+            throw new TypeError(text);
+        }
     } catch (error) {
         throw(error);
     }
 }
-const API={getCallById, getAllCalls, getAllCallsOrderbyId, getAllCallsOrderbyActive, getAllCallsOrderbyClosed, setStatusCall,setPath};
+
+
+const API={
+    getCallById, 
+    getAllCalls, 
+    getAllCallsOrderbyId, 
+    getAllCallsOrderbyActive, 
+    getAllCallsOrderbyClosed, 
+    setStatusCall,
+    getAllDepartments,
+    sendAlert,
+    getAlerts,
+    setPath
+};
 export default API;

@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import { OverlayTrigger, Table, Tooltip } from 'react-bootstrap';
 import './App.css';
 import { NavLink } from 'react-router-dom';
+import { AlertsModal } from './AlertsModal';
 
 
 function CallsTable(props) {
@@ -74,6 +75,13 @@ function CallsTable(props) {
     setShowOpen(false);
   }
 
+  const [showAlertModal, setShowAlertModal] = useState(false);
+  const handleCloseAlert = () => setShowAlertModal(false);
+  const handleShowAlert = (callId) => {
+    setShowAlertModal(true);
+    setCallId(callId);
+  };
+
   return (<>
     <div className='table-container'>
       <Modal id='close-call-popup' show={showClose} onHide={handleCloseClose}>
@@ -104,44 +112,45 @@ function CallsTable(props) {
           </Button>
         </Modal.Footer>
       </Modal>
+      {showAlertModal ? <AlertsModal callId={id} show={showAlertModal} handleClose={handleCloseAlert}/> : false}
       <Table border='dot' hover size='sm' className='table-1'>
         <thead>
           <tr>
             <th>Call ID
               {filterId ?
                 <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipIdAscending} >
-                  <Button variant='text' onClick={handleFilterId}><i class="bi bi-sort-numeric-up"></i></Button>
+                  <Button variant='text' onClick={handleFilterId}><i className="bi bi-sort-numeric-up"></i></Button>
                 </OverlayTrigger>
                 :
                 <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipDescending} >
-                  <Button variant='text' onClick={handleFilterId}><i class="bi bi-sort-numeric-down-alt"></i></Button>
+                  <Button variant='text' onClick={handleFilterId}><i className="bi bi-sort-numeric-down-alt"></i></Button>
                 </OverlayTrigger>
               }
             </th>
             <th>Status
               {filterStatus ?
                 <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipIdAscending} >
-                  <Button variant='text' onClick={handleFilterStatus} disableRipple><i class="bi bi-sort-alpha-up"></i></Button>
+                  <Button variant='text' onClick={handleFilterStatus} ><i className="bi bi-sort-alpha-up"></i></Button>
                 </OverlayTrigger>
                 :
                 <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipDescending} >
-                  <Button variant='text' onClick={handleFilterStatus}><i class="bi bi-sort-alpha-down-alt"></i></Button>
+                  <Button variant='text' onClick={handleFilterStatus}><i className="bi bi-sort-alpha-down-alt"></i></Button>
                 </OverlayTrigger>
               }
             </th>
             <th>Location
               <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipLocation} >
-                <Button variant='text' disableRipple><i class="bi bi-info-circle"></i></Button>
+                <Button variant='text' ><i className="bi bi-info-circle"></i></Button>
               </OverlayTrigger>
             </th>
             <th>Time
               <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipTime} >
-                <Button variant='text' disableRipple><i class="bi bi-info-circle"></i></Button>
+                <Button variant='text' ><i className="bi bi-info-circle"></i></Button>
               </OverlayTrigger>
             </th>
             <th>Actions
               <OverlayTrigger placement="top" delay={{ show: 150, hide: 200 }} overlay={renderTooltipActions} >
-                <Button variant='text' disableRipple><i class="bi bi-info-circle"></i></Button>
+                <Button variant='text'><i className="bi bi-info-circle"></i></Button>
               </OverlayTrigger>
             </th>
           </tr>
@@ -149,7 +158,7 @@ function CallsTable(props) {
         <tbody>
           {
             props.calls.map((c) =>
-              <CallRow call={c} key={`call-${c.id}`} handleShowClose={handleShowClose} handleShowOpen={handleShowOpen} />)
+              <CallRow call={c} key={`call-${c.id}`} handleShowClose={handleShowClose} handleShowOpen={handleShowOpen} handleShowAlert={handleShowAlert}/>)
           }
         </tbody>
       </Table>
@@ -157,14 +166,14 @@ function CallsTable(props) {
     </div>
 
     <div className='table-legend'>
-      <Table className='table-2' border='dot' size='sm'>
+      <Table className='table-2' border='dot' borderless size='sm'>
         <thead>
           <tr>
             <th>Legend</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td><div><Button size='sm' disabled className='button-l' variant='success'>Open</Button> : Click to <b>open</b> the call's page </div></td></tr>
+          <tr><td><div><Button size='sm' disabled className='button-l' variant='success'>View</Button> : Click to <b>view</b> the call's page </div></td></tr>
           <tr><td><Button size='sm' disabled className='button-l' variant='danger' >Close</Button> : Click to <b>terminate</b> the call</td></tr>
           <tr><td><Button size='sm' disabled className='button-l' variant='warning'>Alerts</Button> : Click to show call's <b>alerts</b></td></tr>
           <tr><td><Button size='sm' disabled className='button-l' variant='primary'>Open Again</Button> : Click to <b>open again</b> a closed call (it does NOT open the call page)</td></tr>
@@ -177,7 +186,7 @@ function CallsTable(props) {
 
 function CallRow(props) {
   return (
-    <CallData c={props.call} handleShowClose={props.handleShowClose} handleShowOpen={props.handleShowOpen} />
+    <CallData c={props.call} handleShowClose={props.handleShowClose} handleShowOpen={props.handleShowOpen} handleShowAlert={props.handleShowAlert}/>
   );
 }
 
@@ -191,9 +200,9 @@ function CallData(props) {
       <td>
         {props.c.status === 'Active' ?
           <div>
-            <NavLink to={'call/' + props.c.id}><Button className='button' variant='success'>Open</Button></NavLink>
+            <NavLink to={'call/' + props.c.id}><Button className='button' variant='success'>View</Button></NavLink>
             <Button className='button' variant='danger' onClick={() => { props.handleShowClose(props.c.id) }}>Close</Button>
-            <Button className='button' variant='warning'>Alerts</Button>
+            <Button className='button' variant='warning' onClick={() => { props.handleShowAlert(props.c.id) }}>Alerts</Button>
           </div>
           :
           <div>
