@@ -37,6 +37,8 @@ export default function CallInfo(props) {
         const retrieveInfo = async (callId) => {
             const call = await API.getCallById(callId);
             setCall(call);
+            console.log('retrieve info');
+            console.log(call);
         }
         
         retrieveInfo(params.callId)
@@ -178,7 +180,6 @@ export default function CallInfo(props) {
                             </thead>
                             <tbody>
                                 <Image src={call.img} fluid></Image>
-                                <Button onClick={handleEditParameters}>Edit parameters</Button>
                             </tbody>
                         </Table>
                     </Shake>
@@ -197,28 +198,31 @@ export default function CallInfo(props) {
                             <Card.Text>{call.ambStatus}</Card.Text>
                         </Card.Body>
                     </Card>
-                    <Shake v={3} h={3} r={1}>
-                        <Button variant="danger"> Close Call</Button>
-                    </Shake>
-                    <Button variant="info" onClick={handleConfirmCustomize}>Confirm</Button>
+                    <Button variant="danger" className="closecall"> Close Call</Button>
+                    <Button variant="info" className="customize" onClick={handleConfirmCustomize}>Confirm</Button>
+                    <Button variant="success" className="editparameters" onClick={handleEditParameters}>Edit parameters</Button>
+
                 </Col>
             </Row>
-            <Shake v={0} h={1} r={1}>
-                <Row>
-                    <Col>
-                        <BsFillMicFill></BsFillMicFill>
-                    </Col>
-                    <Col>
-                        <Button variant="secondary">Return to call list</Button>
-                    </Col>
-                    <Col>
-                        <Button variant="warning">
-                            <AiFillWarning>  </AiFillWarning>
-                            Send an alert    
-                        </Button>
-                    </Col>
-                </Row>
-            </Shake>
+            <Row>
+                <Col>
+                    <Button
+                        variant='primary'
+                        className='vocal'>
+                        Vocal Assistant
+                        <BsFillMicFill size={20}/>
+                    </Button>
+                </Col>
+                <Col>
+                    <Button variant="secondary" size="30">Return to call list</Button>
+                </Col>
+                <Col>
+                    <Button variant="warning">
+                        <AiFillWarning size={30}>  </AiFillWarning>
+                        Send an alert    
+                    </Button>
+                </Col>
+            </Row>
             </>
         }
         else {
@@ -266,24 +270,24 @@ export default function CallInfo(props) {
                         <Card.Text>{call.ambStatus}</Card.Text>
                     </Card.Body>
                 </Card>
-                <Button variant="danger" onClick={handleCloseCall}>Close Call</Button>
-                <Button variant="info" onClick={handleCustomize}>Customize view</Button>
+                <Button variant="danger" className="closecall" onClick={handleCloseCall}>Close Call</Button>
+                <Button variant="info" className="customize" onClick={handleCustomize}>Customize view</Button>
             </Col>
         </Row>
         <Row>
             <Col>        
             <Button
-                variant='outline-primary'
+                variant='primary'
                 className='vocal'>
                 Vocal Assistant
                 <BsFillMicFill size={20}/>
               </Button>
             </Col>
             <Col>
-                <NavLink to={"/"}><Button variant="outline-secondary" className="returncall">Return to call list</Button></NavLink>
+                <NavLink to={"/"}><Button variant="secondary" className="returncall">Return to call list</Button></NavLink>
             </Col>
             <Col>
-                <Button variant="outline-warning" className="sendalert">
+                <Button variant="warning" className="sendalert">
                     <AiFillWarning size={30}>  </AiFillWarning>
                     Send an alert    
                 </Button>
