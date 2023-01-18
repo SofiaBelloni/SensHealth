@@ -23,7 +23,7 @@ export default function CallInfo(props) {
     const [showAlertModal, setShowAlertModal] = useState(false);
     const [modalShow, setModalShow] = useState(false);
 
-    const [confirmSelection,setConfirmSelection]=useState(false);
+    const [confirmSelection, setConfirmSelection] = useState(false);
 
     useEffect(() => {
         const retrieveInfo = async (callId) => {
@@ -144,9 +144,11 @@ export default function CallInfo(props) {
                                 <BsFillMicFill size={20} />
                             </Button>
                             <VocalAssistant
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
+                                show={modalShow}
+                                onHide={() => setModalShow(false)
+                                }
+                                callsActive={props.callsActive}
+                            />
                         </Col>
                         <Col>
                             <Button variant="outline-secondary" className="returncall">Return to call list</Button>
@@ -213,20 +215,22 @@ export default function CallInfo(props) {
                 </Row>
                 <Row>
                     <Col>
-                    <Button
-                                variant='primary'
-                                className='vocal'
-                                onClick={() => setModalShow(true)}>
-                                Vocal Assistant
-                                <BsFillMicFill size={20} />
-                            </Button>
-                            <VocalAssistant
+                        <Button
+                            variant='primary'
+                            className='vocal'
+                            onClick={() => setModalShow(true)}>
+                            Vocal Assistant
+                            <BsFillMicFill size={20} />
+                        </Button>
+                        <VocalAssistant
                             closecall={confirmCloseCall}
                             sendalert={handleShowAlert}
-        show={modalShow}
-        onHide={() => setModalShow(false)}
+                            show={modalShow}
+                            onHide={() => setModalShow(false)}
+                            callsActive={props.callsActive}
 
-      />
+
+                        />
                     </Col>
                     <Col>
                         <NavLink to={"/"}><Button variant="secondary" className="returncall">Return to call list</Button></NavLink>

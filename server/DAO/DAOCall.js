@@ -146,3 +146,28 @@ exports.getCallById = (callId) => new Promise((resolve, reject) => {
         }
     })
 })
+// Get all Calls with status active
+exports.listCallsActive = () => new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM CALL WHERE status="Active" ';
+    db.all(sql, [], (err, rows) => {
+        if (err) reject(err);
+        else {
+            if (rows !== undefined) {
+                const callsList = rows.map((row) => new Call(
+                    row.id,
+                    row.status,
+                    row.location,
+                    row.time,
+                    row.name,
+                    row.surname,
+                    row.colorCode,
+                    row.ambStatus,
+                    row.img)
+                )
+                resolve(callsList);
+            } else {
+                resolve(null);
+            }
+        }
+    })
+})

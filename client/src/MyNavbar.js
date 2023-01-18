@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Outlet } from "react-router-dom";
 
+
 function MyNavbar() {
   const [show, setShow] = useState(false);
 
@@ -18,7 +19,6 @@ function MyNavbar() {
       <Button variant='primary' onClick={handleShow}>
         <List size={20} />
       </Button>
-
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Menu</Offcanvas.Title>
@@ -40,10 +40,12 @@ function MyNavbar() {
                 <span>  Hi,Mario!</span>
             </h5>
           </div>
-
         </Nav.Item>
       </Nav>
     </Navbar>
+    <tag>
+    
+</tag>
     <Outlet />
   </>
 };
