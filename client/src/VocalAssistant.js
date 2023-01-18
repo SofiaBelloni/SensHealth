@@ -35,7 +35,7 @@ function VocalAssistant(props) {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 scrollable
-                onExit={() => { setOpen(false); setConfirmSelection("") ;setCallAlert(0);setAlertsList([])}}
+                onExit={() => { setOpen(false); setConfirmSelection(""); setCallAlert(0); setAlertsList([]) }}
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
@@ -50,7 +50,7 @@ function VocalAssistant(props) {
                         </p>
 
 
-                        <Button onClick={() => { setOpen(!open); setConfirmSelection("send") ;props.sendalert(); props.onHide() }}
+                        <Button onClick={() => { setOpen(!open); setConfirmSelection("send"); props.sendalert(); props.onHide() }}
                             aria-controls="example-collapse-text"
                             aria-expanded={open}
                             disabled={open}>Send an alert for this call</Button>{' '}
@@ -82,7 +82,7 @@ function VocalAssistant(props) {
                                     </div>
                                 </Collapse>
                                 <br />
-{/*
+                                {/*
                                 <Collapse in={open} dimension="width">
                                     <div id="example-collapse-text">
                                         <Card border="primary" body style={{ width: '400px' }}>
@@ -95,7 +95,7 @@ function VocalAssistant(props) {
                                         </Card>
                                     </div>
                                 </Collapse>*/
-}
+                                }
                             </> :
                             (confirmSelection === 'alert') ?
 
@@ -126,31 +126,34 @@ function VocalAssistant(props) {
                                     </Collapse>
                                     <br />
 
-                                    {(callAlert>=0) ? <>
-                                        <div>
+                                    {(callAlert == 0) ? false :
+                                        (alertsList.length > 0) ?
+                                            <>
+                                                <div>
 
-                                            <Card border="secondary" body style={{ width: '200px' }}>
-                                                {callAlert}
-                                            </Card>
-                                        </div>
-                                        <br/>
-                                        <Card border="primary" body style={{ width: '400px' }}>
-                                            <ListGroup >
-                                                {
-                                                    alertsList.map((alert, index) => <ListGroup.Item className="additional-details" as="li" key={index}> <p className='mb-1 bold'><HiBellAlert /> ALERT #{index + 1}:</p>
-                                                        <div className='ms-4'>
-                                                            <span>DEPARTMENT: </span>
-                                                            <span className='bold'>{alert.department} </span>
-                                                        </div>
-                                                        <div className='ms-4'>
-                                                            <span>DESCRIPTION: </span>
-                                                            <span>{alert.description} </span>
-                                                        </div>
-                                                        <hr /></ListGroup.Item>)
-                                                }
-                                            </ListGroup></Card></> : <>
-                                        <Card border="secondary" body style={{ width: '200px' }}>
-                                            <p className='mt-2 no-alert'>No alerts sent</p></Card></>}
+                                                    <Card border="secondary" body style={{ width: '200px' }}>
+                                                        {callAlert}
+                                                    </Card>
+                                                </div>
+                                                <br />
+                                                <Card border="primary" body style={{ width: '400px' }}>
+                                                    <ListGroup >
+                                                        {
+                                                            alertsList.map((alert, index) => <ListGroup.Item className="additional-details" as="li" key={index}> <p className='mb-1 bold'><HiBellAlert /> ALERT #{index + 1}:</p>
+                                                                <div className='ms-4'>
+                                                                    <span>DEPARTMENT: </span>
+                                                                    <span className='bold'>{alert.department} </span>
+                                                                </div>
+                                                                <div className='ms-4'>
+                                                                    <span>DESCRIPTION: </span>
+                                                                    <span>{alert.description} </span>
+                                                                </div>
+                                                                <hr /></ListGroup.Item>)
+                                                        }
+                                                    </ListGroup></Card></> : <>
+                                                <Card border="secondary" body style={{ width: '200px' }}>
+                                                    <p className='mt-2 no-alert'>No alerts sent</p></Card></>
+                                    }
 
                                 </>
                                 :
@@ -160,7 +163,7 @@ function VocalAssistant(props) {
                                         <Card border="secondary" body style={{ width: '200px' }}>
                                             View call number
                                         </Card>
-                                        <br/>
+                                        <br />
                                     </div>
                                     <Collapse in={open} dimension="width">
                                         <div id="example-collapse-text">
@@ -182,7 +185,7 @@ function VocalAssistant(props) {
                                                 <Card border="secondary" body style={{ width: '200px' }}>
                                                     Close call
                                                 </Card>
-                                                <br/>
+                                                <br />
                                             </div>
 
                                             <Collapse in={open} dimension="width">
@@ -190,8 +193,8 @@ function VocalAssistant(props) {
                                                     <Card border="primary" body style={{ width: '400px' }}>
                                                         Are you sure to Close the call?
 
-                                                        <br/>
-                                                        <br/>
+                                                        <br />
+                                                        <br />
                                                         <Button onClick={() => {
                                                             props.closecall();
                                                             navigate('/');
