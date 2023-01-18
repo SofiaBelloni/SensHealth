@@ -10,6 +10,7 @@ import SendAlert from './SendAlert';
 import './CallInfo.css';
 
 import API from './Api.js';
+import { VocalAssistant } from "./VocalAssistant";
 
 export default function CallInfo(props) {
     const navigate = useNavigate();
@@ -20,6 +21,9 @@ export default function CallInfo(props) {
     const [showCloseCustomize, setShowCloseCustomize] = useState(false);
 
     const [showAlertModal, setShowAlertModal] = useState(false);
+    const [modalShow, setModalShow] = useState(false);
+
+    const [confirmSelection,setConfirmSelection]=useState(false);
 
     useEffect(() => {
         const retrieveInfo = async (callId) => {
@@ -134,10 +138,15 @@ export default function CallInfo(props) {
                         <Col>
                             <Button
                                 variant='outline-primary'
-                                className='vocal'>
+                                className='vocal'
+                                onClick={() => setModalShow(true)}>
                                 Vocal Assistant
                                 <BsFillMicFill size={20} />
                             </Button>
+                            <VocalAssistant
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
                         </Col>
                         <Col>
                             <Button variant="outline-secondary" className="returncall">Return to call list</Button>
@@ -204,18 +213,26 @@ export default function CallInfo(props) {
                 </Row>
                 <Row>
                     <Col>
-                        <Button
-                            variant='outline-primary'
-                            className='vocal'>
-                            Vocal Assistant
-                            <BsFillMicFill size={20} />
-                        </Button>
+                    <Button
+                                variant='primary'
+                                className='vocal'
+                                onClick={() => setModalShow(true)}>
+                                Vocal Assistant
+                                <BsFillMicFill size={20} />
+                            </Button>
+                            <VocalAssistant
+                            closecall={confirmCloseCall}
+                            sendalert={handleShowAlert}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+
+      />
                     </Col>
                     <Col>
-                        <NavLink to={"/"}><Button variant="outline-secondary" className="returncall">Return to call list</Button></NavLink>
+                        <NavLink to={"/"}><Button variant="secondary" className="returncall">Return to call list</Button></NavLink>
                     </Col>
                     <Col>
-                        <Button variant="outline-warning" className="sendalert" onClick={handleShowAlert}>
+                        <Button variant="warning" className="sendalert" onClick={handleShowAlert}>
                             <AiFillWarning size={30}>  </AiFillWarning>
                             Send an alert
                         </Button>
