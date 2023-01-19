@@ -228,6 +228,7 @@ export default function CallInfo(props) {
                             show={modalShow}
                             onHide={() => setModalShow(false)}
                             callsActive={props.callsActive}
+                            setModalShow={setModalShow}
 
 
                         />

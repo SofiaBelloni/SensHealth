@@ -15,10 +15,10 @@ function MyNavbar() {
       <Navbar.Toggle aria-controls='left-sidebar' />
       <Nav className="justify-content-end" activeKey="/home" variant="pills" >
         <Nav.Item>
-          <Nav.Link href="/">Call list</Nav.Link>
+          <Nav.Link href="/" className="wh">Call list</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href="/sensors">Sensors</Nav.Link>
+          <Nav.Link href="/sensors" className="wh">Sensors</Nav.Link>
         </Nav.Item>
       </Nav>
       <Navbar.Brand id='navbar-brand' className="title"><div><i class="bi bi-heart-pulse-fill"></i> SensHealth</div></Navbar.Brand>

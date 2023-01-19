@@ -6,7 +6,7 @@ import API from './Api.js';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { HiBellAlert } from "react-icons/hi2";
 import './VocalAssistant.css'
-
+import { AlertsModal } from "./AlertsModal.js";
 
 function VocalAssistant(props) {
     const navigate = useNavigate();
@@ -15,6 +15,12 @@ function VocalAssistant(props) {
     const [alertsList, setAlertsList] = useState([]);
     const [callAlert, setCallAlert] = useState(0);
     const [show,setShow]=useState(true);
+    const [showAlertModal, setShowAlertModal] = useState(false);
+    const handleCloseAlert = () => {setShowAlertModal(false)}
+
+    const handleShowAlert = () => {
+            setShowAlertModal(true);
+        };
 
     useEffect(() => {
         const retrieveInfo = async () => {
@@ -43,7 +49,7 @@ function VocalAssistant(props) {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
-                    <Card border="primary" body style={{ width: '600px' }}>
+                    <Card border="primary" body style={{ width: '600px' , borderRadius: '10%'}}>
 
                         <p>
                             What do you want me to do?
@@ -53,19 +59,19 @@ function VocalAssistant(props) {
                         <Button onClick={() => { setOpen(!open); setConfirmSelection("send"); props.sendalert(); props.onHide() }}
                             aria-controls="example-collapse-text"
                             aria-expanded={open}
-                            disabled={open}>Send an alert for this call</Button>{' '}
+                            >Send an alert for this call</Button>{' '}
                         <Button onClick={() => { setOpen(!open); setConfirmSelection("alert"); setShow(false)}} aria-controls="example-collapse-text"
                             aria-expanded={open}
-                            disabled={open}>Show alerts of a call</Button>{' '}
+                            >Show alerts of a call</Button>{' '}
                         <Button onClick={() => { navigate('/'); }} disabled={open}>Show call list </Button>{' '}
                         <br />                    <br />
 
                         <Button onClick={() => { setOpen(!open); setConfirmSelection("open") }} aria-controls="example-collapse-text"
                             aria-expanded={open}
-                            disabled={open}>View call number # </Button>{' '}
+                            >View call number # </Button>{' '}
                         <Button onClick={() => { setOpen(!open); setConfirmSelection("close") }} aria-controls="example-collapse-text"
                             aria-expanded={open}
-                            disabled={open}>
+                            >
                             Close this call </Button>{' '}
                     </Card>
                     <br />
@@ -76,7 +82,7 @@ function VocalAssistant(props) {
                             <>
                                 <Collapse in={open} dimension="width">
                                     <div id="example-collapse-text">
-                                        <Card border="secondary" body style={{ width: '200px' }}>
+                                        <Card border="secondary" body style={{ width: '200px' ,borderRadius: '20%'}}>
                                             Send an alert
                                         </Card>
                                     </div>
@@ -102,20 +108,20 @@ function VocalAssistant(props) {
                                 <>
                                     <div>
 
-                                        <Card className="prova" border="secondary" body style={{ width: '200px' }}>
+                                        <Card className="prova" border="secondary" body style={{ width: '200px',borderRadius: '20%' }}>
                                             Show alert of a call
                                         </Card>
                                     </div>
                                     <br />
                                     <Collapse in={open} dimension="width">
                                         <div id="example-collapse-text">
-                                            <Card border="primary" body style={{ width: '400px' }}>
+                                            <Card border="primary" body style={{ width: '400px' , borderRadius: '10%'}}>
                                                 Which call's number?
                                                 <br />
                                                 <br />
 
                                                 {
-                                                    props.callsActive.map((c) => <><Button onClick={() => { setCallAlert(c.id) }} disabled={callAlert !== 0}>{c.id}</Button>{' '}
+                                                    props.callsActive.map((c) => <><Button onClick={() => { setCallAlert(c.id);}} >{c.id}</Button>{' '}
 
                                                     </>)
 
@@ -127,6 +133,7 @@ function VocalAssistant(props) {
                                     <br />
 
                                     {(callAlert == 0) ? false :
+                                    
                                         (alertsList.length > 0) ?
                                             <>
                                                 <div>
@@ -153,21 +160,22 @@ function VocalAssistant(props) {
                                                     </ListGroup></Card></> : <>
                                                 <Card border="secondary" body style={{ width: '200px' }}>
                                                     <p className='mt-2 no-alert'>No alerts sent</p></Card></>
+                                                  
                                     }
-
+<AlertsModal callId={callAlert} show={showAlertModal} handleClose={handleCloseAlert}/>
                                 </>
                                 :
                                 (confirmSelection === 'open') ? <>
                                     <div>
 
-                                        <Card border="secondary" body style={{ width: '200px' }}>
+                                        <Card border="secondary" body style={{ width: '200px',borderRadius: '20%' }}>
                                             View call number
                                         </Card>
                                         <br />
                                     </div>
                                     <Collapse in={open} dimension="width">
                                         <div id="example-collapse-text">
-                                            <Card border="primary" body style={{ width: '400px' }}>
+                                            <Card border="primary" body style={{ width: '400px' ,borderRadius: '10%'}}>
                                                 Which call's number?
                                                 <br />
                                                 <br />
@@ -182,7 +190,7 @@ function VocalAssistant(props) {
                                         <>
                                             <div>
 
-                                                <Card border="secondary" body style={{ width: '200px' }}>
+                                                <Card border="secondary" body style={{ width: '200px' ,borderRadius: '20%'}}>
                                                     Close call
                                                 </Card>
                                                 <br />
@@ -190,7 +198,7 @@ function VocalAssistant(props) {
 
                                             <Collapse in={open} dimension="width">
                                                 <div id="example-collapse-text">
-                                                    <Card border="primary" body style={{ width: '400px' }}>
+                                                    <Card border="primary" body style={{ width: '400px' ,borderRadius: '10%'}}>
                                                         Are you sure to Close the call?
 
                                                         <br />
