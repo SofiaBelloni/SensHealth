@@ -48,7 +48,7 @@ export default function CallInfo(props) {
 
     const handleCloseAlert = () => setShowAlertModal(false);
 
-    const handleShowAlert = () => {
+    const handleShowAlert = (event) => {
         setShowAlertModal(true);
     };
 
@@ -243,6 +243,7 @@ export default function CallInfo(props) {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            {showAlertModal ? <SendAlert callId={call._id} show={showAlertModal} handleClose={handleCloseAlert}/> : <></>}
           <Row>
             <Col xs={9}>
                 <Table hover>
@@ -287,7 +288,7 @@ export default function CallInfo(props) {
                 <NavLink to={"/"}><Button variant="secondary" className="returncall">Return to call list</Button></NavLink>
             </Col>
             <Col>
-                <Button variant="warning" className="sendalert">
+                <Button variant="warning" className="sendalert" onClick={handleShowAlert}>
                     <AiFillWarning size={30}>  </AiFillWarning>
                     Send an alert    
                 </Button>
