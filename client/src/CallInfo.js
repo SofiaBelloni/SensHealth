@@ -138,8 +138,8 @@ export default function CallInfo(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        {parameters.includes('hr') ? <Form.Check type="switch" className="check" label="HR" name="HR" defaultChecked/> : <Form.Check type="switch" className="check" label="HR" name="HR" />}
-                        {parameters.includes('spo2') ? <Form.Check type="switch" className="check" label="SPO2" name="SPO2" defaultChecked /> : <Form.Check type="switch" className="check" label="SPO2" name="SPO2" />}
+                        <Form.Check type="switch" className="check" label="HR" name="HR" checked/> 
+                        <Form.Check type="switch" className="check" label="SPO2" name="SPO2" checked />
                         {parameters.includes('pa') ? <Form.Check type="switch" className="check" label="PA" name="PA" defaultChecked/> : <Form.Check type="switch" className="check" label="PA" name="PA"/>}
                         {parameters.includes('etco2') ? <Form.Check type="switch" className="check" label="ETCO2" name="ETCO2" defaultChecked/> : <Form.Check type="switch" className="check" label="ETCO2" name="ETCO2"/>}
                         {parameters.includes('nibp') ? <Form.Check type="switch" className="check" label="NIBP" name="NIBP" defaultChecked/> : <Form.Check type="switch" className="check" label="NIBP" name="NIBP"/>}
