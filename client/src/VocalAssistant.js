@@ -1,14 +1,11 @@
 import { Modal, Button, Card, Form } from "react-bootstrap";
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import { NavLink, useParams } from "react-router-dom"
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import Collapse from 'react-bootstrap/Collapse';
 import API from './Api.js';
-import Info from './AlertsModal';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { HiBellAlert } from "react-icons/hi2";
-
+import './VocalAssistant.css'
 
 
 function VocalAssistant(props) {
@@ -17,7 +14,7 @@ function VocalAssistant(props) {
     const [open, setOpen] = useState(false);
     const [alertsList, setAlertsList] = useState([]);
     const [callAlert, setCallAlert] = useState(0);
-
+    const [show,setShow]=useState(true);
 
     useEffect(() => {
         const retrieveInfo = async () => {
@@ -26,6 +23,9 @@ function VocalAssistant(props) {
         }
         retrieveInfo();
     }, [callAlert]);
+    useEffect(() => {
+        setTimeout(() => setShow(true), 10000);
+      }, [show]);
 
     return (
         <>
@@ -54,7 +54,7 @@ function VocalAssistant(props) {
                             aria-controls="example-collapse-text"
                             aria-expanded={open}
                             disabled={open}>Send an alert for this call</Button>{' '}
-                        <Button onClick={() => { setOpen(!open); setConfirmSelection("alert") }} aria-controls="example-collapse-text"
+                        <Button onClick={() => { setOpen(!open); setConfirmSelection("alert"); setShow(false)}} aria-controls="example-collapse-text"
                             aria-expanded={open}
                             disabled={open}>Show alerts of a call</Button>{' '}
                         <Button onClick={() => { navigate('/'); }} disabled={open}>Show call list </Button>{' '}
@@ -102,7 +102,7 @@ function VocalAssistant(props) {
                                 <>
                                     <div>
 
-                                        <Card border="secondary" body style={{ width: '200px' }}>
+                                        <Card className="prova" border="secondary" body style={{ width: '200px' }}>
                                             Show alert of a call
                                         </Card>
                                     </div>
@@ -130,10 +130,10 @@ function VocalAssistant(props) {
                                         (alertsList.length > 0) ?
                                             <>
                                                 <div>
-
-                                                    <Card border="secondary" body style={{ width: '200px' }}>
+                                                    {show && <Card border="secondary" body style={{ width: '200px' }}>
                                                         {callAlert}
-                                                    </Card>
+                                                    </Card>}
+                                                    
                                                 </div>
                                                 <br />
                                                 <Card border="primary" body style={{ width: '400px' }}>

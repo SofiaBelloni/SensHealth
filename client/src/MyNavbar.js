@@ -1,9 +1,6 @@
 import { Navbar, Nav } from "react-bootstrap/";
-import { PersonCircle, List } from "react-bootstrap-icons";
 import "./MyNavbar.css";
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Outlet } from "react-router-dom";
 
 
@@ -36,8 +33,7 @@ function MyNavbar() {
           </div>
         </Nav.Item>
       </Nav>
-    </Navbar>
-    <tag>
+    </Navbar>    <tag>
     
 </tag>
     <Outlet />
