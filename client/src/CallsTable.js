@@ -2,11 +2,11 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import Button from 'react-bootstrap/Button';
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { OverlayTrigger, Table, Tooltip } from 'react-bootstrap';
+import { Card, OverlayTrigger, Table, Tooltip } from 'react-bootstrap';
 import './App.css';
 import { NavLink } from 'react-router-dom';
 import { AlertsModal } from './AlertsModal';
-
+import './CallsTable.css';
 
 function CallsTable(props) {
   const [id, setCallId] = useState();
@@ -113,7 +113,8 @@ function CallsTable(props) {
         </Modal.Footer>
       </Modal>
       {showAlertModal ? <AlertsModal callId={id} show={showAlertModal} handleClose={handleCloseAlert}/> : false}
-      <Table border='dot' hover size='sm' className='table-1'>
+      <Card className='spg-box shadow'>
+      <Table hover size='sm' className='table-1' borderless responsive="md" striped>
         <thead>
           <tr>
             <th>Call ID
@@ -162,11 +163,14 @@ function CallsTable(props) {
           }
         </tbody>
       </Table>
+      </Card>
       <hr />
     </div>
 
     <div className='table-legend'>
-      <Table className='table-2' border='dot' borderless size='sm'>
+    <Card className='spg-box shadow'>
+
+      <Table className='table-2' borderless size='sm' >
         <thead>
           <tr>
             <th>Legend</th>
@@ -179,6 +183,7 @@ function CallsTable(props) {
           <tr><td><Button size='sm' disabled className='button-l' variant='primary'>Open Again</Button> : Click to <b>open again</b> a closed call (it does NOT open the call page)</td></tr>
         </tbody>
       </Table>
+      </Card>
     </div>
   </>
   );

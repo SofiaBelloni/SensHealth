@@ -33,7 +33,7 @@
 }
 
 .list-elem:hover{
-    background-color: #0dcaf0;
+    background-color: #0d82f0;
 }
 
 #kitContainer{
@@ -61,8 +61,15 @@
 }
 
 #sensorTable th{
-    background-color:#0dcaf0;
+    background-color:#0d82f0;
     
+    
+}
+.wh{
+    color:aliceblue;
+}
+.font{
+    font-family:"IBM Plex Sans", sans-serif, cursive;
 }
 
 .additional-details-elem{

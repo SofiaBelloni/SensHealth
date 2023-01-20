@@ -1,4 +1,4 @@
-import { Navbar, Nav } from "react-bootstrap/";
+import { Navbar, Nav,Container } from "react-bootstrap/";
 import "./MyNavbar.css";
 import React, { useState } from 'react';
 import { Outlet } from "react-router-dom";
@@ -11,29 +11,22 @@ function MyNavbar() {
   const handleShow = () => setShow(true);
 
   return <>
-    <Navbar id='navbar' bg='primary' variant='light' className='px-3 d-flex flex-row justify-content-between'>
-      <Navbar.Toggle aria-controls='left-sidebar' />
-      <Nav className="justify-content-end" activeKey="/home" variant="pills" >
-        <Nav.Item>
-          <Nav.Link href="/" className="wh">Call list</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link href="/sensors" className="wh">Sensors</Nav.Link>
-        </Nav.Item>
-      </Nav>
-      <Navbar.Brand id='navbar-brand' className="title"><div><i class="bi bi-heart-pulse-fill"></i> SensHealth</div></Navbar.Brand>
-      <Nav className='ml-auto'>
-        <Nav.Item>
-
+   
+    <Navbar bg="primary" variant="dark">
+        <Container>
+        <Navbar.Brand id='navbar-brand' className="title"><div><i class="bi bi-heart-pulse-fill"></i> SensHealth</div></Navbar.Brand>
+          <Nav className="me-auto">
+          <Nav.Link href="/" className="wh font">Call list</Nav.Link>
+          <Nav.Link href="/sensors"className="wh font" >Sensors</Nav.Link>
+          </Nav>
           <div className='login'>
             <h5 id='nav-username' className='mx-4 my-0' color="white">
               <i class="bi bi-person-circle"></i>
                 <span>  Hi,Mario!</span>
             </h5>
           </div>
-        </Nav.Item>
-      </Nav>
-    </Navbar>    <tag>
+        </Container>
+      </Navbar> <tag>
     
 </tag>
     <Outlet />
