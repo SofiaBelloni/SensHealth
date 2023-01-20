@@ -183,10 +183,14 @@ function VocalAssistant(props) {
                                 :
                                 (confirmSelection === 'open') ? <>
                                     <div>
-
+                                    <Row>
+                                        <Col xs={12} md={8}></Col>
+                                            <Col xs={6} md={4}>
                                         <Card border="secondary" body style={{ width: '200px', borderRadius: '20%' }}>
                                             View call number
                                         </Card>
+                                        </Col>
+                                        </Row>
                                         <br />
                                     </div>
                                     <Collapse in={openC} dimension="width">
@@ -205,10 +209,14 @@ function VocalAssistant(props) {
                                     (confirmSelection === 'close') ?
                                         <>
                                             <div>
-
+                                            <Row>
+                                        <Col xs={12} md={8}></Col>
+                                            <Col xs={6} md={4}>
                                                 <Card border="secondary" body style={{ width: '200px', borderRadius: '20%' }}>
                                                     Close call
                                                 </Card>
+                                                </Col>
+                                                </Row>
                                                 <br />
                                             </div>
 
