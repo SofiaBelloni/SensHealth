@@ -1,4 +1,4 @@
-import { Row, Col, Toast, ToastContainer } from 'react-bootstrap'
+import { Row, Col, Toast, ToastContainer, Container, Card } from 'react-bootstrap'
 import CallsTable from './CallsTable';
 import './App.css'
 
@@ -9,11 +9,6 @@ function CallsView(props) {
       <ToastContainer position='top-end'>
       <Toast className='toast-1' onClose={() => props.setShow(false)} show={props.show} delay={3000} autohide>
         <Toast.Header>
-          <img
-            src="holder.js/20x20?text=%20"
-            className="rounded me-2"
-            alt=""
-          />
           <strong className="me-auto">
             { props.action[1] === "Closed" ?
                 'Call closed!'

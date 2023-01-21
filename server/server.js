@@ -29,6 +29,17 @@ app.get('/api/calls', async (req, res) => {
     }
 });
 
+/* GET /api/callsnumber */
+app.get('/api/callsactive', async (req, res) => {
+    try {
+        const listCalls = await callDAO.listCallsActive();
+        return res.status(200).json(listCalls).end();
+    } catch (error) {
+        return res.status(500).json(error).end();
+    }
+});
+
+
 /* GET /api/calls/order/id */
 app.get('/api/calls/order/id', async (req, res) => {
     try {
@@ -144,6 +155,7 @@ app.get('/api/alerts/:callId', async (req, res) => {
       res.status(500).json({ error: `Database error while retrieving alerts` }).end();
     }
   });
+  
 
 
 /* Activate the server */

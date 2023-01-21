@@ -19,6 +19,12 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [action, setAction] = useState([]);
+  const [callsActive, setCallsActive] = useState([]);
+
+  const getAllCallsActive = async () => {
+      const callsList = await API.getAllCallsActive();
+      setCallsActive(callsList);
+    };
 
   const getAllCalls = async () => {
     const callsList = await API.getAllCalls();
@@ -65,6 +71,7 @@ function App() {
   useEffect(() => {
     setLoading(false);
     getAllCalls();
+    getAllCallsActive();
     setLoading(true);
   }, []);
 
@@ -76,7 +83,7 @@ function App() {
       <Routes>
         <Route path="/" element={<CallsView calls={calls} loading={loading} closeCall={closeCall} openCall={openCall} orderCallsbyId={orderCallsbyId} orderCallsbyIdDesc={orderCallsbyIdDesc} orderCallsbyActive={orderCallsbyActive} orderCallsbyClosed={orderCallsbyClosed} setShow={setShow} show={show} action={action}/>} />
         <Route path="/sensors" element={<SensorTable />} />
-        <Route path="call/:callId" element={<CallInfo closeCall={closeCall} />} />
+        <Route path="call/:callId" element={<CallInfo closeCall={closeCall} callsActive={callsActive}/>} />
         <Route path='/alert/:callId' element={<SendAlert/>}/>
       </Routes>
     </BrowserRouter>

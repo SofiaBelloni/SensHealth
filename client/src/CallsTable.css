@@ -1,0 +1,12 @@
+.ro{
+    border-radius: 20%;
+}
+.spg-box {
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+  }
