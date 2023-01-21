@@ -4,7 +4,7 @@
     height: 48px;
     padding-right: 20px;
     align-items: center;
-    
+    margin-left: 5px;
   }
   .sendalert {
     right: 40px;
@@ -31,10 +31,12 @@
   }
   
   .editparameters{
-    float: center !important;
-    margin-top: 15px;
+    margin-left: 5%;
   }
   img {
     width: 800px;
     margin-left: 20px;
+ }
+ .col-3 {
+  margin-top: 100px !important;
  }

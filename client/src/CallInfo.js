@@ -182,7 +182,7 @@ export default function CallInfo(props) {
                                 </thead>
                                 <tbody>
                                     <Image src={call.img} fluid></Image>
-                                    <Button onClick={handleEditParameters}>Edit parameters</Button>
+                                    <Button className="editparameters" onClick={handleEditParameters}>Edit parameters</Button>
                                 </tbody>
                             </Table>
                         </Shake>
@@ -202,14 +202,6 @@ export default function CallInfo(props) {
                             </Card.Body>
                         </Card>
                         <Button variant="info" onClick={handleConfirmCustomize}>Confirm</Button>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                    </Col>
-                    <Col>
-                    </Col>
-                    <Col>
                     </Col>
                 </Row>
             </>
@@ -242,7 +234,7 @@ export default function CallInfo(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <Image src={call.img} fluid></Image>
+                                <Image src={call.img} ></Image>
                             </tbody>
                         </Table>
                     </Col>
