@@ -73,7 +73,7 @@ function SensorTable() {
     return (
         <>
             <div className='mt-3'>
-                <h1 className='mt-4 text-center font'>Sensor status</h1>
+                <h1 className='font-title mt-4 text-center'>Sensor status</h1>
             </div>
             <div className='border mt-3'>
                 <ListGroup className='sensor-list table-1' as="ul">
@@ -83,7 +83,7 @@ function SensorTable() {
                     }
                 </ListGroup>
                 {show ? <Kit kit={kit} /> : <Instruction />}
-
+            
             </div>
         </>
     );

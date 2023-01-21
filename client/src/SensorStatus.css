@@ -68,8 +68,9 @@
 .wh{
     color:aliceblue;
 }
-.font{
-    font-family:"IBM Plex Sans", sans-serif, cursive;
+
+.font-title{
+    font-family:'Times New Roman', Times, serif, cursive;
 }
 
 .additional-details-elem{
