@@ -146,6 +146,19 @@ exports.getCallById = (callId) => new Promise((resolve, reject) => {
         }
     })
 })
+
+//Update the path of the image
+exports.editImgPath = (callId, newPath) => new Promise((resolve, reject) => {
+    const sql = "UPDATE CALL SET img=? WHERE id=?";
+    db.run(sql, [newPath, callId], (err) => {
+        if(err){
+            reject(err);
+            return;
+        }
+        resolve(true);
+    })
+})
+
 // Get all Calls with status active
 exports.listCallsActive = () => new Promise((resolve, reject) => {
     const sql = 'SELECT * FROM CALL WHERE status="Active" ';

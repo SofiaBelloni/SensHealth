@@ -1,38 +1,38 @@
 .vocal {
-    position: fixed;
     left: 40px;
     bottom: 40px;
     height: 48px;
-    border-radius: 48px;
-    box-shadow: 0 6px 10px 0 #666;
-    transition: all 0.1s ease-in-out;
     padding-right: 20px;
     align-items: center;
     
   }
   .sendalert {
-    position: fixed;
     right: 40px;
     bottom: 40px;
     height: 48px;
-    border-radius: 48px;
-    box-shadow: 0 6px 10px 0 #666;
-    transition: all 0.1s ease-in-out;
     padding-right: 20px;
     align-items: center;
     
   }
   .returncall {
-    position: fixed;
     right: 650px;
     bottom: 40px;
     height: 48px;
-    border-radius: 48px;
-    box-shadow: 0 6px 10px 0 #666;
-    transition: all 0.1s ease-in-out;
     padding-right: 20px;
-    align-items: center;
-    
+    align-items: right;
+  }
+  .closecall {
+    margin-top: 30px;
+  }
+
+  .customize {
+    margin-top: 30px;
+    margin-left: 30px;
+  }
+  
+  .editparameters{
+    float: center !important;
+    margin-top: 15px;
   }
   img {
     width: 800px;
