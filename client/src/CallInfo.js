@@ -10,6 +10,7 @@ import SendAlert from './SendAlert';
 import './CallInfo.css';
 
 import API from './Api.js';
+import { VocalAssistant } from "./VocalAssistant";
 
 export default function CallInfo(props) {
     const navigate = useNavigate();
@@ -32,6 +33,9 @@ export default function CallInfo(props) {
     */
 
     const [showAlertModal, setShowAlertModal] = useState(false);
+    const [modalShow, setModalShow] = useState(false);
+
+    const [confirmSelection, setConfirmSelection] = useState(false);
 
     useEffect(() => {
         const retrieveInfo = async (callId) => {
@@ -130,48 +134,125 @@ export default function CallInfo(props) {
     } else {
         if (customize) {
             return <>
-            <Modal show={editParameters} onHide={setEditParameters}>
-                <Modal.Header>
-                    <Modal.Title>
-                        Edit parameters -- Call#{call.id}
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Form.Check type="switch" className="check" label="HR" name="HR" checked/> 
-                        <Form.Check type="switch" className="check" label="SPO2" name="SPO2" checked />
-                        {parameters.includes('pa') ? <Form.Check type="switch" className="check" label="PA" name="PA" defaultChecked/> : <Form.Check type="switch" className="check" label="PA" name="PA"/>}
-                        {parameters.includes('etco2') ? <Form.Check type="switch" className="check" label="ETCO2" name="ETCO2" defaultChecked/> : <Form.Check type="switch" className="check" label="ETCO2" name="ETCO2"/>}
-                        {parameters.includes('nibp') ? <Form.Check type="switch" className="check" label="NIBP" name="NIBP" defaultChecked/> : <Form.Check type="switch" className="check" label="NIBP" name="NIBP"/>}
-                        {parameters.includes('temp') ? <Form.Check type="switch" className="check" label="TEMP" name="TEMP" defaultChecked/> : <Form.Check type="switch" className="check" label="TEMP" name="TEMP"/>}
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="success" onClick={confirmEditParameters}>
-                        Yes
-                    </Button>
-                    <Button variant="danger" onClick={discardEditParameters}>
-                        No
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-            <Modal id='close-call-popup' show={showCloseCustomize} onHide={setShowCloseCustomize}>
-                <Modal.Header>
-                    <Modal.Title>Confirm customize -- Call#{call.id}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure to edit the view of the Call#{call.id}</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="success" onClick={confirmCustomize}>
-                        Yes
-                    </Button>
-                    <Button variant="danger" onClick={discardCloseCustomize}>
-                        No
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-            <Row>
-                <Col xs={9}>
-                    <Shake v={3} h={3} r={1}>
+                <Modal show={editParameters} onHide={setEditParameters}>
+                    <Modal.Header>
+                        <Modal.Title>
+                            Edit parameters -- Call#{call.id}
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Check type="switch" className="check" label="HR" name="HR" checked/> 
+                            <Form.Check type="switch" className="check" label="SPO2" name="SPO2" checked />
+                            {parameters.includes('pa') ? <Form.Check type="switch" className="check" label="PA" name="PA" defaultChecked/> : <Form.Check type="switch" className="check" label="PA" name="PA"/>}
+                            {parameters.includes('etco2') ? <Form.Check type="switch" className="check" label="ETCO2" name="ETCO2" defaultChecked/> : <Form.Check type="switch" className="check" label="ETCO2" name="ETCO2"/>}
+                            {parameters.includes('nibp') ? <Form.Check type="switch" className="check" label="NIBP" name="NIBP" defaultChecked/> : <Form.Check type="switch" className="check" label="NIBP" name="NIBP"/>}
+                            {parameters.includes('temp') ? <Form.Check type="switch" className="check" label="TEMP" name="TEMP" defaultChecked/> : <Form.Check type="switch" className="check" label="TEMP" name="TEMP"/>}
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="success" onClick={confirmEditParameters}>
+                            Yes
+                        </Button>
+                        <Button variant="danger" onClick={discardEditParameters}>
+                            No
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                <Modal id='close-call-popup' show={showCloseCustomize} onHide={setShowCloseCustomize}>
+                    <Modal.Header>
+                        <Modal.Title>Confirm customize -- Call#{call.id}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Are you sure to edit the view of the Call#{call.id}</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="success" onClick={confirmCustomize}>
+                            Yes
+                        </Button>
+                        <Button variant="danger" onClick={discardCloseCustomize}>
+                            No
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                <Row>
+                    <Col xs={9}>
+                        <Shake v={3} h={3} r={1}>
+                            <Table hover>
+                                <thead>
+                                    <tr>
+                                        <th>Vitals</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <Image src={call.img} fluid></Image>
+                                    <Button>Edit parameters</Button>
+                                </tbody>
+                            </Table>
+                        </Shake>
+                    </Col>
+                    <Col xs={3}>
+                        <Card>
+                            <Card.Header><b>Call #{call.id}</b></Card.Header>
+                            <Card.Body>
+                                <Card.Title>Name</Card.Title>
+                                <Card.Text>{call.name}</Card.Text>
+                                <Card.Title>Surname</Card.Title>
+                                <Card.Text>{call.surname}</Card.Text>
+                                <Card.Title>Code</Card.Title>
+                                <Card.Text>{call.colorCode}</Card.Text>
+                                <Card.Title>Status</Card.Title>
+                                <Card.Text>{call.ambStatus}</Card.Text>
+                            </Card.Body>
+                        </Card>
+                        <Shake v={3} h={3} r={1}>
+                            <Button variant="danger"> Close Call</Button>
+                        </Shake>
+                        <Button variant="info" onClick={handleConfirmCustomize}>Confirm</Button>
+                    </Col>
+                </Row>
+                <Shake v={0} h={1} r={1}>
+                    <Row>
+                        <Col>
+                            <Button
+                                variant='outline-primary'
+                                className='vocal'>
+                                Vocal Assistant
+                                <BsFillMicFill size={20} />
+                            </Button>
+                        </Col>
+                        <Col>
+                            <Button variant="outline-secondary" className="returncall">Return to call list</Button>
+                        </Col>
+                        <Col>
+                            <Button variant="outline-warning" className="sendalert">
+                                <AiFillWarning size={30}>  </AiFillWarning>
+                                Send an alert
+                            </Button>
+                        </Col>
+                    </Row>
+                </Shake>
+            </>
+        }
+        else {
+            return <>
+                <Modal id='close-call-popup' show={showClose} onHide={setShowClose}>
+                    <Modal.Header>
+                        <Modal.Title>Close Call -- Call#{call.id}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Are you sure to close the Call#{call.id}</Modal.Body>
+                    <Modal.Footer>
+                        <NavLink to={"/"}>
+                            <Button variant="success" onClick={confirmCloseCall}>
+                                Yes
+                            </Button>
+                        </NavLink>
+                        <Button variant="danger" onClick={discardClose}>
+                            No
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                {showAlertModal ? <SendAlert callId={call._id} show={showAlertModal} handleClose={handleCloseAlert} /> : false}
+                <Row>
+                    <Col xs={9}>
                         <Table hover>
                             <thead>
                                 <tr>
@@ -182,119 +263,56 @@ export default function CallInfo(props) {
                                 <Image src={call.img} fluid></Image>
                             </tbody>
                         </Table>
-                    </Shake>
-                </Col>
-                <Col xs={3}>
-                    <Card>
-                        <Card.Header><b>Call #{call.id}</b></Card.Header>
-                        <Card.Body>
-                            <Card.Title>Name</Card.Title>
-                            <Card.Text>{call.name}</Card.Text>
-                            <Card.Title>Surname</Card.Title>
-                            <Card.Text>{call.surname}</Card.Text>
-                            <Card.Title>Code</Card.Title>
-                            <Card.Text>{call.colorCode}</Card.Text>
-                            <Card.Title>Status</Card.Title>
-                            <Card.Text>{call.ambStatus}</Card.Text>
-                        </Card.Body>
-                    </Card>
-                    <Button variant="danger" className="closecall"> Close Call</Button>
-                    <Button variant="info" className="customize" onClick={handleConfirmCustomize}>Confirm</Button>
-                    <Button variant="success" className="editparameters" onClick={handleEditParameters}>Edit parameters</Button>
-
-                </Col>
-            </Row>
-            <Row>
+                    </Col>
+                    <Col xs={3}>
+                        <Card>
+                            <Card.Header><b>Call #{call.id}</b></Card.Header>
+                            <Card.Body>
+                                <Card.Title>Name</Card.Title>
+                                <Card.Text>{call.name}</Card.Text>
+                                <Card.Title>Surname</Card.Title>
+                                <Card.Text>{call.surname}</Card.Text>
+                                <Card.Title>Code</Card.Title>
+                                <Card.Text>{call.colorCode}</Card.Text>
+                                <Card.Title>Status</Card.Title>
+                                <Card.Text>{call.ambStatus}</Card.Text>
+                            </Card.Body>
+                        </Card>
+                        <Button variant="danger" onClick={handleCloseCall}>Close Call</Button>
+                        <Button variant="info" onClick={handleCustomize}>Customize view</Button>
+                    </Col>
+                </Row>
+                <Row>
                 <Col>
-                    <Button
-                        variant='primary'
-                        className='vocal'>
-                        Vocal Assistant
-                        <BsFillMicFill size={20}/>
-                    </Button>
-                </Col>
-                <Col>
-                    <Button variant="secondary" size="30">Return to call list</Button>
-                </Col>
-                <Col>
-                    <Button variant="warning">
-                        <AiFillWarning size={30}>  </AiFillWarning>
-                        Send an alert    
-                    </Button>
-                </Col>
-            </Row>
-            </>
-        }
-        else {
-            return <>
-            <Modal id='close-call-popup' show={showClose} onHide={setShowClose}>
-                <Modal.Header>
-                    <Modal.Title>Close Call -- Call#{call.id}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure to close the Call#{call.id}</Modal.Body>
-                <Modal.Footer>
-                    <NavLink to={"/"}>
-                        <Button variant="success" onClick={confirmCloseCall}>
-                            Yes
+                        <Button
+                            variant='primary'
+                            className='vocal'
+                            onClick={() => setModalShow(true)}>
+                            Vocal Assistant
+                            <BsFillMicFill size={20} />
                         </Button>
-                    </NavLink>
-                    <Button variant="danger" onClick={discardClose}>
-                        No
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-            {showAlertModal ? <SendAlert callId={call._id} show={showAlertModal} handleClose={handleCloseAlert}/> : <></>}
-          <Row>
-            <Col xs={9}>
-                <Table hover>
-                    <thead>
-                        <tr>
-                            <th>Vitals</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <Image src={call.img} fluid></Image>
-                    </tbody>
-                </Table>
-            </Col>
-            <Col xs={3}>
-                <Card>
-                    <Card.Header><b>Call #{call.id}</b></Card.Header>
-                    <Card.Body>
-                        <Card.Title>Name</Card.Title>
-                        <Card.Text>{call.name}</Card.Text>
-                        <Card.Title>Surname</Card.Title>
-                        <Card.Text>{call.surname}</Card.Text>
-                        <Card.Title>Code</Card.Title>
-                        <Card.Text>{call.colorCode}</Card.Text>
-                        <Card.Title>Status</Card.Title>
-                        <Card.Text>{call.ambStatus}</Card.Text>
-                    </Card.Body>
-                </Card>
-                <Button variant="danger" className="closecall" onClick={handleCloseCall}>Close Call</Button>
-                <Button variant="info" className="customize" onClick={handleCustomize}>Customize view</Button>
-            </Col>
-        </Row>
-        <Row>
-            <Col>        
-            <Button
-                variant='primary'
-                className='vocal'>
-                Vocal Assistant
-                <BsFillMicFill size={20}/>
-              </Button>
-            </Col>
-            <Col>
-                <NavLink to={"/"}><Button variant="secondary" className="returncall">Return to call list</Button></NavLink>
-            </Col>
-            <Col>
-                <Button variant="warning" className="sendalert" onClick={handleShowAlert}>
-                    <AiFillWarning size={30}>  </AiFillWarning>
-                    Send an alert    
-                </Button>
-            </Col>
-        </Row>
-        </>
+                        <VocalAssistant
+                            closecall={confirmCloseCall}
+                            sendalert={handleShowAlert}
+                            show={modalShow}
+                            onHide={() => setModalShow(false)}
+                            callsActive={props.callsActive}
+                            setModalShow={setModalShow}
+
+
+                        />
+                    </Col>
+                    <Col>
+                        <NavLink to={"/"}><Button variant="outline-secondary" className="returncall">Return to call list</Button></NavLink>
+                    </Col>
+                    <Col>
+                        <Button variant="outline-warning" className="sendalert" onClick={handleShowAlert}>
+                            <AiFillWarning size={30}>  </AiFillWarning>
+                            Send an alert
+                        </Button>
+                    </Col>
+                </Row>
+            </>
         }
     }
 }

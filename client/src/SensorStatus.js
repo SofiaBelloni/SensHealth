@@ -6,6 +6,8 @@ import React, { useState } from 'react';
 import "./SensorStatus.css";
 import "./App.css";
 import { AiFillInfoCircle } from "react-icons/ai";
+import './CallsTable.css';
+import { Card } from 'react-bootstrap';
 
 
 function SensorTable() {
@@ -71,7 +73,7 @@ function SensorTable() {
     return (
         <>
             <div className='mt-3'>
-                <h1 className='mt-4 text-center'>SENSORS STATUS</h1>
+                <h1 className='mt-4 text-center font'>Sensor status</h1>
             </div>
             <div className='border mt-3'>
                 <ListGroup className='sensor-list table-1' as="ul">
@@ -90,10 +92,12 @@ function SensorTable() {
 function Instruction() {
     return (
         <Container id="kitContainer" className='instruction'>
+                 
+
             <Table id="sensorTable" size='sm'>
                 <thead>
                     <tr>
-                        <th className='text-center bg'>How to see the status of a sensor</th>
+                        <th className='text-center bg wh'>How to see the status of a sensor</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -104,6 +108,7 @@ function Instruction() {
                     </tr>
                 </tbody>
             </Table>
+           
         </Container>
     );
 }
@@ -117,9 +122,9 @@ function Kit(props) {
                 <Table id="sensorTable" striped size='sm'>
                     <thead className=''>
                         <tr>
-                            <th className='text-center bg'>SENSOR</th>
-                            <th className='text-center bg'>STATUS</th>
-                            <th className='text-center bg'>DETAILS</th>
+                            <th className='text-center bg wh'>SENSOR</th>
+                            <th className='text-center bg wh'>STATUS</th>
+                            <th className='text-center bg wh'>DETAILS</th>
                         </tr>
                     </thead>
                     <tbody>

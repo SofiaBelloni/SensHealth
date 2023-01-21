@@ -9,13 +9,13 @@
   }
   
   #navbar-brand, #title{
-    font-family:'Times New Roman', Times, serif, cursive;
+    font-family:"IBM Plex Sans", sans-serif, cursive;
     padding-top: 0;
     padding-bottom: 0;
     font-size: xx-large;
     color: white;
   }
-  
+  /*'Times New Roman', Times, serif,*/
   #nav-username {
     font-family: "IBM Plex Sans", sans-serif;
     font-weight: 500;
@@ -32,3 +32,6 @@
   .login h5{
     padding: 10cm!important;
   }
+  .font{
+    font-family:"IBM Plex Sans", sans-serif, cursive;
+}
