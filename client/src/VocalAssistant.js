@@ -19,7 +19,6 @@ function VocalAssistant(props) {
 
     const [alertsList, setAlertsList] = useState([]);
     const [callAlert, setCallAlert] = useState(0);
-    const [show, setShow] = useState(true);
     const [showAlertModal, setShowAlertModal] = useState(false);
     const handleCloseAlert = () => { setShowAlertModal(false) }
 
@@ -34,9 +33,7 @@ function VocalAssistant(props) {
         }
         retrieveInfo();
     }, [callAlert]);
-    useEffect(() => {
-        setTimeout(() => setShow(true), 10000);
-    }, [show]);
+
 
     return (
         <>
@@ -67,7 +64,7 @@ function VocalAssistant(props) {
                                     aria-controls="example-collapse-text"
                                     aria-expanded={openA}
                                 >Send an alert for this call</Button>{' '}
-                                <Button onClick={() => { setOpenB(!openB); setOpenA(false); setOpenC(false); setOpenD(false); setConfirmSelection("alert"); setShow(false) }} aria-controls="example-collapse-text"
+                                <Button onClick={() => { setOpenB(!openB); setOpenA(false); setOpenC(false); setOpenD(false); setConfirmSelection("alert"); }} aria-controls="example-collapse-text"
                                     aria-expanded={openB}
                                 >Show alerts of a call</Button>{' '}
                                 <Button onClick={() => { navigate('/'); }}>Show call list </Button>{' '}
@@ -117,17 +114,17 @@ function VocalAssistant(props) {
                             (confirmSelection === 'alert') ?
 
                                 <>
-                                    
-                                        <Row>
-                                        <Col xs={12} md={8}></Col>
-                                            <Col xs={6} md={4}>
 
-                                                <Card className="prova" border="secondary" body style={{ width: '200px', borderRadius: '20%' }}>
-                                                    Show alert of a call
-                                                </Card>
-                                            </Col>
-                                        </Row>
-                                    
+                                    <Row>
+                                        <Col xs={12} md={8}></Col>
+                                        <Col xs={6} md={4}>
+
+                                            <Card className="prova" border="secondary" body style={{ width: '200px', borderRadius: '20%' }}>
+                                                Show alert of a call
+                                            </Card>
+                                        </Col>
+                                    </Row>
+
                                     <br />
                                     <Collapse in={openB} dimension="width">
                                         <div id="example-collapse-text">
@@ -152,14 +149,19 @@ function VocalAssistant(props) {
 
                                         (alertsList.length > 0) ?
                                             <>
-                                                <div>
-                                                    {show && <Card border="secondary" body style={{ width: '200px' }}>
-                                                        {callAlert}
-                                                    </Card>}
 
-                                                </div>
+                                                <Row>
+                                                    <Col xs={12} md={8}></Col>
+                                                    <Col xs={6} md={4}>
+                                                        {<Card className="prova" border="secondary" body style={{ width: '200px' }}>
+                                                            {callAlert}
+                                                        </Card>}
+                                                    </Col>
+                                                </Row>
+
+
                                                 <br />
-                                                <Card border="primary" body style={{ width: '400px' }}>
+                                                <Card border="primary" body style={{ width: '400px' , borderRadius: '5%'}}>
                                                     <ListGroup >
                                                         {
                                                             alertsList.map((alert, index) => <ListGroup.Item className="additional-details" as="li" key={index}> <p className='mb-1 bold'><HiBellAlert /> ALERT #{index + 1}:</p>
@@ -174,7 +176,15 @@ function VocalAssistant(props) {
                                                                 <hr /></ListGroup.Item>)
                                                         }
                                                     </ListGroup></Card></> : <>
-                                                <Card border="secondary" body style={{ width: '200px' }}>
+                                                <Row>
+                                                    <Col xs={12} md={8}></Col>
+                                                    <Col xs={6} md={4}>
+                                                        {<Card  className="prova" border="secondary" body style={{ width: '200px' }}>
+                                                            {callAlert}
+                                                        </Card>}
+                                                    </Col>
+                                                </Row>
+                                                <Card className="prova" border="secondary" body style={{ width: '200px' }}>
                                                     <p className='mt-2 no-alert'>No alerts sent</p></Card></>
 
                                     }
@@ -183,13 +193,13 @@ function VocalAssistant(props) {
                                 :
                                 (confirmSelection === 'open') ? <>
                                     <div>
-                                    <Row>
-                                        <Col xs={12} md={8}></Col>
+                                        <Row>
+                                            <Col xs={12} md={8}></Col>
                                             <Col xs={6} md={4}>
-                                        <Card border="secondary" body style={{ width: '200px', borderRadius: '20%' }}>
-                                            View call number
-                                        </Card>
-                                        </Col>
+                                                <Card border="secondary" body style={{ width: '200px', borderRadius: '20%' }}>
+                                                    View call number
+                                                </Card>
+                                            </Col>
                                         </Row>
                                         <br />
                                     </div>
@@ -209,13 +219,13 @@ function VocalAssistant(props) {
                                     (confirmSelection === 'close') ?
                                         <>
                                             <div>
-                                            <Row>
-                                        <Col xs={12} md={8}></Col>
-                                            <Col xs={6} md={4}>
-                                                <Card border="secondary" body style={{ width: '200px', borderRadius: '20%' }}>
-                                                    Close call
-                                                </Card>
-                                                </Col>
+                                                <Row>
+                                                    <Col xs={12} md={8}></Col>
+                                                    <Col xs={6} md={4}>
+                                                        <Card border="secondary" body style={{ width: '200px', borderRadius: '20%' }}>
+                                                            Close call
+                                                        </Card>
+                                                    </Col>
                                                 </Row>
                                                 <br />
                                             </div>
