@@ -53,7 +53,7 @@ function VocalAssistant(props) {
                 <Modal.Body >
                     <Row>
                         <Col xs={12} md={8}>
-                            <Card border="primary" body style={{ width: '600px', borderRadius: '10%' }}>
+                            <Card border="primary" body style={{ width: '600px', borderRadius: '30px' , backgroundColor:'rgb(238, 243, 243)'}}>
 
                                 <p>
                                     What do you want me to do?
@@ -84,33 +84,7 @@ function VocalAssistant(props) {
 
                     <div style={{ minHeight: '150px' }}>
 
-                        {(confirmSelection === 'send') ?
-                            <>
-                                <Col xs={6} md={4}>
-                                    <Collapse in={openA} dimension="width">
-                                        <div id="example-collapse-text">
-                                            <Card border="secondary" body style={{ width: '200px', borderRadius: '20%' }}>
-                                                Send an alert
-                                            </Card>
-                                        </div>
-                                    </Collapse>
-                                </Col>
-                                <br />
-                                {/*
-                                <Collapse in={open} dimension="width">
-                                    <div id="example-collapse-text">
-                                        <Card border="primary" body style={{ width: '400px' }}>
-                                            Are you sure to send an Alert?
-                                            <br />
-                                            <br />
-
-                                            <Button onClick={() => { props.sendalert(); props.onHide() }}>Yes</Button>{' '}
-                                            <Button onClick={() => { props.onHide(); setConfirmSelection("") }}>No</Button>{' '}
-                                        </Card>
-                                    </div>
-                                </Collapse>*/
-                                }
-                            </> :
+                        {
                             (confirmSelection === 'alert') ?
 
                                 <>
@@ -119,7 +93,7 @@ function VocalAssistant(props) {
                                         <Col xs={12} md={8}></Col>
                                         <Col xs={6} md={4}>
 
-                                            <Card className="prova" border="secondary" body style={{ width: '200px', borderRadius: '20%' }}>
+                                            <Card className="prova" border="secondary" body style={{ width: '200px', borderRadius: '30px' , backgroundColor:'rgb(208, 213, 213)' }}>
                                                 Show alert of a call
                                             </Card>
                                         </Col>
@@ -128,7 +102,7 @@ function VocalAssistant(props) {
                                     <br />
                                     <Collapse in={openB} dimension="width">
                                         <div id="example-collapse-text">
-                                            <Card border="primary" body style={{ width: '400px', borderRadius: '10%' }}>
+                                            <Card border="primary" body style={{ width: '400px',borderRadius: '30px' , backgroundColor:'rgb(238, 243, 243)' }}>
                                                 Which call's number?
                                                 <br />
                                                 <br />
@@ -153,7 +127,7 @@ function VocalAssistant(props) {
                                                 <Row>
                                                     <Col xs={12} md={8}></Col>
                                                     <Col xs={6} md={4}>
-                                                        {<Card className="prova" border="secondary" body style={{ width: '200px' }}>
+                                                        {<Card className="prova" border="secondary" body style={{ width: '200px', borderRadius: '30px' , backgroundColor:'rgb(208, 213, 213)' }}>
                                                             {callAlert}
                                                         </Card>}
                                                     </Col>
@@ -196,7 +170,7 @@ function VocalAssistant(props) {
                                         <Row>
                                             <Col xs={12} md={8}></Col>
                                             <Col xs={6} md={4}>
-                                                <Card border="secondary" body style={{ width: '200px', borderRadius: '20%' }}>
+                                                <Card border="secondary" body style={{ width: '200px',  borderRadius: '30px' , backgroundColor:'rgb(208, 213, 213)' }}>
                                                     View call number
                                                 </Card>
                                             </Col>
@@ -205,7 +179,7 @@ function VocalAssistant(props) {
                                     </div>
                                     <Collapse in={openC} dimension="width">
                                         <div id="example-collapse-text">
-                                            <Card border="primary" body style={{ width: '400px', borderRadius: '10%' }}>
+                                            <Card border="primary" body style={{ width: '400px', borderRadius: '30px' , backgroundColor:'rgb(238, 243, 243)'}}>
                                                 Which call's number?
                                                 <br />
                                                 <br />
@@ -222,7 +196,7 @@ function VocalAssistant(props) {
                                                 <Row>
                                                     <Col xs={12} md={8}></Col>
                                                     <Col xs={6} md={4}>
-                                                        <Card border="secondary" body style={{ width: '200px', borderRadius: '20%' }}>
+                                                        <Card border="secondary" body style={{ width: '200px', borderRadius: '30px' , backgroundColor:'rgb(208, 213, 213)' }}>
                                                             Close call
                                                         </Card>
                                                     </Col>
@@ -232,7 +206,7 @@ function VocalAssistant(props) {
 
                                             <Collapse in={openD} dimension="width">
                                                 <div id="example-collapse-text">
-                                                    <Card border="primary" body style={{ width: '400px', borderRadius: '10%' }}>
+                                                    <Card border="primary" body style={{ width: '400px',borderRadius: '30px' , backgroundColor:'rgb(238, 243, 243)'}}>
                                                         Are you sure to Close the call?
 
                                                         <br />
