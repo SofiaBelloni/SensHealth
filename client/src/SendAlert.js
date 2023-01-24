@@ -2,9 +2,6 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { Button, Row, Col, Modal, Form } from "react-bootstrap";
-import { useNavigate } from 'react-router-dom';
-import Toast from 'react-bootstrap/Toast'
-import ToastContainer from 'react-bootstrap/ToastContainer'
 
 import "./SendAlert.css";
 
@@ -13,15 +10,12 @@ import API from './Api.js';
 export default function SendAlert(props) {
 
     const { callId } = useParams();
-    const navigate = useNavigate();
 
     const [department, setDepartment] = useState(null);
     const [departmentList, setDepartmentList] = useState([]);
     const [description, setDescription] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [showDiscardModal, setShowDiscardModal] = useState(false);
-    const [showSuccess, setShowSuccess] = useState(false);
-    const [successMessage, setSuccessMessage] = useState('');
 
     useEffect(() => {
         const retrieveInfo = async () => {
@@ -44,9 +38,8 @@ export default function SendAlert(props) {
         }
         send(description, callId, department);
         setShowModal(false);
-        setSuccessMessage("Alert correctly sent");
-        setShowSuccess(true);
-
+        props.handleSent();
+        props.handleClose();
     }
 
     // close the modal
@@ -56,15 +49,6 @@ export default function SendAlert(props) {
 
     return (
         <>
-            {showSuccess ?  //Success toast
-                (<div className="position-relative">
-                    <ToastContainer position='top-center'>
-                        <Toast bg='success' onClose={() => { setShowSuccess(false); props.handleClose();}} show={showSuccess} delay={1500} autohide>
-                            <Toast.Body className='text-white'>{successMessage}</Toast.Body>
-                        </Toast>
-                    </ToastContainer>
-                </div>)
-                : false}
             {departmentList ?
                 <>
                     <Modal id='confirm' show={showModal} onHide={setShowModal} size="sm" centered >
@@ -95,7 +79,7 @@ export default function SendAlert(props) {
                         <Modal.Footer className="modal-footer gray">
                             <Row>
                                 <Col className='text-left'>
-                                    <Button variant="success" onClick={props.handleClose}>
+                                    <Button variant="success" onClick={()=>{props.handleClose(); props.handleDiscarded();}}>
                                         Yes
                                     </Button>
                                 </Col>
