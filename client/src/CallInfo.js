@@ -150,6 +150,7 @@ export default function CallInfo(props) {
         let array_of_chosen_parameters = document.querySelectorAll("*");
         // Filter only them who are checked and i take only the names
         array_of_chosen_parameters = Array.from(array_of_chosen_parameters).filter((e) => e.checked).map((e) => e.name.toLowerCase());
+        setParameters(array_of_chosen_parameters);
         // Now I can create the string
         let new_filename = `/images/${call.id}/${Array.from(array_of_chosen_parameters).join('_')}`;
         new_filename = new_filename + ".jpg";
