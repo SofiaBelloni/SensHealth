@@ -140,8 +140,8 @@ export default function CallInfo(props) {
                     </Modal.Header>
                     <Modal.Body>
                         <Form>
-                            <Form.Check type="switch" className="check" label="HR" name="HR" checked/> 
-                            <Form.Check type="switch" className="check" label="SPO2" name="SPO2" checked />
+                            <Form.Check type="switch" className="check" label="HR" name="HR" checked disabled/> 
+                            <Form.Check type="switch" className="check" label="SPO2" name="SPO2" checked disabled />
                             {parameters.includes('pa') ? <Form.Check type="switch" className="check" label="PA" name="PA" defaultChecked/> : <Form.Check type="switch" className="check" label="PA" name="PA"/>}
                             {parameters.includes('etco2') ? <Form.Check type="switch" className="check" label="ETCO2" name="ETCO2" defaultChecked/> : <Form.Check type="switch" className="check" label="ETCO2" name="ETCO2"/>}
                             {parameters.includes('nibp') ? <Form.Check type="switch" className="check" label="NIBP" name="NIBP" defaultChecked/> : <Form.Check type="switch" className="check" label="NIBP" name="NIBP"/>}
@@ -188,7 +188,7 @@ export default function CallInfo(props) {
                         </Shake>
                     </Col>
                     <Col xs={3}>
-                        <Card>
+                    <Card className='spg-box shadow'>
                             <Card.Header><b>Call #{call.id}</b></Card.Header>
                             <Card.Body>
                                 <Card.Title>Name</Card.Title>
@@ -201,7 +201,7 @@ export default function CallInfo(props) {
                                 <Card.Text>{call.ambStatus}</Card.Text>
                             </Card.Body>
                         </Card>
-                        <Button variant="info" onClick={handleConfirmCustomize}>Confirm</Button>
+                        <Button className="confirm" style={{backgroundColor:"green", border: "green"}} onClick={handleConfirmCustomize}>Confirm</Button>
                     </Col>
                 </Row>
             </>
@@ -239,7 +239,8 @@ export default function CallInfo(props) {
                         </Table>
                     </Col>
                     <Col xs={3}>
-                        <Card>
+                    <Card className='spg-box shadow'>
+
                             <Card.Header><b>Call #{call.id}</b></Card.Header>
                             <Card.Body>
                                 <Card.Title>Name</Card.Title>
@@ -253,7 +254,7 @@ export default function CallInfo(props) {
                             </Card.Body>
                         </Card>
                         <Button variant="danger" className="closecall" onClick={handleCloseCall}>Close Call</Button>
-                        <Button variant="info" className="customize" onClick={handleCustomize}>Customize view</Button>
+                        <Button  className="customize" style={{backgroundColor:"green", border: "green"}} onClick={handleCustomize}>Customize view</Button>
                     </Col>
                 </Row>
                 <Row className="nomargin">

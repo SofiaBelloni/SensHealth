@@ -24,6 +24,9 @@
   .closecall {
     margin-top: 30px;
   }
+  .confirm {
+    margin-top: 30px;
+  }
 
   .customize {
     margin-top: 30px;
@@ -40,3 +43,14 @@
  .col-3 {
   margin-top: 100px !important;
  }
+ .spg-box {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  width: 90%;
+  height: 65%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.button {
+}

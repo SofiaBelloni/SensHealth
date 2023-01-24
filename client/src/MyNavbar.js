@@ -14,7 +14,10 @@ function MyNavbar() {
    
     <Navbar bg="primary" variant="dark">
         <Container>
-        <Navbar.Brand id='navbar-brand' className="title"><div><i class="bi bi-heart-pulse-fill"></i> SensHealth</div></Navbar.Brand>
+        <Navbar.Brand id='navbar-brand' className="title">
+          <div>
+            <Nav.Link href="/"><i class="bi bi-heart-pulse-fill"></i> SensHealth</Nav.Link></div>
+          </Navbar.Brand>
           <Nav className="me-auto">
           <Nav.Link href="/" className="wh font">Call list</Nav.Link>
           <Nav.Link href="/sensors"className="wh font" >Sensors</Nav.Link>
