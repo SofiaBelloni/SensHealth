@@ -171,7 +171,7 @@ export default function CallInfo(props) {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-                <Row>
+                <Row className="nomargin">
                     <Col xs={9}>
                         <Shake v={3} h={3} r={1}>
                             <Table hover>
@@ -225,7 +225,7 @@ export default function CallInfo(props) {
                     </Modal.Footer>
                 </Modal>
                 {showAlertModal ? <SendAlert callId={call._id} show={showAlertModal} handleClose={handleCloseAlert} /> : false}
-                <Row>
+                <Row className="nomargin">
                     <Col xs={9}>
                         <Table hover>
                             <thead>
@@ -256,7 +256,7 @@ export default function CallInfo(props) {
                         <Button variant="info" className="customize" onClick={handleCustomize}>Customize view</Button>
                     </Col>
                 </Row>
-                <Row>
+                <Row className="nomargin">
                 <Col>
                         <Button
                             variant='primary'
