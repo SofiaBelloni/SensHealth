@@ -21,6 +21,7 @@ export default function CallInfo(props) {
     const [showCloseCustomize, setShowCloseCustomize] = useState(false);
     const [editParameters, setEditParameters] = useState(false);
     const [parameters, setParameters] = useState([]);
+    const [discardCustomize, setDiscardCustomize] = useState(false);
 
     /*
     List of parameters that actually are present in our screenshots:
@@ -34,7 +35,7 @@ export default function CallInfo(props) {
 
     const [showAlertModal, setShowAlertModal] = useState(false);
     const [modalShow, setModalShow] = useState(false);
-
+    const [newPath, setNewPath] = useState();
     const [confirmSelection, setConfirmSelection] = useState(false);
 
     useEffect(() => {
@@ -103,6 +104,8 @@ export default function CallInfo(props) {
     // abort to the modal to customize the view of the call
     const discardCloseCustomize = () => {
         setShowCloseCustomize(false);
+        setDiscardCustomize(false);
+        setNewPath();
     }
 
     const handleEditParameters = () => {
@@ -111,6 +114,13 @@ export default function CallInfo(props) {
 
     const discardEditParameters = () => {
         setEditParameters(false);
+        setNewPath();
+    }
+    const handleDiscardCustomize = () => {
+        setDiscardCustomize(true);
+    }
+    const discardDiscardCustomize = () => {
+        setDiscardCustomize(false);
     }
 
     const confirmEditParameters = async(event) => {
@@ -121,6 +131,8 @@ export default function CallInfo(props) {
         // Now I can create the string
         let new_filename = `/images/${call.id}/${Array.from(array_of_chosen_parameters).join('_')}`;
         new_filename = new_filename + ".jpg";
+        // I'll update my state in order to get the view effective
+        setNewPath(new_filename);
         // Now I can call the API which update my DB
         await API.setPath(call.id, new_filename);
         event.preventDefault();
@@ -171,6 +183,23 @@ export default function CallInfo(props) {
                         </Button>
                     </Modal.Footer>
                 </Modal>
+
+                <Modal show={discardCustomize} onHide={setDiscardCustomize}>
+                    <Modal.Header>
+                        <Modal.Title>Discard customize -- Call#{call.id}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Are you sure to discard the previous edits of the Call#{call.id}?</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="success" onClick={discardCloseCustomize}>
+                            Yes
+                        </Button>
+                        <Button variant="danger" onClick={discardDiscardCustomize}>
+                            No
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
+
                 <Row className="nomargin">
                     <Col xs={9}>
                         <Shake v={3} h={3} r={1}>
@@ -181,8 +210,7 @@ export default function CallInfo(props) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <Image src={call.img} fluid></Image>
-                                    <Button className="editparameters" onClick={handleEditParameters}>Edit parameters</Button>
+                                {!newPath ? <Image src={call.img} ></Image> : <Image src={newPath}></Image>}                                    <Button className="editparameters" onClick={handleEditParameters}>Edit parameters</Button>
                                 </tbody>
                             </Table>
                         </Shake>
@@ -202,6 +230,10 @@ export default function CallInfo(props) {
                             </Card.Body>
                         </Card>
                         <Button className="confirm" style={{backgroundColor:"green", border: "green"}} onClick={handleConfirmCustomize}>Confirm</Button>
+
+                        <Button variant="danger" onClick={handleDiscardCustomize}>Discard</Button>
+
+
                     </Col>
                 </Row>
             </>
@@ -234,7 +266,7 @@ export default function CallInfo(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <Image src={call.img} ></Image>
+                                {!newPath ? <Image src={call.img} ></Image> : <Image src={newPath}></Image>}
                             </tbody>
                         </Table>
                     </Col>
@@ -254,7 +286,10 @@ export default function CallInfo(props) {
                             </Card.Body>
                         </Card>
                         <Button variant="danger" className="closecall" onClick={handleCloseCall}>Close Call</Button>
+
+
                         <Button  className="customize" style={{backgroundColor:"green", border: "green"}} onClick={handleCustomize}>Customize view</Button>
+
                     </Col>
                 </Row>
                 <Row className="nomargin">
