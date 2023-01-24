@@ -47,6 +47,28 @@ async function getAllCalls() {
     }
 };
 
+
+/* Get all the call active */
+async function getAllCallsActive() {
+    const url = APIURL + '/callsactive';
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            const list = await response.json();
+            const calls = list.map(callGet => new Call(callGet.id, callGet.status, callGet.location, callGet.time, callGet.name, callGet.surname, 
+                callGet.colorCode, callGet.ambStatus, callGet.img));
+                return calls;
+
+        } else {
+            const text = response.text();
+            throw new TypeError(text);
+        }
+    } catch (e) {
+        throw (e);
+    }
+};
+
+
 /* Get all the call list order by IDs*/
 async function getAllCallsOrderbyId() {
     const url = APIURL + '/calls/order/id';
@@ -135,6 +157,31 @@ async function setStatusCall(callId, status) {
     }
 }
 
+async function setPath(callId, newPath){
+    const url = APIURL + "/call/" + callId + "/path";
+    const body = {
+        "new_filename" : newPath
+    };
+    try {
+        const response = await fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            credentials: 'include'
+        });
+        if (response.ok) {
+            return true;
+        } else {
+            const text = await response.text();
+            throw new TypeError(text);
+        }
+    } catch (e) {
+        throw(e);
+    }
+}
+    
 /* Get all departments */
 async function getAllDepartments() {
     const url = APIURL + '/departments';
@@ -210,13 +257,15 @@ async function getAlerts(callId){
 
 const API={
     getCallById, 
-    getAllCalls, 
+    getAllCalls,
+    getAllCallsActive, 
     getAllCallsOrderbyId, 
     getAllCallsOrderbyActive, 
     getAllCallsOrderbyClosed, 
     setStatusCall,
     getAllDepartments,
     sendAlert,
-    getAlerts
+    getAlerts,
+    setPath
 };
 export default API;

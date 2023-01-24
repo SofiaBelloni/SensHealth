@@ -53,4 +53,4 @@ function Info(props) {
 }
 
 
-export { AlertsModal };
+export { AlertsModal ,Info };

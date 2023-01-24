@@ -2,11 +2,7 @@
 const sqlite = require('sqlite3');
 const Alert = require('../backend/Alert');
 const db = new sqlite.Database('./tables.db', (err) => {
-    if (err) {
-        throw (err);
-    } else {
-        console.log('Loading DB done. \n');
-    }
+    if (err) throw (err);
 })
 
 //add alert
