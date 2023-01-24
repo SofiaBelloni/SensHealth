@@ -111,6 +111,7 @@ export default function CallInfo(props) {
 
     const discardEditParameters = () => {
         setEditParameters(false);
+        setNewPath();
     }
 
     const confirmEditParameters = async(event) => {
