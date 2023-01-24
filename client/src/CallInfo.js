@@ -6,6 +6,8 @@ import {BsFillMicFill} from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
 import { Shake, ShakeLittle, ShakeSlow } from 'reshake'
 import SendAlert from './SendAlert';
+import Toast from 'react-bootstrap/Toast'
+import ToastContainer from 'react-bootstrap/ToastContainer'
 
 import './CallInfo.css';
 
@@ -38,6 +40,10 @@ export default function CallInfo(props) {
     const [newPath, setNewPath] = useState();
     const [confirmSelection, setConfirmSelection] = useState(false);
 
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+    const [colorToast, setColorToast] = useState('success');
+
     useEffect(() => {
         const retrieveInfo = async (callId) => {
             const call = await API.getCallById(callId);
@@ -51,7 +57,22 @@ export default function CallInfo(props) {
         
     }, [])
 
-    const handleCloseAlert = () => setShowAlertModal(false);
+    const handleCloseAlert = () => {
+        setShowAlertModal(false);
+    }
+
+    const handleDiscarded = ()=>{
+        setColorToast("warning");
+        setSuccessMessage("Alert correctly discarded");
+        setShowSuccess(true);
+    }
+
+
+    const handleSent = ()=>{
+        setColorToast("success");
+        setSuccessMessage("Alert correctly sent");
+        setShowSuccess(true);
+    }
 
     const handleShowAlert = (event) => {
         setShowAlertModal(true);
@@ -241,6 +262,15 @@ export default function CallInfo(props) {
         }
         else {
             return <>
+            {showSuccess ?  //Success toast
+                (<div className="position-relative">
+                    <ToastContainer position='top-center'>
+                        <Toast bg={colorToast} onClose={() => { setShowSuccess(false);}} show={showSuccess} delay={2000} autohide>
+                            <Toast.Body className='text-white text-center'>{successMessage}</Toast.Body>
+                        </Toast>
+                    </ToastContainer>
+                </div>)
+                : false}
                 <Modal id='close-call-popup' show={showClose} onHide={setShowClose}>
                     <Modal.Header>
                         <Modal.Title>Close Call -- Call#{call.id}</Modal.Title>
@@ -257,7 +287,7 @@ export default function CallInfo(props) {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-                {showAlertModal ? <SendAlert callId={call._id} show={showAlertModal} handleClose={handleCloseAlert} /> : false}
+                {showAlertModal ? <SendAlert callId={call._id} show={showAlertModal} handleClose={handleCloseAlert} handleSent={handleSent} handleDiscarded={handleDiscarded}/> : false}
                 <Row className="nomargin">
                     <Col xs={9}>
                         <Table hover>
