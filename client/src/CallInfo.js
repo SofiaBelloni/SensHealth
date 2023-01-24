@@ -21,6 +21,7 @@ export default function CallInfo(props) {
     const [showCloseCustomize, setShowCloseCustomize] = useState(false);
     const [editParameters, setEditParameters] = useState(false);
     const [parameters, setParameters] = useState([]);
+    const [discardCustomize, setDiscardCustomize] = useState(false);
 
     /*
     List of parameters that actually are present in our screenshots:
@@ -103,6 +104,8 @@ export default function CallInfo(props) {
     // abort to the modal to customize the view of the call
     const discardCloseCustomize = () => {
         setShowCloseCustomize(false);
+        setDiscardCustomize(false);
+        setNewPath();
     }
 
     const handleEditParameters = () => {
@@ -112,6 +115,12 @@ export default function CallInfo(props) {
     const discardEditParameters = () => {
         setEditParameters(false);
         setNewPath();
+    }
+    const handleDiscardCustomize = () => {
+        setDiscardCustomize(true);
+    }
+    const discardDiscardCustomize = () => {
+        setDiscardCustomize(false);
     }
 
     const confirmEditParameters = async(event) => {
@@ -174,7 +183,21 @@ export default function CallInfo(props) {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-                <Row>
+                <Modal show={discardCustomize} onHide={setDiscardCustomize}>
+                    <Modal.Header>
+                        <Modal.Title>Discard customize -- Call#{call.id}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Are you sure to discard the previous edits of the Call#{call.id}?</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="success" onClick={discardCloseCustomize}>
+                            Yes
+                        </Button>
+                        <Button variant="danger" onClick={discardDiscardCustomize}>
+                            No
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                <Row className="nomargin">
                     <Col xs={9}>
                         <Shake v={3} h={3} r={1}>
                             <Table hover>
@@ -203,7 +226,8 @@ export default function CallInfo(props) {
                                 <Card.Text>{call.ambStatus}</Card.Text>
                             </Card.Body>
                         </Card>
-                        <Button variant="info" onClick={handleConfirmCustomize}>Confirm</Button>
+                        <Button className="confirm" style={{backgroundColor:"green", border: "green"}} onClick={handleConfirmCustomize}>Confirm</Button>
+                        <Button variant="danger" onClick={handleDiscardCustomize}>Discard</Button>
                     </Col>
                 </Row>
             </>
