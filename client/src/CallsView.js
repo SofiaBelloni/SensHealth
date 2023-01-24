@@ -5,7 +5,7 @@ import './App.css'
 function CallsView(props) {
   return (
     <>
-      <Row>
+      <Row className="nomargin">
       <ToastContainer position='top-end'>
       <Toast className='toast-1' onClose={() => props.setShow(false)} show={props.show} delay={3000} autohide>
         <Toast.Header>

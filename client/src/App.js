@@ -77,7 +77,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Row>
+      <Row className="nomargin">
         <MyNavbar />
       </Row>
       <Routes>

@@ -152,8 +152,8 @@ export default function CallInfo(props) {
                     </Modal.Header>
                     <Modal.Body>
                         <Form>
-                            <Form.Check type="switch" className="check" label="HR" name="HR" checked/> 
-                            <Form.Check type="switch" className="check" label="SPO2" name="SPO2" checked />
+                            <Form.Check type="switch" className="check" label="HR" name="HR" checked disabled/> 
+                            <Form.Check type="switch" className="check" label="SPO2" name="SPO2" checked disabled />
                             {parameters.includes('pa') ? <Form.Check type="switch" className="check" label="PA" name="PA" defaultChecked/> : <Form.Check type="switch" className="check" label="PA" name="PA"/>}
                             {parameters.includes('etco2') ? <Form.Check type="switch" className="check" label="ETCO2" name="ETCO2" defaultChecked/> : <Form.Check type="switch" className="check" label="ETCO2" name="ETCO2"/>}
                             {parameters.includes('nibp') ? <Form.Check type="switch" className="check" label="NIBP" name="NIBP" defaultChecked/> : <Form.Check type="switch" className="check" label="NIBP" name="NIBP"/>}
@@ -183,6 +183,7 @@ export default function CallInfo(props) {
                         </Button>
                     </Modal.Footer>
                 </Modal>
+
                 <Modal show={discardCustomize} onHide={setDiscardCustomize}>
                     <Modal.Header>
                         <Modal.Title>Discard customize -- Call#{call.id}</Modal.Title>
@@ -197,6 +198,8 @@ export default function CallInfo(props) {
                         </Button>
                     </Modal.Footer>
                 </Modal>
+
+
                 <Row className="nomargin">
                     <Col xs={9}>
                         <Shake v={3} h={3} r={1}>
@@ -213,7 +216,7 @@ export default function CallInfo(props) {
                         </Shake>
                     </Col>
                     <Col xs={3}>
-                        <Card>
+                    <Card className='spg-box shadow'>
                             <Card.Header><b>Call #{call.id}</b></Card.Header>
                             <Card.Body>
                                 <Card.Title>Name</Card.Title>
@@ -227,7 +230,10 @@ export default function CallInfo(props) {
                             </Card.Body>
                         </Card>
                         <Button className="confirm" style={{backgroundColor:"green", border: "green"}} onClick={handleConfirmCustomize}>Confirm</Button>
+
                         <Button variant="danger" onClick={handleDiscardCustomize}>Discard</Button>
+
+
                     </Col>
                 </Row>
             </>
@@ -251,7 +257,7 @@ export default function CallInfo(props) {
                     </Modal.Footer>
                 </Modal>
                 {showAlertModal ? <SendAlert callId={call._id} show={showAlertModal} handleClose={handleCloseAlert} /> : false}
-                <Row>
+                <Row className="nomargin">
                     <Col xs={9}>
                         <Table hover>
                             <thead>
@@ -265,7 +271,8 @@ export default function CallInfo(props) {
                         </Table>
                     </Col>
                     <Col xs={3}>
-                        <Card>
+                    <Card className='spg-box shadow'>
+
                             <Card.Header><b>Call #{call.id}</b></Card.Header>
                             <Card.Body>
                                 <Card.Title>Name</Card.Title>
@@ -279,10 +286,13 @@ export default function CallInfo(props) {
                             </Card.Body>
                         </Card>
                         <Button variant="danger" className="closecall" onClick={handleCloseCall}>Close Call</Button>
-                        <Button variant="success" className="customize" onClick={handleCustomize}>Customize view</Button>
+
+
+                        <Button  className="customize" style={{backgroundColor:"green", border: "green"}} onClick={handleCustomize}>Customize view</Button>
+
                     </Col>
                 </Row>
-                <Row>
+                <Row className="nomargin">
                 <Col>
                         <Button
                             variant='primary'
