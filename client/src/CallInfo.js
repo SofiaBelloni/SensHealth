@@ -279,7 +279,7 @@ export default function CallInfo(props) {
                             </Card.Body>
                         </Card>
                         <Button variant="danger" className="closecall" onClick={handleCloseCall}>Close Call</Button>
-                        <Button variant="info" className="customize" onClick={handleCustomize}>Customize view</Button>
+                        <Button variant="success" className="customize" onClick={handleCustomize}>Customize view</Button>
                     </Col>
                 </Row>
                 <Row>
