@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
 import { NavLink, useParams } from "react-router-dom"
-import {Table, Button, Row, Col, Card, Image, Modal, Nav, Form} from "react-bootstrap";
-import {AiFillWarning } from "react-icons/ai";
-import {BsFillMicFill} from "react-icons/bs";
+import { Table, Button, Row, Col, Card, Image, Modal, Nav, Form } from "react-bootstrap";
+import { AiFillWarning } from "react-icons/ai";
+import { BsFillMicFill } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
 import { Shake, ShakeLittle, ShakeSlow } from 'reshake'
 import SendAlert from './SendAlert';
 import Toast from 'react-bootstrap/Toast'
 import ToastContainer from 'react-bootstrap/ToastContainer'
+import { AlertsModal } from './AlertsModal';
 
 import './CallInfo.css';
 
@@ -25,6 +26,7 @@ export default function CallInfo(props) {
     const [parameters, setParameters] = useState([]);
     const [discardCustomize, setDiscardCustomize] = useState(false);
 
+    console.log(call.id);
     /*
     List of parameters that actually are present in our screenshots:
         hr
@@ -34,6 +36,15 @@ export default function CallInfo(props) {
         nibp
         temp
     */
+
+
+    const [showAlertModalA, setShowAlertModalA] = useState(false);
+    const handleCloseAlertA = () => setShowAlertModalA(false);
+    const handleShowAlertA = (callId) => {
+        setShowAlertModalA(true);
+    };
+
+    console.log(showAlertModalA)
 
     const [showAlertModal, setShowAlertModal] = useState(false);
     const [modalShow, setModalShow] = useState(false);
@@ -51,24 +62,24 @@ export default function CallInfo(props) {
             console.log('retrieve info');
             console.log(call);
         }
-        
+
         retrieveInfo(params.callId)
         console.log(call);
-        
+
     }, [])
 
     const handleCloseAlert = () => {
         setShowAlertModal(false);
     }
 
-    const handleDiscarded = ()=>{
+    const handleDiscarded = () => {
         setColorToast("warning");
         setSuccessMessage("Alert correctly discarded");
         setShowSuccess(true);
     }
 
 
-    const handleSent = ()=>{
+    const handleSent = () => {
         setColorToast("success");
         setSuccessMessage("Alert correctly sent");
         setShowSuccess(true);
@@ -116,7 +127,7 @@ export default function CallInfo(props) {
     }
 
     // confirmation to the customize mode of the call
-    const confirmCustomize = (location) =>{
+    const confirmCustomize = (location) => {
         setShowCloseCustomize(false);
         setCustomize(false);
         window.location.reload();
@@ -145,7 +156,7 @@ export default function CallInfo(props) {
         setDiscardCustomize(false);
     }
 
-    const confirmEditParameters = async(event) => {
+    const confirmEditParameters = async (event) => {
         setEditParameters(false);
         let array_of_chosen_parameters = document.querySelectorAll("*");
         // Filter only them who are checked and i take only the names
@@ -159,9 +170,9 @@ export default function CallInfo(props) {
         await API.setPath(call.id, new_filename);
         event.preventDefault();
     }
-    
 
-    if(call.status === 'Closed') {
+
+    if (call.status === 'Closed') {
         navigate('/')
     } else {
         if (customize) {
@@ -174,12 +185,12 @@ export default function CallInfo(props) {
                     </Modal.Header>
                     <Modal.Body>
                         <Form>
-                            <Form.Check type="switch" className="check" label="HR" name="HR" checked disabled/> 
+                            <Form.Check type="switch" className="check" label="HR" name="HR" checked disabled />
                             <Form.Check type="switch" className="check" label="SPO2" name="SPO2" checked disabled />
-                            {parameters.includes('pa') ? <Form.Check type="switch" className="check" label="PA" name="PA" defaultChecked/> : <Form.Check type="switch" className="check" label="PA" name="PA"/>}
-                            {parameters.includes('etco2') ? <Form.Check type="switch" className="check" label="ETCO2" name="ETCO2" defaultChecked/> : <Form.Check type="switch" className="check" label="ETCO2" name="ETCO2"/>}
-                            {parameters.includes('nibp') ? <Form.Check type="switch" className="check" label="NIBP" name="NIBP" defaultChecked/> : <Form.Check type="switch" className="check" label="NIBP" name="NIBP"/>}
-                            {parameters.includes('temp') ? <Form.Check type="switch" className="check" label="TEMP" name="TEMP" defaultChecked/> : <Form.Check type="switch" className="check" label="TEMP" name="TEMP"/>}
+                            {parameters.includes('pa') ? <Form.Check type="switch" className="check" label="PA" name="PA" defaultChecked /> : <Form.Check type="switch" className="check" label="PA" name="PA" />}
+                            {parameters.includes('etco2') ? <Form.Check type="switch" className="check" label="ETCO2" name="ETCO2" defaultChecked /> : <Form.Check type="switch" className="check" label="ETCO2" name="ETCO2" />}
+                            {parameters.includes('nibp') ? <Form.Check type="switch" className="check" label="NIBP" name="NIBP" defaultChecked /> : <Form.Check type="switch" className="check" label="NIBP" name="NIBP" />}
+                            {parameters.includes('temp') ? <Form.Check type="switch" className="check" label="TEMP" name="TEMP" defaultChecked /> : <Form.Check type="switch" className="check" label="TEMP" name="TEMP" />}
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
@@ -232,13 +243,13 @@ export default function CallInfo(props) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {!newPath ? <Image src={call.img} ></Image> : <Image src={newPath}></Image>}                                    <Button className="editparameters" onClick={handleEditParameters}>Edit parameters</Button>
+                                    {!newPath ? <Image src={call.img} ></Image> : <Image src={newPath}></Image>}                                    <Button className="editparameters" onClick={handleEditParameters}>Edit parameters</Button>
                                 </tbody>
                             </Table>
                         </Shake>
                     </Col>
                     <Col xs={3}>
-                    <Card className='spg-box shadow'>
+                        <Card className='spg-box shadow'>
                             <Card.Header><b>Call #{call.id}</b></Card.Header>
                             <Card.Body>
                                 <Card.Title>Name</Card.Title>
@@ -251,7 +262,7 @@ export default function CallInfo(props) {
                                 <Card.Text>{call.ambStatus}</Card.Text>
                             </Card.Body>
                         </Card>
-                        <Button className="confirm" style={{backgroundColor:"green", border: "green"}} onClick={handleConfirmCustomize}>Confirm</Button>
+                        <Button className="confirm" style={{ backgroundColor: "green", border: "green" }} onClick={handleConfirmCustomize}>Confirm</Button>
 
                         <Button variant="danger" className="discardDanger" onClick={handleDiscardCustomize}>Discard</Button>
 
@@ -262,15 +273,15 @@ export default function CallInfo(props) {
         }
         else {
             return <>
-            {showSuccess ?  //Success toast
-                (<div className="position-relative">
-                    <ToastContainer position='top-center'>
-                        <Toast bg={colorToast} onClose={() => { setShowSuccess(false);}} show={showSuccess} delay={2000} autohide>
-                            <Toast.Body className='text-white text-center'>{successMessage}</Toast.Body>
-                        </Toast>
-                    </ToastContainer>
-                </div>)
-                : false}
+                {showSuccess ?  //Success toast
+                    (<div className="position-relative">
+                        <ToastContainer position='top-center'>
+                            <Toast bg={colorToast} onClose={() => { setShowSuccess(false); }} show={showSuccess} delay={2000} autohide>
+                                <Toast.Body className='text-white text-center'>{successMessage}</Toast.Body>
+                            </Toast>
+                        </ToastContainer>
+                    </div>)
+                    : false}
                 <Modal id='close-call-popup' show={showClose} onHide={setShowClose}>
                     <Modal.Header>
                         <Modal.Title>Close Call -- Call#{call.id}</Modal.Title>
@@ -287,7 +298,7 @@ export default function CallInfo(props) {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-                {showAlertModal ? <SendAlert callId={call._id} show={showAlertModal} handleClose={handleCloseAlert} handleSent={handleSent} handleDiscarded={handleDiscarded}/> : false}
+                {showAlertModal ? <SendAlert callId={call._id} show={showAlertModal} handleClose={handleCloseAlert} handleSent={handleSent} handleDiscarded={handleDiscarded} /> : false}
                 <Row className="nomargin">
                     <Col xs={9}>
                         <Table hover>
@@ -302,7 +313,7 @@ export default function CallInfo(props) {
                         </Table>
                     </Col>
                     <Col xs={3}>
-                    <Card className='spg-box shadow'>
+                        <Card className='spg-box shadow'>
 
                             <Card.Header><b>Call #{call.id}</b></Card.Header>
                             <Card.Body>
@@ -317,12 +328,14 @@ export default function CallInfo(props) {
                             </Card.Body>
                         </Card>
                         <Button variant="danger" className="closecall" onClick={handleCloseCall}>Close Call</Button>
-                        <Button  className="customize" style={{backgroundColor:"green", border: "green"}} onClick={handleCustomize}>Customize view</Button>
+                        <Button className="customize" style={{ backgroundColor: "green", border: "green" }} onClick={handleCustomize}>Customize view</Button>
+                        <Button className="showalerts" variant='warning' onClick={() => { handleShowAlertA(call.id) }}> Show Alerts</Button>
 
                     </Col>
                 </Row>
                 <Row className="nomargin">
-                <Col>
+                {showAlertModalA ? <AlertsModal callId={call.id} show={showAlertModalA} handleClose={handleCloseAlertA}/> : false}
+                    <Col>
                         <Button
                             variant='primary'
                             className='vocal'
@@ -353,4 +366,3 @@ export default function CallInfo(props) {
         }
     }
 }
-    

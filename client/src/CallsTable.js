@@ -84,7 +84,7 @@ function CallsTable(props) {
 
   return (<>
     <div className='table-container'>
-      <Modal id='close-call-popup' show={showClose} onHide={handleCloseClose}>
+      <Modal id='close-call-popup' show={showClose} onHide={closePopups}>
         <Modal.Header>
           <Modal.Title>Close Call -- Call#{id}</Modal.Title>
         </Modal.Header>
@@ -98,7 +98,7 @@ function CallsTable(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Modal id='openagain-call-popup' show={showOpen} onHide={handleCloseOpen}>
+      <Modal id='openagain-call-popup' show={showOpen} onHide={closePopups}>
         <Modal.Header>
           <Modal.Title>Open again Call -- Call#{id}</Modal.Title>
         </Modal.Header>
