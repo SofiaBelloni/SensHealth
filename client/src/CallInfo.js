@@ -34,7 +34,7 @@ export default function CallInfo(props) {
 
     const [showAlertModal, setShowAlertModal] = useState(false);
     const [modalShow, setModalShow] = useState(false);
-
+    const [newPath, setNewPath] = useState();
     const [confirmSelection, setConfirmSelection] = useState(false);
 
     useEffect(() => {
@@ -121,6 +121,8 @@ export default function CallInfo(props) {
         // Now I can create the string
         let new_filename = `/images/${call.id}/${Array.from(array_of_chosen_parameters).join('_')}`;
         new_filename = new_filename + ".jpg";
+        // I'll update my state in order to get the view effective
+        setNewPath(new_filename);
         // Now I can call the API which update my DB
         await API.setPath(call.id, new_filename);
         event.preventDefault();
@@ -181,8 +183,7 @@ export default function CallInfo(props) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <Image src={call.img} fluid></Image>
-                                    <Button className="editparameters" onClick={handleEditParameters}>Edit parameters</Button>
+                                {!newPath ? <Image src={call.img} ></Image> : <Image src={newPath}></Image>}                                    <Button className="editparameters" onClick={handleEditParameters}>Edit parameters</Button>
                                 </tbody>
                             </Table>
                         </Shake>
@@ -234,7 +235,7 @@ export default function CallInfo(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <Image src={call.img} ></Image>
+                                {!newPath ? <Image src={call.img} ></Image> : <Image src={newPath}></Image>}
                             </tbody>
                         </Table>
                     </Col>
