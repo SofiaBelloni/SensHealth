@@ -231,7 +231,7 @@ export default function CallInfo(props) {
                         </Card>
                         <Button className="confirm" style={{backgroundColor:"green", border: "green"}} onClick={handleConfirmCustomize}>Confirm</Button>
 
-                        <Button variant="danger" onClick={handleDiscardCustomize}>Discard</Button>
+                        <Button variant="danger" className="discardDanger" onClick={handleDiscardCustomize}>Discard</Button>
 
 
                     </Col>
@@ -286,8 +286,6 @@ export default function CallInfo(props) {
                             </Card.Body>
                         </Card>
                         <Button variant="danger" className="closecall" onClick={handleCloseCall}>Close Call</Button>
-
-
                         <Button  className="customize" style={{backgroundColor:"green", border: "green"}} onClick={handleCustomize}>Customize view</Button>
 
                     </Col>
