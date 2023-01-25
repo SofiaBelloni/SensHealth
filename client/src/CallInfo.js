@@ -157,6 +157,11 @@ export default function CallInfo(props) {
     const discardDiscardCustomize = () => {
         setDiscardCustomize(false);
     }
+    const confirmDiscardCustomize = () => {
+        setShowCloseCustomize(false);
+        setDiscardCustomize(false);
+        setNewPath();
+    }
 
     const confirmEditParameters = async (event) => {
         setEditParameters(false);
@@ -234,7 +239,7 @@ export default function CallInfo(props) {
                     <Modal.Footer>
                         <Row>
                             <Col className='text-left'>
-                                <Button variant="success" onClick={discardCloseCustomize}>
+                                <Button variant="success" onClick={confirmDiscardCustomize}>
                                     Yes
                                 </Button>
                             </Col>
