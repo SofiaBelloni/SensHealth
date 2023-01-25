@@ -249,7 +249,7 @@ export default function CallInfo(props) {
 
 
                 <Row className="nomargin">
-                    <Col xs={9}>
+                    <Col xs={8}>
                         <Shake v={3} h={3} r={1}>
                             <Table hover>
                                 <thead>
@@ -258,12 +258,13 @@ export default function CallInfo(props) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {!newPath ? <Image src={call.img} ></Image> : <Image src={newPath}></Image>}                                    <Button className="editparameters" onClick={handleEditParameters}>Edit parameters</Button>
+                                    {!newPath ? <Image src={call.img} ></Image> : <Image src={newPath}></Image>}                                   
+                                     <Button className="editparameters" onClick={handleEditParameters}>Edit parameters</Button>
                                 </tbody>
                             </Table>
                         </Shake>
                     </Col>
-                    <Col xs={3}>
+                    <Col xs={4}>
                         <Card className='cardInfo shadow'>
                             <Card.Header><b>Call #{call.id}</b></Card.Header>
                             <Card.Body>
