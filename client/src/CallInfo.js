@@ -139,7 +139,7 @@ export default function CallInfo(props) {
     const discardCloseCustomize = () => {
         setShowCloseCustomize(false);
         setDiscardCustomize(false);
-        //setCustomize(false)
+        setCustomize(false)
         setNewPath();
     }
 
