@@ -2,7 +2,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import Button from 'react-bootstrap/Button';
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { Card, OverlayTrigger, Table, Tooltip } from 'react-bootstrap';
+import { Card, OverlayTrigger, Table, Tooltip, Row, Col } from 'react-bootstrap';
 import './App.css';
 import { NavLink } from 'react-router-dom';
 import { AlertsModal } from './AlertsModal';
@@ -88,28 +88,40 @@ function CallsTable(props) {
         <Modal.Header>
           <Modal.Title>Close Call -- Call#{id}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure to close the Call#{id}</Modal.Body>
+        <Modal.Body className='text-center my-2'>Are you sure to close the Call#{id}?</Modal.Body>
         <Modal.Footer>
-          <Button variant="success" onClick={handleCloseClose}>
-            Yes
-          </Button>
-          <Button variant="danger" onClick={closePopups}>
-            No
-          </Button>
+          <Row>
+            <Col className='text-left'>
+              <Button variant="success" onClick={handleCloseClose}>
+                Yes
+              </Button>
+            </Col>
+            <Col className='text-end'>
+              <Button variant="danger" onClick={closePopups}>
+                No
+              </Button>
+            </Col>
+          </Row>
         </Modal.Footer>
       </Modal>
       <Modal id='openagain-call-popup' show={showOpen} onHide={closePopups}>
         <Modal.Header>
           <Modal.Title>Open again Call -- Call#{id}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure to open again the Call#{id}</Modal.Body>
+        <Modal.Body className='text-center my-2'>Are you sure to open again the Call#{id}?</Modal.Body>
         <Modal.Footer>
-          <Button variant="success" onClick={handleCloseOpen}>
-            Yes
-          </Button>
-          <Button variant="danger" onClick={closePopups}>
-            No
-          </Button>
+          <Row>
+            <Col className='text-left'>
+              <Button variant="success" onClick={handleCloseOpen}>
+                Yes
+              </Button>
+            </Col>
+            <Col className='text-end'>
+              <Button variant="danger" onClick={closePopups}>
+                No
+              </Button>
+            </Col>
+          </Row>
         </Modal.Footer>
       </Modal>
       {showAlertModal ? <AlertsModal callId={id} show={showAlertModal} handleClose={handleCloseAlert}/> : false}

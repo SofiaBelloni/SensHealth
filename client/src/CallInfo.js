@@ -209,14 +209,20 @@ export default function CallInfo(props) {
                     <Modal.Header>
                         <Modal.Title>Confirm customize -- Call#{call.id}</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Are you sure to edit the view of the Call#{call.id}</Modal.Body>
+                    <Modal.Body className='text-center my-2'>Are you sure to edit the view of the Call#{call.id}?</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="success" onClick={confirmCustomize}>
-                            Yes
-                        </Button>
-                        <Button variant="danger" onClick={discardCloseCustomize}>
-                            No
-                        </Button>
+                        <Row>
+                            <Col className='text-left'>
+                                <Button variant="success width" onClick={confirmCustomize}>
+                                    Yes
+                                </Button>
+                            </Col>
+                            <Col className='text-end'>
+                                <Button variant="danger" onClick={discardCloseCustomize}>
+                                    No
+                                </Button>
+                            </Col>
+                        </Row>
                     </Modal.Footer>
                 </Modal>
 
@@ -224,14 +230,20 @@ export default function CallInfo(props) {
                     <Modal.Header>
                         <Modal.Title>Discard customize -- Call#{call.id}</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Are you sure to discard the previous edits of the Call#{call.id}?</Modal.Body>
+                    <Modal.Body className='text-center my-2'>Are you sure to discard the previous edits of the Call#{call.id}?</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="success" onClick={discardCloseCustomize}>
-                            Yes
-                        </Button>
-                        <Button variant="danger" onClick={discardDiscardCustomize}>
-                            No
-                        </Button>
+                        <Row>
+                            <Col className='text-left'>
+                                <Button variant="success" onClick={discardCloseCustomize}>
+                                    Yes
+                                </Button>
+                            </Col>
+                            <Col className='text-end'>
+                                <Button variant="danger" onClick={discardDiscardCustomize}>
+                                    No
+                                </Button>
+                            </Col>
+                        </Row>
                     </Modal.Footer>
                 </Modal>
 
@@ -289,16 +301,22 @@ export default function CallInfo(props) {
                     <Modal.Header>
                         <Modal.Title>Close Call -- Call#{call.id}</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Are you sure to close the Call#{call.id}</Modal.Body>
+                    <Modal.Body className='text-center my-2'>Are you sure to close the Call#{call.id}?</Modal.Body>
                     <Modal.Footer>
-                        <NavLink to={"/"}>
-                            <Button variant="success" onClick={confirmCloseCall}>
-                                Yes
-                            </Button>
-                        </NavLink>
-                        <Button variant="danger" onClick={discardClose}>
-                            No
-                        </Button>
+                        <Row>
+                            <Col className='text-left'>
+                                <NavLink to={"/"}>
+                                    <Button variant="success" onClick={confirmCloseCall}>
+                                        Yes
+                                    </Button>
+                                </NavLink>
+                            </Col>
+                            <Col className='text-end'>
+                                <Button variant="danger" onClick={discardClose}>
+                                    No
+                                </Button>
+                            </Col>
+                        </Row>
                     </Modal.Footer>
                 </Modal>
                 {showAlertModal ? <SendAlert callId={call._id} show={showAlertModal} handleClose={handleCloseAlert} handleSent={handleSent} handleDiscarded={handleDiscarded} handleSentNoDesc={handleSentNoDesc}/> : false}
