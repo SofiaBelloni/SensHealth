@@ -354,6 +354,7 @@ export default function CallInfo(props) {
 
                     </Col>
                 </Row>
+                <br/>
                 <Row className="nomargin text-sm-center mt-2">
                 {showAlertModalA ? <AlertsModal callId={call.id} show={showAlertModalA} handleClose={handleCloseAlertA}/> : false}
                     <Col>

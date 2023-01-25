@@ -1,54 +1,61 @@
 .vocal {
-    left: 40px;
-    bottom: 40px;
-    height: 48px;
-    padding-right: 20px;
-    align-items: center;
-    margin-left: 5px;
-  }
-  .sendalert {
-    right: 40px;
-    bottom: 40px;
-    height: 48px;
-    padding-right: 20px;
-    align-items: center;
-    
-  }
-  .returncall {
-    right: 650px;
-    bottom: 40px;
-    height: 48px;
-    padding-right: 20px;
-    align-items: right;
-  }
-  .closecall {
-    margin-top: 30px;
-  }
-  .confirm {
-    margin-top: 30px;
-  }
+  left: 40px;
+  bottom: 40px;
+  height: 48px;
+  padding-right: 20px;
+  align-items: center;
+  margin-left: 5px;
+}
 
-  .customize {
-    margin-top: 30px;
-    margin-left: 30px;
-  }
+.sendalert {
+  right: 40px;
+  bottom: 40px;
+  height: 48px;
+  padding-right: 20px;
+  align-items: center;
 
-  .showalerts {
-    margin-top: 30px;
-    margin-left: 30px;
-  }
-  
-  .editparameters{
-    margin-left: 5%;
-  }
-  img {
-    width: 800px;
-    margin-left: 20px;
- }
- .col-3 {
+}
+
+.returncall {
+  right: 650px;
+  bottom: 40px;
+  height: 48px;
+  padding-right: 20px;
+  align-items: right;
+}
+
+.closecall {
+  margin-top: 30px;
+}
+
+.confirm {
+  margin-top: 30px;
+}
+
+.customize {
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.showalerts {
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.editparameters {
+  margin-left: 5%;
+}
+
+img {
+  width: 800px;
+  margin-left: 20px;
+}
+
+.col-3 {
   margin-top: 100px !important;
- }
- .spg-box {
+}
+
+.spg-box {
   display: flex;
   flex-direction: column;
   padding: 0px;
@@ -57,6 +64,7 @@
   border-radius: 12px;
   overflow: hidden;
 }
+
 .discardDanger {
   margin-left: 30px;
   margin-top: 30px;
