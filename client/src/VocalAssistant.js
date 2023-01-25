@@ -1,21 +1,16 @@
 import { Modal, Button, Card, Form, Row, Col } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import Collapse from 'react-bootstrap/Collapse';
 import API from './Api.js';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { HiBellAlert } from "react-icons/hi2";
 import './VocalAssistant.css'
 import { AlertsModal } from "./AlertsModal.js";
 
+
 function VocalAssistant(props) {
     const navigate = useNavigate();
     const [confirmSelection, setConfirmSelection] = useState("");
-    const [openA, setOpenA] = useState(false);
-    const [openB, setOpenB] = useState(false);
-    const [openC, setOpenC] = useState(false);
-    const [openD, setOpenD] = useState(false);
-
 
     const [alertsList, setAlertsList] = useState([]);
     const [callAlert, setCallAlert] = useState(0);
@@ -40,7 +35,7 @@ function VocalAssistant(props) {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 scrollable
-                onExit={() => { setOpenA(false); setOpenB(false); setOpenC(false); setOpenD(false); setConfirmSelection(""); setCallAlert(0); setAlertsList([]) }}
+                onExit={() => {setConfirmSelection(""); setCallAlert(0); setAlertsList([]) }}
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
@@ -57,21 +52,16 @@ function VocalAssistant(props) {
                                 </p>
 
 
-                                <Button onClick={() => { setOpenA(!openA); setOpenB(false); setOpenC(false); setOpenD(false); setConfirmSelection("send"); props.sendalert(); props.onHide() }}
-                                    aria-controls="example-collapse-text"
-                                    aria-expanded={openA}
+                                <Button onClick={() => {setConfirmSelection("send"); props.sendalert(); props.onHide() }}
                                 >Send an alert for this call</Button>{' '}
-                                <Button onClick={() => { setOpenB(!openB); setOpenA(false); setOpenC(false); setOpenD(false); setConfirmSelection("alert"); }} aria-controls="example-collapse-text"
-                                    aria-expanded={openB}
+                                <Button onClick={() => {setConfirmSelection("alert"); }} 
                                 >Show alerts of a call</Button>{' '}
                                 <Button onClick={() => { navigate('/'); }}>Show call list </Button>{' '}
                                 <br />                    <br />
 
-                                <Button onClick={() => { setOpenC(!openC); setOpenA(false); setOpenB(false); setOpenD(false); setConfirmSelection("open") }} aria-controls="example-collapse-text"
-                                    aria-expanded={openC}
+                                <Button onClick={() => {setConfirmSelection("open") }}
                                 >View call number # </Button>{' '}
-                                <Button onClick={() => { setOpenD(!openD); setOpenA(false); setOpenB(false); setOpenC(false); setConfirmSelection("close") }} aria-controls="example-collapse-text"
-                                    aria-expanded={openD}
+                                <Button onClick={() => {setConfirmSelection("close") }}
                                 >
                                     Close this call </Button>{' '}
                             </Card>
@@ -97,8 +87,6 @@ function VocalAssistant(props) {
                                     </Row>
 
                                     <br />
-                                    <Collapse in={openB} dimension="width">
-                                        <div id="example-collapse-text">
                                             <Card border="primary" body style={{ width: '400px',borderRadius: '30px' , backgroundColor:'rgb(238, 243, 243)' }}>
                                                 Which call's number?
                                                 <br />
@@ -112,9 +100,6 @@ function VocalAssistant(props) {
                                                 }
 
                                             </Card>
-                                        </div>
-                                    </Collapse>
-                                    <br />
 
                                     {(callAlert === 0) ? false :
 
@@ -174,8 +159,6 @@ function VocalAssistant(props) {
                                         </Row>
                                         <br />
                                     </div>
-                                    <Collapse in={openC} dimension="width">
-                                        <div id="example-collapse-text">
                                             <Card border="primary" body style={{ width: '400px', borderRadius: '30px' , backgroundColor:'rgb(238, 243, 243)'}}>
                                                 Which call's number?
                                                 <br />
@@ -185,8 +168,7 @@ function VocalAssistant(props) {
                                                     props.callsActive.map((c) => <><Button onClick={() => { navigate(`/call/${c.id}`); window.location.reload() }}>{c.id}</Button>{' '}</>)
                                                 }
                                             </Card>
-                                        </div>
-                                    </Collapse></> :
+                                        </> :
                                     (confirmSelection === 'close') ?
                                         <>
                                             <div>
@@ -201,8 +183,6 @@ function VocalAssistant(props) {
                                                 <br />
                                             </div>
 
-                                            <Collapse in={openD} dimension="width">
-                                                <div id="example-collapse-text">
                                                     <Card border="primary" body style={{ width: '400px',borderRadius: '30px' , backgroundColor:'rgb(238, 243, 243)'}}>
                                                         Are you sure to Close the call?
 
@@ -214,8 +194,7 @@ function VocalAssistant(props) {
                                                         }}>Yes</Button>{' '}
                                                         <Button onClick={() => { props.onHide(); setConfirmSelection("") }}>No</Button>{' '}
                                                     </Card>
-                                                </div>
-                                            </Collapse>
+
                                         </>
                                         :
                                         false}
@@ -224,9 +203,9 @@ function VocalAssistant(props) {
 
                 </Modal.Body>
                 <Modal.Footer>
-                    {/*<Button onClick={props.onHide}>Close</Button>*/}
                     <Form>
                         <Form.Control placeholder="I'm listening..." disabled />
+                        
                     </Form>
                 </Modal.Footer>
             </Modal>
