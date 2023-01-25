@@ -17,14 +17,14 @@
   }
   /*'Times New Roman', Times, serif,*/
   #nav-username {
-    font-family: "IBM Plex Sans", sans-serif;
+    font-family: "IBM Plex Sans", sans-serif, cursive;
     font-weight: 500;
     color: white;
     padding: 1vh!important;
   }
   
   #btn-login {
-    font-family: "IBM Plex Sans", sans-serif;
+    font-family: "IBM Plex Sans", sans-serif,cursive;
     padding-right: 1rem;
     border-radius: 7px;
   }

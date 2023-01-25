@@ -50,7 +50,6 @@
     margin-bottom: 5%;
     padding: 4pt;
 }
-
 #sensorTable {
     border: gray 1pt solid;
     outline: none;
@@ -70,7 +69,7 @@
 }
 
 .font-title{
-    font-family:'Times New Roman', Times, serif, cursive;
+    font-family:"IBM Plex Sans", sans-serif, cursive;
 }
 
 .additional-details-elem{
@@ -84,5 +83,17 @@
 }
 
 .modal-blue{
-    background-color: #0dcaf0;
+    background-color:#0d82f0;
 }
+.cardSensor{
+    display: flex;
+    flex-direction: row;
+    margin-left: 10%;
+    padding: 0px;
+    width: 80%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border-color: black;
+  }
+  

@@ -265,7 +265,7 @@ export default function CallInfo(props) {
                         </Shake>
                     </Col>
                     <Col xs={4}>
-                        <Card className='cardInfo shadow'>
+                        <Card className='cardCustomize shadow'>
                             <Card.Header><b>Call #{call.id}</b></Card.Header>
                             <Card.Body>
                                 <Card.Title>Name</Card.Title>
@@ -278,9 +278,9 @@ export default function CallInfo(props) {
                                 <Card.Text>{call.ambStatus}</Card.Text>
                             </Card.Body>
                         </Card>
-                        <Button className="confirm" style={{ backgroundColor: "green", border: "green" }} onClick={handleConfirmCustomize}>Confirm</Button>
+                        <Button className="confirm" style={{ backgroundColor: "green", border: "green" }} onClick={handleConfirmCustomize}>Confirm edit</Button>
 
-                        <Button variant="danger" className="discardDanger" onClick={handleDiscardCustomize}>Discard</Button>
+                        <Button variant="danger" className="discardDanger" onClick={handleDiscardCustomize}>Discard edit</Button>
 
 
                     </Col>

@@ -1,6 +1,6 @@
 import Table from 'react-bootstrap/Table';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Container } from 'react-bootstrap';
+import { Container,Card } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import React, { useState } from 'react';
 import "./SensorStatus.css";
@@ -32,7 +32,9 @@ function SensorTable() {
             <div className='mt-3'>
                 <h1 className='font-title mt-4 text-center'>Sensor status</h1>
             </div>
-            <div className='border mt-3'>
+
+            <Card className="cardSensor shadow">
+
                 <ListGroup className='sensor-list table-1' as="ul">
                     <ListGroup.Item as="li" className="kit-title">KIT ID</ListGroup.Item>
                     {
@@ -40,8 +42,8 @@ function SensorTable() {
                     }
                 </ListGroup>
                 {show ? <Kit kit={kit} /> : <Instruction />}
+                </Card>
 
-            </div>
         </>
     );
 }
