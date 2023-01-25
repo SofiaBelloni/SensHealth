@@ -321,7 +321,7 @@ export default function CallInfo(props) {
                 </Modal>
                 {showAlertModal ? <SendAlert callId={call._id} show={showAlertModal} handleClose={handleCloseAlert} handleSent={handleSent} handleDiscarded={handleDiscarded} handleSentNoDesc={handleSentNoDesc}/> : false}
                 <Row className="nomargin">
-                    <Col xs={9}>
+                    <Col xs={8}>
                         <Table hover>
                             <thead>
                                 <tr>
@@ -333,7 +333,7 @@ export default function CallInfo(props) {
                             </tbody>
                         </Table>
                     </Col>
-                    <Col xs={3}>
+                    <Col xs={4}>
                         <Card className='spg-box shadow'>
 
                             <Card.Header><b>Call #{call.id}</b></Card.Header>
