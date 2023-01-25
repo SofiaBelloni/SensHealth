@@ -139,7 +139,7 @@ export default function CallInfo(props) {
     const discardCloseCustomize = () => {
         setShowCloseCustomize(false);
         setDiscardCustomize(false);
-        setCustomize(false)
+        //setCustomize(false)
         setNewPath();
     }
 
@@ -161,6 +161,7 @@ export default function CallInfo(props) {
         setShowCloseCustomize(false);
         setDiscardCustomize(false);
         setNewPath();
+        setCustomize(false);
     }
 
     const confirmEditParameters = async (event) => {
