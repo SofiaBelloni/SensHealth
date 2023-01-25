@@ -140,7 +140,7 @@ export default function CallInfo(props) {
         setShowCloseCustomize(false);
         setDiscardCustomize(false);
         //setCustomize(false)
-        setNewPath();
+        //setNewPath();
     }
 
     const handleEditParameters = () => {
