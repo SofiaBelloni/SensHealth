@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { NavLink, useParams } from "react-router-dom"
-import { Table, Button, Row, Col, Card, Image, Modal, Nav, Form } from "react-bootstrap";
+import { Table, Button, Row, Col, Card, Image, Modal, Form } from "react-bootstrap";
 import { AiFillWarning } from "react-icons/ai";
 import { BsFillMicFill } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
-import { Shake, ShakeLittle, ShakeSlow } from 'reshake'
+import { Shake } from 'reshake'
 import SendAlert from './SendAlert';
 import Toast from 'react-bootstrap/Toast'
 import ToastContainer from 'react-bootstrap/ToastContainer'
@@ -26,7 +26,6 @@ export default function CallInfo(props) {
     const [parameters, setParameters] = useState([]);
     const [discardCustomize, setDiscardCustomize] = useState(false);
 
-    console.log(call.id);
     /*
     List of parameters that actually are present in our screenshots:
         hr
@@ -44,12 +43,11 @@ export default function CallInfo(props) {
         setShowAlertModalA(true);
     };
 
-    console.log(showAlertModalA)
+
 
     const [showAlertModal, setShowAlertModal] = useState(false);
     const [modalShow, setModalShow] = useState(false);
     const [newPath, setNewPath] = useState();
-    const [confirmSelection, setConfirmSelection] = useState(false);
 
     const [showSuccess, setShowSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
@@ -59,12 +57,10 @@ export default function CallInfo(props) {
         const retrieveInfo = async (callId) => {
             const call = await API.getCallById(callId);
             setCall(call);
-            console.log('retrieve info');
-            console.log(call);
         }
 
         retrieveInfo(params.callId)
-        console.log(call);
+
 
     }, [])
 
@@ -82,6 +78,12 @@ export default function CallInfo(props) {
     const handleSent = () => {
         setColorToast("success");
         setSuccessMessage("Alert correctly sent");
+        setShowSuccess(true);
+    }
+
+    const handleSentNoDesc = () => {
+        setColorToast("danger");
+        setSuccessMessage("Write a Description!");
         setShowSuccess(true);
     }
 
@@ -299,7 +301,7 @@ export default function CallInfo(props) {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-                {showAlertModal ? <SendAlert callId={call._id} show={showAlertModal} handleClose={handleCloseAlert} handleSent={handleSent} handleDiscarded={handleDiscarded} /> : false}
+                {showAlertModal ? <SendAlert callId={call._id} show={showAlertModal} handleClose={handleCloseAlert} handleSent={handleSent} handleDiscarded={handleDiscarded} handleSentNoDesc={handleSentNoDesc}/> : false}
                 <Row className="nomargin">
                     <Col xs={9}>
                         <Table hover>
@@ -329,8 +331,8 @@ export default function CallInfo(props) {
                             </Card.Body>
                         </Card>
                         <Button variant="danger" className="closecall" onClick={handleCloseCall}>Close Call</Button>
-                        <Button className="customize" style={{ backgroundColor: "green", border: "green" }} onClick={handleCustomize}>Customize view</Button>
-                        <Button className="showalerts" variant='warning' onClick={() => { handleShowAlertA(call.id) }}> Show Alerts</Button>
+                        <Button className="customize" style={{ backgroundColor: "black", border: "black" }} onClick={handleCustomize}>Customize view</Button>
+                        <Button className="showalerts" style={{ backgroundColor: "orange", border: "orange" }} onClick={() => { handleShowAlertA(call.id) }}> Show Alerts</Button>
 
                     </Col>
                 </Row>

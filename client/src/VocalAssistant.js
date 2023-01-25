@@ -22,9 +22,6 @@ function VocalAssistant(props) {
     const [showAlertModal, setShowAlertModal] = useState(false);
     const handleCloseAlert = () => { setShowAlertModal(false) }
 
-    const handleShowAlert = () => {
-        setShowAlertModal(true);
-    };
 
     useEffect(() => {
         const retrieveInfo = async () => {
@@ -119,7 +116,7 @@ function VocalAssistant(props) {
                                     </Collapse>
                                     <br />
 
-                                    {(callAlert == 0) ? false :
+                                    {(callAlert === 0) ? false :
 
                                         (alertsList.length > 0) ?
                                             <>

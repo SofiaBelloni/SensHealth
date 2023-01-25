@@ -1,5 +1,5 @@
 # SensHealth   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="30" />
-
+**SensHealth** is a solution that allows the headquarter to stay up-to-date on the vital condition of a patient who has required the assistance of a 118 team via our sensors.
 ## React Client Application Routes
 
 - Route `/`: Users see the list of calls

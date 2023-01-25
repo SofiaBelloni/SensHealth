@@ -1,14 +1,10 @@
 import { Navbar, Nav,Container } from "react-bootstrap/";
 import "./MyNavbar.css";
-import React, { useState } from 'react';
+import React from 'react';
 import { Outlet } from "react-router-dom";
 
 
 function MyNavbar() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   return <>
    

@@ -28,7 +28,8 @@ export default function SendAlert(props) {
 
     // open the modal 
     const handleSend = () => {
-        setShowModal(true);
+        if (description === "") props.handleSentNoDesc();
+        else setShowModal(true);
     }
 
     // confirmation to the modal to send alert
@@ -36,10 +37,12 @@ export default function SendAlert(props) {
         const send = async (des, call, dep) => {
             await API.sendAlert(des, call, dep);
         }
+
         send(description, callId, department);
         setShowModal(false);
         props.handleSent();
         props.handleClose();
+
     }
 
     // close the modal
@@ -79,7 +82,7 @@ export default function SendAlert(props) {
                         <Modal.Footer className="modal-footer gray">
                             <Row>
                                 <Col className='text-left'>
-                                    <Button variant="success" onClick={()=>{props.handleClose(); props.handleDiscarded();}}>
+                                    <Button variant="success" onClick={() => { props.handleClose(); props.handleDiscarded(); }}>
                                         Yes
                                     </Button>
                                 </Col>
@@ -114,7 +117,8 @@ export default function SendAlert(props) {
                                             as="textarea" type="text"
                                             value={description}
                                             onChange={event => setDescription(event.target.value)}
-                                            style={{ height: '100pt' }} />
+                                            style={{ height: '100pt' }}
+                                            required />
                                     </FloatingLabel>
                                 </Form.Group>
                                 <Row>
