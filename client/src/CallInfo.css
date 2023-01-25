@@ -55,12 +55,13 @@ img {
   margin-top: 100px !important;
 }
 
-.spg-box {
+.cardInfo{
   display: flex;
   flex-direction: column;
   padding: 0px;
+  margin-top: 10%;
   width: 90%;
-  height: 70%;
+  height: 65%;
   border-radius: 12px;
   overflow: hidden;
 }

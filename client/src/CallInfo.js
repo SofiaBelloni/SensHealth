@@ -264,7 +264,7 @@ export default function CallInfo(props) {
                         </Shake>
                     </Col>
                     <Col xs={3}>
-                        <Card className='spg-box shadow'>
+                        <Card className='cardInfo shadow'>
                             <Card.Header><b>Call #{call.id}</b></Card.Header>
                             <Card.Body>
                                 <Card.Title>Name</Card.Title>
@@ -334,7 +334,7 @@ export default function CallInfo(props) {
                         </Table>
                     </Col>
                     <Col xs={4}>
-                        <Card className='spg-box shadow'>
+                        <Card className='cardInfo shadow'>
 
                             <Card.Header><b>Call #{call.id}</b></Card.Header>
                             <Card.Body>

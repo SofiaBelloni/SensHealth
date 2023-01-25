@@ -125,7 +125,7 @@ function CallsTable(props) {
         </Modal.Footer>
       </Modal>
       {showAlertModal ? <AlertsModal callId={id} show={showAlertModal} handleClose={handleCloseAlert}/> : false}
-      <Card className='spg-box shadow'>
+      <Card className='cardMain shadow'>
       <Table hover size='sm' className='table-1' borderless responsive="md" striped>
         <thead>
           <tr>
@@ -180,7 +180,7 @@ function CallsTable(props) {
     </div>
 
     <div className='table-legend'>
-    <Card className='spg-box shadow'>
+    <Card className='cardMain shadow'>
 
       <Table className='table-2' borderless size='sm' >
         <thead>

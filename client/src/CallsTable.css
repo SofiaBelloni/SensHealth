@@ -1,7 +1,7 @@
 .ro{
     border-radius: 20%;
 }
-.spg-box {
+.cardMain {
     display: flex;
     flex-direction: column;
     padding: 0px;
